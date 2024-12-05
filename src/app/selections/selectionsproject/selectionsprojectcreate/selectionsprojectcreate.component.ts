@@ -324,7 +324,7 @@ export class SelectionsprojectcreateComponent implements OnInit {
           }
 
           this.selectionForm.patchValue({
-            selectionNumber: displayJobNum + varSetCode + this.checkDigitNumbers(this.displayVariationNumber ),
+            selectionNumber: displayJobNum + "SEL" + this.checkDigitNumbers(this.displayVariationNumber ),
             bmLineitem: this.checkGlobalBooleanVariationSettings(data.bmLineitem) ? data.bmLineitem : false,
             bmTotalFigure: this.checkGlobalBooleanVariationSettings(data.bmTotalFigure) ? data.bmTotalFigure : false,
             bmHideAll: this.checkGlobalBooleanVariationSettings(data.bmHideAll) ? data.bmHideAll : false,

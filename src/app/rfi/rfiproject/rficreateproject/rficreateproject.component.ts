@@ -288,7 +288,7 @@ export class RFICREATEPROJECTComponent {
         console.log(this.projUploadFolder , 'projectUploader')
         
         let varSetJobNum =  this.variationAdminData.varSetJobNum ? this.variationAdminData.varSetJobNum : true;
-        let varSetCode =  this.variationAdminData.varSetCode ? this.variationAdminData.varSetCode : 'V';
+        let varSetCode =  this.variationAdminData.varSetCode ? this.variationAdminData.varSetCode : 'RFI';
         // let varSetStartNumber = this.variationAdminData.varSetStartNumber ? this.variationAdminData.varSetStartNumber : 0;
         let varSetStartNumber = this.projectData.varProjStartNumber ? this.projectData.varProjStartNumber : 1;
 
@@ -325,7 +325,7 @@ export class RFICREATEPROJECTComponent {
         }
 
         this.rfiForm.patchValue({
-          rfiNumber: displayJobNum + varSetCode + this.checkDigitNumbers(this.displayVariationNumber ),
+          rfiNumber: displayJobNum + "RFI" + this.checkDigitNumbers(this.displayVariationNumber ),
           bmLineitem: this.checkGlobalBooleanVariationSettings(data.bmLineitem) ? data.bmLineitem : false,
           bmTotalFigure: this.checkGlobalBooleanVariationSettings(data.bmTotalFigure) ? data.bmTotalFigure : false,
           bmHideAll: this.checkGlobalBooleanVariationSettings(data.bmHideAll) ? data.bmHideAll : false,
