@@ -71,6 +71,10 @@ export class AuthenticationService {
               if(idTokenResult.claims.user_id){
                   this.data_api.getFBUser(idTokenResult.claims.user_id).subscribe((data) => {
                         console.log(data.userAccounts.includes(this.accountFirebase));
+                        console.log('data.userAccounts', data.userAccounts);
+                        console.log('data.accountFirebase', this.accountFirebase);
+                        
+                        
 
                         if(data.userAccounts.includes(this.accountFirebase)){
 
@@ -94,7 +98,6 @@ export class AuthenticationService {
 
                           this.router.navigate(['/pages/login']);
                           alert('You are not registered as user on this account');
-                          
                         }
                         
                     }
