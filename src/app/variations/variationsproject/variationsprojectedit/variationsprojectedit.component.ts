@@ -10,7 +10,7 @@ import swal from 'sweetalert2';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Input } from '@angular/core';
-import * as $$ from 'jQuery';
+//import * as $$ from 'jQuery';
 import { NgxLoadingSpinnerService } from '@k-adam/ngx-loading-spinner';
 import { AuthenticationService } from '../../../shared/authentication.service';
 import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from "@angular/forms";

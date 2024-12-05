@@ -8,7 +8,7 @@ import { Observable, Observer } from 'rxjs';
 import swal from 'sweetalert2';
 // import * as Chartist from 'chartist';
 import { Input } from '@angular/core';
-import * as $$ from 'jQuery';
+//import * as $$ from 'jQuery';
 import { NgxLoadingSpinnerService } from '@k-adam/ngx-loading-spinner';
 import { AuthenticationService } from '../shared/authentication.service';
 import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from "@angular/forms";

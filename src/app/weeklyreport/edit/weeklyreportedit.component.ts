@@ -9,7 +9,7 @@ import { Observable, Observer } from "rxjs";
 import swal from 'sweetalert2';
 // import * as Chartist from 'chartist';
 import { Input } from '@angular/core';
-import * as $$ from 'jQuery';
+//import * as $$ from 'jQuery';
 import * as fs from 'file-saver'
 import { NgxLoadingSpinnerService } from '@k-adam/ngx-loading-spinner';
 import { AuthenticationService } from '../../shared/authentication.service';

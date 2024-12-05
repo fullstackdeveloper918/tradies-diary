@@ -6,7 +6,7 @@ import { PdfImage } from '../services/pdf-image';
 import { PreviewImage } from '../services/preview-image';
 import { Observable, Observer } from 'rxjs';
 import { Input } from '@angular/core';
-import * as $$ from 'jQuery';
+//import * as $$ from 'jQuery';
 import { NgxLoadingSpinnerService } from '@k-adam/ngx-loading-spinner';
 import { AuthenticationService } from '../shared/authentication.service';
 import {FormBuilder, FormGroup, Validators, FormArray, FormControl, NgModel} from "@angular/forms";
