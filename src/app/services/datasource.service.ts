@@ -313,7 +313,7 @@ export class DatasourceService {
 
     async createFBRFI(id, formValue) {
       console.log('formvlaue', formValue);
-      // return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis').doc(id).set(formValue)
+      return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis').doc(id).set(formValue)
     }
 
     async createFBSelection(id, formValue) {

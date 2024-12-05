@@ -75,13 +75,13 @@ export class SelectionsprojecteditComponent {
   projectOwnerControl = new FormControl([]);//One time Variation Control
 
   public setProjectOwners = [];
-  public setProjectVariationRecipient = [];
+  public setProjectSelectionRecipient = [];
 
   public listTrades:any = [];
   public listUom:any = [];
 
   public adminData;
-  public variationAdminData;
+  public selectionAdminData;
   public colorBtnDefault;
   public colorHlightDefault;
 
@@ -285,19 +285,19 @@ export class SelectionsprojecteditComponent {
         this.projectData = data;
         this.projUploadFolder = data.uploadFolder;
 
-        if(data.recipientVariation){
+        if(data.recipientSelection){
 
-          this.setProjectVariationRecipient = [];
+          this.setProjectSelectionRecipient = [];
           let projectOwnerIDs;
 
-          projectOwnerIDs = data.recipientVariation;
-          console.log(data.recipientVariation);
+          projectOwnerIDs = data.recipientSelection;
+          console.log(data.recipientSelection);
           console.log(this.projectOwnersProject);
           projectOwnerIDs.forEach(value => {
               if(this.findObjectByKey(this.projectOwnersProject, 'id', value)){
                   var item = this.findObjectByKey(this.projectOwnersProject, 'id', value);
                   console.log('item',item);
-                  this.setProjectVariationRecipient.push(item);
+                  this.setProjectSelectionRecipient.push(item);
               }
               var index = this.projectOwners.findIndex(x => x.id == value);
               if (index !== -1) {
@@ -306,8 +306,8 @@ export class SelectionsprojecteditComponent {
               }
           });
 
-          this.projectVariationRecipientControl.setValue(this.setProjectVariationRecipient);
-          console.log(this.setProjectVariationRecipient);
+          this.projectVariationRecipientControl.setValue(this.setProjectSelectionRecipient);
+          console.log(this.setProjectSelectionRecipient);
 
         }
         // if(!this.variationData){
@@ -397,14 +397,14 @@ export class SelectionsprojecteditComponent {
           approvedAt: data.approvedAt ? data.approvedAt : '',
           approvedBy:  data.approvedBy ? data.approvedBy : '',
           approvedRole: data.approvedRole ? data.approvedRole : '',
-          // bmLineitem: this.checkBooleanVariationSettings(data.bmLineitem) ? data.bmLineitem : (this.checkGlobalBooleanVariationSettings(this.variationAdminData.bmLineitem) ? this.variationAdminData.bmLineitem : false),
-          // bmTotalFigure: this.checkBooleanVariationSettings(data.bmTotalFigure) ? data.bmTotalFigure : (this.checkGlobalBooleanVariationSettings(this.variationAdminData.bmTotalFigure) ? this.variationAdminData.bmTotalFigure : false),
-          // bmHideAll: this.checkBooleanVariationSettings(data.bmHideAll) ? data.bmHideAll : (this.checkGlobalBooleanVariationSettings(this.variationAdminData.bmHideAll) ? this.variationAdminData.bmHideAll : false),
-          // qtyHideAll: this.checkBooleanVariationSettings(data.qtyHideAll) ? data.qtyHideAll : (this.checkGlobalBooleanVariationSettings(this.variationAdminData.qtyHideAll) ? this.variationAdminData.qtyHideAll : false),
-          // unitHideAll: this.checkBooleanVariationSettings(data.unitHideAll) ? data.unitHideAll : (this.checkGlobalBooleanVariationSettings(this.variationAdminData.unitHideAll) ? this.variationAdminData.unitHideAll : false),
-          // unitCostHideAll: this.checkBooleanVariationSettings(data.unitCostHideAll) ? data.unitCostHideAll : (this.checkGlobalBooleanVariationSettings(this.variationAdminData.unitCostHideAll) ? this.variationAdminData.unitCostHideAll : false),
-          // gstHideAll: this.checkBooleanVariationSettings(data.gstHideAll) ? data.gstHideAll : (this.checkGlobalBooleanVariationSettings(this.variationAdminData.gstHideAll) ? this.variationAdminData.gstHideAll : false),
-          // itemTotalHideAll: this.checkBooleanVariationSettings(data.itemTotalHideAll) ? data.itemTotalHideAll : (this.checkGlobalBooleanVariationSettings(this.variationAdminData.itemTotalHideAll) ? this.variationAdminData.itemTotalHideAll : false),
+          // bmLineitem: this.checkBooleanVariationSettings(data.bmLineitem) ? data.bmLineitem : (this.checkGlobalBooleanVariationSettings(this.selectionAdminData.bmLineitem) ? this.selectionAdminData.bmLineitem : false),
+          // bmTotalFigure: this.checkBooleanVariationSettings(data.bmTotalFigure) ? data.bmTotalFigure : (this.checkGlobalBooleanVariationSettings(this.selectionAdminData.bmTotalFigure) ? this.selectionAdminData.bmTotalFigure : false),
+          // bmHideAll: this.checkBooleanVariationSettings(data.bmHideAll) ? data.bmHideAll : (this.checkGlobalBooleanVariationSettings(this.selectionAdminData.bmHideAll) ? this.selectionAdminData.bmHideAll : false),
+          // qtyHideAll: this.checkBooleanVariationSettings(data.qtyHideAll) ? data.qtyHideAll : (this.checkGlobalBooleanVariationSettings(this.selectionAdminData.qtyHideAll) ? this.selectionAdminData.qtyHideAll : false),
+          // unitHideAll: this.checkBooleanVariationSettings(data.unitHideAll) ? data.unitHideAll : (this.checkGlobalBooleanVariationSettings(this.selectionAdminData.unitHideAll) ? this.selectionAdminData.unitHideAll : false),
+          // unitCostHideAll: this.checkBooleanVariationSettings(data.unitCostHideAll) ? data.unitCostHideAll : (this.checkGlobalBooleanVariationSettings(this.selectionAdminData.unitCostHideAll) ? this.selectionAdminData.unitCostHideAll : false),
+          // gstHideAll: this.checkBooleanVariationSettings(data.gstHideAll) ? data.gstHideAll : (this.checkGlobalBooleanVariationSettings(this.selectionAdminData.gstHideAll) ? this.selectionAdminData.gstHideAll : false),
+          // itemTotalHideAll: this.checkBooleanVariationSettings(data.itemTotalHideAll) ? data.itemTotalHideAll : (this.checkGlobalBooleanVariationSettings(this.selectionAdminData.itemTotalHideAll) ? this.selectionAdminData.itemTotalHideAll : false),
         });
 
         console.log('selection form', this.selectionFom.value.dueDate);
@@ -412,8 +412,8 @@ export class SelectionsprojecteditComponent {
 
         // console.log(data.qtyHideAll)
         // console.log(this.checkBooleanVariationSettings(data.qtyHideAll))
-        // console.log(this.variationAdminData.qtyHideAll);
-        // console.log(this.checkGlobalBooleanVariationSettings(this.variationAdminData.qtyHideAll));
+        // console.log(this.selectionAdminData.qtyHideAll);
+        // console.log(this.checkGlobalBooleanVariationSettings(this.selectionAdminData.qtyHideAll));
         // console.log(this.selectionFom.value.qtyHideAll)
 
         if(data.projectOwner){
@@ -2658,7 +2658,7 @@ getFooter2(currentPage, pageCount) {
           return;
         }   
 
-        if(  (this.selectionFom.value.projectOwner.length < 1) &&  (this.setProjectVariationRecipient.length < 1) ){
+        if(  (this.selectionFom.value.projectOwner.length < 1) &&  (this.setProjectSelectionRecipient.length < 1) ){
 
           Swal.fire({
             title: "Please Add at least 1 Variation Recipient",
@@ -3162,13 +3162,13 @@ getFooter2(currentPage, pageCount) {
     }
   }
 
-  sendAdminEmail(variantID,projectID){
+  sendAdminEmail(selectionID,projectID){
 
     console.log(this.selectionFom.value);
     const adminEmails = [];
     const cc = [];
 
-    let adminEmail = this.variationAdminData.varEmailRecipient;
+    let adminEmail = this.selectionAdminData.varEmailRecipient;
     if(adminEmail){
       adminEmail.forEach(email => {
         adminEmails.push({
@@ -3178,7 +3178,7 @@ getFooter2(currentPage, pageCount) {
     }
 
     let myURL = window.location.href ;
-    let rep2 = '/selections/project/'+projectID+'/edit/'+variantID ;
+    let rep2 = '/selections/project/'+projectID+'/edit/'+selectionID ;
     let rep1 = this.router.url ;
     let newUrl = myURL.replace(rep1, rep2)
     
@@ -3199,7 +3199,7 @@ getFooter2(currentPage, pageCount) {
     console.log(tempdata);
 
     this.spinnerService.show();
-    const callableTest = this.functions.httpsCallable('sendFBVariationsRequest');
+    const callableTest = this.functions.httpsCallable('sendFBSelectionRequest');
     callableTest(tempdata).subscribe(result => {
       console.log(result)
       this.spinnerService.hide();
@@ -3237,7 +3237,7 @@ public getUniqueListBy(arr, key) {
   return [...new Map(arr.map(item => [item[key], item])).values()]
 }
 
-sendClientEmail(variantID,projectID){
+sendClientEmail(selectionID,projectID){
 
     console.log(this.selectionFom.value);
     const adminEmails = [];
@@ -3252,16 +3252,16 @@ sendClientEmail(variantID,projectID){
       });
     }
 
-    let recipientVariation = this.setProjectVariationRecipient;
-    if(recipientVariation){
-      recipientVariation.forEach(user => {
+    let recipientSelection = this.setProjectSelectionRecipient;
+    if(recipientSelection){
+      recipientSelection.forEach(user => {
         adminEmails.push({
             Email: user.email
           });
       });
     }
 
-    let emailsCC = this.variationAdminData.varEmailRecipient;
+    let emailsCC = this.selectionAdminData.varEmailRecipient;
     if(emailsCC){
       emailsCC.forEach(email => {
         cc.push({
@@ -3271,7 +3271,7 @@ sendClientEmail(variantID,projectID){
     }
 
     let myURL = window.location.href ;
-    let rep2 = '/dashboard-variants/'+variantID ;
+    let rep2 = '/dashboardselections-/'+selectionID ;
     let rep1 = this.router.url ;
     let newUrl = myURL.replace(rep1, rep2)
     
@@ -3287,12 +3287,12 @@ sendClientEmail(variantID,projectID){
       closingMessage: this.selectionFom.value.closingMessage,
       projectName: this.projectData.projectName,
       variationName: this.selectionFom.value.variationsName,
-      subjectTitle: 'Variation Approval Request'
+      subjectTitle: 'Selection Approval Request'
     }
     console.log(tempdata);
 
     this.spinnerService.show();
-    const callableTest = this.functions.httpsCallable('sendFBVariationsRequest');
+    const callableTest = this.functions.httpsCallable('sendFBSelectionsRequest');
     callableTest(tempdata).subscribe(result => {
       console.log(result)
       this.spinnerService.hide();
@@ -3360,7 +3360,7 @@ getVariationSettings(){
 
     this.data_api.getFBVariationsSettings().subscribe((data) => {
         console.log(data);
-        this.variationAdminData = data;
+        this.selectionAdminData = data;
         this.getFBProjectUsers();
     }); 
 }

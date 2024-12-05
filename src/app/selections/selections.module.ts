@@ -24,7 +24,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { QuillModule } from 'ngx-quill';
 import { SelectionsprojectcreateComponent, TableCreateItemsAddDialog, TableCreateItemsEditDialog, TableVarGroupNameAddDialog, UomCreateAddDialog, UserAddOwnerDialog, VarGroupNamesAddDialog } from './selectionsproject/selectionsprojectcreate/selectionsprojectcreate.component';
-import { ApproveAdminDialog, ApproveViewDialog, ExternalQuotesEditDialog, SelectionsprojecteditComponent, TableItemsAddDialog, TableItemsEditDialog, TableVarGroupNameAddEditDialog, UomAddDialog, VarGroupNamesAddEditDialog,  } from './selectionsproject/selectionsprojectedit/selectionsprojectedit.component';
+import { ApproveAdminDialog, ApproveViewDialog, ExternalQuotesEditDialog, SelectionsprojecteditComponent, TableItemsAddDialog, TableItemsEditDialog, TableVarGroupNameAddEditDialog, UomAddDialog, UserAddOwnerDialogEdit, VarGroupNamesAddEditDialog,  } from './selectionsproject/selectionsprojectedit/selectionsprojectedit.component';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SelectionsProjectComponent } from './selectionsproject/selectionsproject.component';
@@ -85,7 +85,8 @@ import { SelectionsProjectComponent } from './selectionsproject/selectionsprojec
          VarGroupNamesAddEditDialog,
         SelectionsProjectDeleteDialog,
        SelectionsProjectRenderComponent,
-       TableItemsEditDialog
+       TableItemsEditDialog,
+       UserAddOwnerDialogEdit
         
         
     ]

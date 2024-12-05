@@ -222,12 +222,7 @@
                                               </div>
 
                                               <div class="row">
-                                                  <!-- <div class="col-md-1 col-lg-1">
-                                                      <label>Group Total</label>
-                                                      <input  placeholder="Group Total" type="hidden" formControlName="groupTotal" >
-                                                      <input *ngIf="isNumber(group.get('groupTotal').value) == true" matInput placeholder="Total" type="text" [value]="group.get('groupTotal').value"  readonly>
-                                                      <input *ngIf="isNumber(group.get('groupTotal').value) == false" matInput placeholder="Total" type="text" value="0"  readonly>
-                                                  </div> -->
+                                              
 
                                                   <div class="col-md-1 col-lg-1" *ngIf="group.get('hideBudget').value != true">
                                                       <label [ngStyle]="group.get('groupOverUnder').value < 0 ? {'color': '#f44336'} : {'color': '#0771DE'}">Group Over-under</label>
@@ -248,7 +243,7 @@
                                           </div>
                                           
                                               
-                                          <div class="card-body" style="opacity:0;height:0;width:0;overflow:hidden;margin:0;padding:0;">
+                                          <!-- <div class="card-body" style="opacity:0;height:0;width:0;overflow:hidden;margin:0;padding:0;">
                                                   
                                                   <ng-container formArrayName="itemArray">
                                                       <div class="item card" *ngFor="let item of itemArray(groupIndex).controls; let itemIndex=index" [formGroupName]="itemIndex">
@@ -271,8 +266,7 @@
                                                                                           <span class="fileinput-exists">Change</span>
                                                                                           <input accept="image/*" type="file" name="..." (change)="onFileChange($event,groupIndex,itemIndex)" />
                                                                                         </span>
-                                                                                        <!-- <a href="#pablo" class="btn btn-remove-img fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a> -->
-                                                                                        <!-- <a href="#" class="btn btn-remove-img" (click) = "removeItem(i)"><i class="fa fa-times"></i> Remove</a> -->
+                                                                                      
                                                                                       </div>
                                                                                     </div>
                                                                               </div>
@@ -289,17 +283,9 @@
                                                                               <div class="col-md-12 col-lg-12">
                                                                                   <label>Supplier Name</label>
                                                                                   
-                                                                                  <!-- <mat-select formControlName="supplierName" placeholder="Supplier Name" id="supplierName"  (click)="initializeFilterTrades(groupIndex, itemIndex)"> -->
                                                                                   <mat-select formControlName="supplier" placeholder="Supplier" id="supplier">
                                                                                    
-                                                                                      <!-- <mat-option (click)="openAddTradeDialog(empIndex)">-- Add New Trade --</mat-option> -->
-                                                                                          <!-- <mat-option>
-                                                                                                  <ngx-mat-select-search 
-                                                                                                  formControlName="search_control_trade"
-                                                                                                  placeholderLabel="Search..."
-                                                                                                  noEntriesFoundLabel="'No Match Found'"></ngx-mat-select-search>
-                                                                                          </mat-option> -->
-                                                                                          <!-- <mat-option *ngFor="let listTrade of filter_list_trades[itemIndex] | async" [value]="listTrade.id"> -->
+                                                                                     
                                                                                               <mat-option *ngFor="let listTrade of listTrades" [value]="listTrade.id">
                                                                                           {{ listTrade.tradeCompanyName }}
                       
@@ -310,17 +296,7 @@
                                                                           <div class="row">
                                                                               <div class="col-md-12 col-lg-12">
                                                                                   <label>Description</label>
-                                                                                  <!-- <input matInput placeholder="Item Name" type="text" formControlName="description"> -->
-                                                                                  <!-- <tag-input 
-                                                                                      id="description"
-                                                                                      formControlName="description"
-                                                                                      [editable]="true"
-                                                                                      placeholder="Description"
-                                                                                      secondaryPlaceholder="Description"
-                                                                                      addOnBlur="true"
-                                                                                      [modelAsStrings]="true"
-                                                                                >
-                                                                                </tag-input> -->
+                                                                                
                                                                                 <quill-editor [styles]="{height: '70px'}" formControlName="description" id="description"></quill-editor>
                                                                               </div>
                                                                           </div>
@@ -347,11 +323,7 @@
                                                                           <label>Unit Cost</label>
                                                                           <input matInput placeholder="Unit Cost" type="text" formControlName="unitCost" (input)="onComputeTotal(groupIndex,itemIndex)">
                                                                       </div>
-                                                                      <!-- <div class="col-md-2 col-lg-2">
-                                                                          <label>Subtotal</label>
-                                                                          <input placeholder="Subtotal" type="hidden" formControlName="subTotal">
-                                                                          <input matInput placeholder="GST" type="text" [value]="item.get('subTotal').value"  readonly>
-                                                                      </div> -->
+                                                                
                                                                       <div class="col-md-2 col-lg-2">
                                                                           <label>Builder's Margin(%)</label>
                                                                           <input matInput placeholder="Builder's Margin" type="text" formControlName="buildersMargin" (input)="onComputeTotal(groupIndex,itemIndex)">
@@ -400,7 +372,7 @@
 
                                                   </div>
                  
-                                          </div>
+                                          </div> -->
                                       </div>
                                   </ng-container>
                                   <button 

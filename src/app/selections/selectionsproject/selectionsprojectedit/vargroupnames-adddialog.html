@@ -1,10 +1,10 @@
-<h1 mat-dialog-title>Add New Variation Group Name</h1>
+<h1 mat-dialog-title>Add New Selection Group Name</h1>
 <div mat-dialog-content class="table-pop">
         <form [formGroup]="addFestForm" class="dcb-form">
                 <div class = "row">
                         <div class="col-md-12">
-                                <label>Variation Group Name</label>
-                                <input formControlName="groupName" id="groupName" placeholder="Variation Group Name" matInput  type="text">
+                                <label>Selection Group Name</label>
+                                <input formControlName="groupName" id="groupName" placeholder="Selection Group Name" matInput  type="text">
                         </div>
                 </div>
         </form>
@@ -18,6 +18,6 @@
                 (click)= "createFBVarGroupName()" 
                 class = "btn dcb-btn" 
                 mat-button cdkFocusInitial 
-                [disabled]="!addFestForm.valid">Add Variation Group Name
+                [disabled]="!addFestForm.valid">Add Selection Group Name
         </button>
 </div>

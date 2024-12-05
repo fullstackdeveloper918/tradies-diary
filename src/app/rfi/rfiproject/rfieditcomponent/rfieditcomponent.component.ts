@@ -74,7 +74,7 @@ export class RFIEDITCOMPONENTComponent {
 
   public filter_list_trades: ReplaySubject<any[]>[] = [];
 
-  projectVaritaionRecipientControl = new FormControl([]);
+  projectRfiControl = new FormControl([]);
 
   projectOwnerControl = new FormControl([]);//One time Variation Control
 
@@ -192,11 +192,11 @@ export class RFIEDITCOMPONENTComponent {
       ) { }
 
   ngAfterViewInit(){
-    console.log('project owner constrl',this.projectVaritaionRecipientControl);
+    console.log('project owner constrl',this.projectRfiControl);
   }
 
   ngOnInit() {
-    console.log('project owner constrl',this.projectVaritaionRecipientControl);
+    console.log('project owner constrl',this.projectRfiControl);
     
     this.deviceInfo = this.deviceService.getDeviceInfo();
      this.passID = {
@@ -318,8 +318,8 @@ export class RFIEDITCOMPONENTComponent {
               }
           });
 
-          this.projectVaritaionRecipientControl.patchValue(this.setProjectRfiRecipient);
-          console.log('projectVaritaionRecipientControl',this.projectVaritaionRecipientControl.value);
+          this.projectRfiControl.patchValue(this.setProjectRfiRecipient);
+          console.log('projectRfiControl',this.projectRfiControl.value);
 
         }
         // if(!this rfiData){
@@ -419,11 +419,11 @@ export class RFIEDITCOMPONENTComponent {
           // itemTotalHideAll: this.checkBooleanVariationSettings(data.itemTotalHideAll) ? data.itemTotalHideAll : (this.checkGlobalBooleanVariationSettings(this.rfiAdminData.itemTotalHideAll) ? this.rfiAdminData.itemTotalHideAll : false),
         });
 
-        console.log(data.qtyHideAll)
-        console.log(this.checkBooleanVariationSettings(data.qtyHideAll))
-        console.log(this.rfiAdminData.qtyHideAll);
-        console.log(this.checkGlobalBooleanVariationSettings(this.rfiAdminData.qtyHideAll));
-        console.log(this.rfiForm.value.qtyHideAll)
+        // console.log(data.qtyHideAll)
+        // console.log(this.checkBooleanVariationSettings(data.qtyHideAll))
+        // console.log(this.rfiAdminData.qtyHideAll);
+        // console.log(this.checkGlobalBooleanVariationSettings(this.rfiAdminData.qtyHideAll));
+        // console.log(this.rfiForm.value.qtyHideAll)
 
         if(data.projectOwner){
           projectOwnerIDs = data.projectOwner;

@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Add New Owner</h1>
 <div mat-dialog-content class="table-pop">
-        <form [formGroup]="addFestForm" class="dcb-form">
+        <form [formGroup]="selectionFom" class="dcb-form">
                 <div class = "row">
                         <div class="col-md-12">
                                 <label>Email Address</label>
@@ -69,6 +69,6 @@
                 (click)= "addNewUserOwner()" 
                 class = "btn dcb-btn" 
                 mat-button cdkFocusInitial
-                [disabled]="!addFestForm.valid">Create Client Account
+                [disabled]="!selectionFom.valid">Create Client Account
         </button>
 </div>

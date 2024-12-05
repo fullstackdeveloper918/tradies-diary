@@ -60,11 +60,11 @@
                                                 <div class="col-lg-6 col-md-6">
 
                                                     <label style="width: 100%;display: flex;justify-content: space-between;">Project RFI Recipient/s</label>
-                                                    <mat-select [formControl]="projectVaritaionRecipientControl" placeholder="Clients" multiple #multiSelect disabled class="no-dropdown">
-                        
+                                                    <mat-select [formControl]="projectRfiControl" placeholder="Clients" multiple #multiSelect disabled class="no-dropdown">
+
                                                     <mat-select-trigger>
                                                         <mat-chip-set>
-                                                        <mat-chip *ngFor="let topping of projectVaritaionRecipientControl.value; index as i">
+                                                        <mat-chip *ngFor="let topping of projectRfiControl.value; index as i">
                                                             {{ topping.name }}
                                                             <!-- <mat-icon matChipRemove>cancel</mat-icon> -->
                                                         </mat-chip>
