@@ -101,14 +101,16 @@ export class RFIPROJECTComponent {
         //   }
         // },
         variation_num: {
-          title: 'Variation Number',
+          title: 'RFI Number',
           sort: false,
           valuePrepareFunction: (cell,row) => {
+            console.log('row',row);
+            
               return row.rfiNumber;
           }
         },
         variation_name: {
-          title: 'Variation Name',
+          title: 'RFI Name',
           sort: false,
           valuePrepareFunction: (cell,row) => {
               return row.rfiName;
