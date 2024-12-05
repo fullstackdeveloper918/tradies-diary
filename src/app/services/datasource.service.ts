@@ -80,9 +80,22 @@ export class DatasourceService {
       this.resetUrl = 'https://api-staging.tradiesdiary.com/wp-json/bdpwr/v1';
       //this.accountFirebase = 'firebase';
       this.accountFirebase = 'diarystaging';
+    }
+    else if(location.origin.includes('vercel.app')){
+      this.bridgeURL = 'https://api-staging.tradiesdiary.com/wp-json/report/v1';
+      this.apiURL = 'https://api-staging.tradiesdiary.com/wp-json/wp/v2';
+      this.logoURL='https://api-staging.tradiesdiary.com/logo.png';
+      this.pdfHeaderUrl1='https://api-staging.tradiesdiary.com/header1.png';
+      this.pdfHeaderUrl2='https://api-staging.tradiesdiary.com/header2.png';
+      this.pdfFooterURL='https://api-staging.tradiesdiary.com/footer.png';
+      this.tokenURL='https://api-staging.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
+      this.resetUrl = 'https://api-staging.tradiesdiary.com/wp-json/bdpwr/v1';
+      //this.accountFirebase = 'firebase';
+      this.accountFirebase = 'diarystaging';
       
 
-    }else{
+    }
+    else{
 
       var full = window.location.host
       //window.location.host is subdomain.domain.com
