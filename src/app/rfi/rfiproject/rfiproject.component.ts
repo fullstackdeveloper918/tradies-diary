@@ -116,13 +116,13 @@ export class RFIPROJECTComponent {
               return row.rfiName;
           }
         },
-        total: {
-          title: 'Total',
-          sort: false,
-          valuePrepareFunction: (cell,row) => {
-              return this.getTotal(row.rfiGroupArray);
-          }
-        },
+        // total: {
+        //   title: 'Total',
+        //   sort: false,
+        //   valuePrepareFunction: (cell,row) => {
+        //       return this.getTotal(row.rfiGroupArray);
+        //   }
+        // },
         due_date: {
           title: 'Due Date',
           sort: false,
