@@ -234,7 +234,7 @@ export class SidebarComponent implements OnInit {
           //   userRole => {
 
           //       this.userRole = userRole;
-          //       console.log(this.userRole);
+          //       //console.log(this.userRole);
           //   }
           // )
     }
@@ -257,7 +257,7 @@ export class SidebarComponent implements OnInit {
         }
 
         if (localStorage.getItem('currentUser')) {
-          console.log(JSON.parse(localStorage.getItem('currentUser')));
+          //console.log(JSON.parse(localStorage.getItem('currentUser')));
           this.userDetails = JSON.parse(localStorage.getItem('currentUser'));
           this.userRole = this.userDetails.userRole;
             // this.userDetails = JSON.parse(localStorage.getItem('currentUser'));
@@ -280,7 +280,7 @@ export class SidebarComponent implements OnInit {
     }
     getAdminSettings(){
         this.data_api.getFBAdminSettings().subscribe((data) => {
-            console.log(data);
+            //console.log(data);
             this.adminData = data;
             this.colorHlightDefault = data.colourHighlight ? data.colourHighlight : '';
             this.colorHoverDefault = data.colourHover ? data.colourHover : '';
@@ -321,7 +321,7 @@ export class SidebarComponent implements OnInit {
         });
   
         dialogRef.afterClosed().subscribe(result => {
-            console.log(result);
+            //console.log(result);
             if(result == 'success'){   
                 setTimeout(function(){
                   window.location.reload();
@@ -365,7 +365,7 @@ export class SidebarComponent implements OnInit {
           return;
         }
   
-        console.log(this.addFestForm.value);
+        //console.log(this.addFestForm.value);
     
         this.spinnerService.show();
   
@@ -378,7 +378,7 @@ export class SidebarComponent implements OnInit {
           (result) => {
             if(result){
 
-                console.log(result);
+                //console.log(result);
                 this.submitFeedbackImage(result);
                 swal.fire({
                     title: "Client Feedback Submitted!",
@@ -411,7 +411,7 @@ export class SidebarComponent implements OnInit {
             }
         },
         (error) => {
-            console.log(error)
+            //console.log(error)
             swal.fire({
                 title: error.error.message,
                 // text: "You clicked the button!",
@@ -433,14 +433,14 @@ export class SidebarComponent implements OnInit {
             let file = event.target.files[i]
             this.files.push(file)
             // this.addFestForm.get('multiplefile').setValue(this.files[i]);
-            console.log(this.files)
+            //console.log(this.files)
           }
         }
       }
 
     public submitFeedbackImage(updateID) {
   
-        console.log(this.files);
+        //console.log(this.files);
     
         this.spinnerService.show();
   
@@ -462,7 +462,7 @@ export class SidebarComponent implements OnInit {
           (result) => {
             if(result){
 
-                console.log(result);
+                //console.log(result);
   
                 swal.fire({
                     title: "Client Feedback Submitted!",
@@ -495,7 +495,7 @@ export class SidebarComponent implements OnInit {
             }
         },
         (error) => {
-            console.log(error)
+            //console.log(error)
             swal.fire({
                 title: error.error.message,
                 // text: "You clicked the button!",

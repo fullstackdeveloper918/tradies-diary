@@ -280,93 +280,82 @@ export class SelectionsprojectcreateComponent implements OnInit {
         return tmp.textContent || tmp.innerText || '';
     }
 
-    getProject(){
+    getProject() {
+      console.log('this is wroking');
+      
       this.data_api.getFBProject(this.passID.id).subscribe((data) => {
-      // this.data_api.getFBProject(this.passID.id).pipe(first()).subscribe(data => 
-          this.projectData = data;
-          this.projUploadFolder = data.uploadFolder;
-          
-          let varSetJobNum =  this.variationAdminData.varSetJobNum ? this.variationAdminData.varSetJobNum : true;
-          let varSetCode =  this.variationAdminData.varSetCode ? this.variationAdminData.varSetCode : 'V';
-          // let varSetStartNumber = this.variationAdminData.varSetStartNumber ? this.variationAdminData.varSetStartNumber : 0;
-          let varSetStartNumber = this.projectData.varProjStartNumber ? this.projectData.varProjStartNumber : 1;
-
-          let displayJobNum = ''
-          if(varSetJobNum == true){
-            displayJobNum = this.projectData?.id;
-          } 
-          
-
-          if(this.projectData.counterVariation){ //if project variation exist
-
-            if(this.projectData.counterVariation >= varSetStartNumber){ //if project var num is higher or equal than admin var num
-
-              this.displayVariationNumber =  this.checkDigitNumbers(parseInt(this.projectData.counterVariation) + 1);
-
-            }else{ //if project var num is lower than admin var num
-
-              if(varSetStartNumber > 1){  //if admin var num is higher than 0
-                this.displayVariationNumber = this.checkDigitNumbers(varSetStartNumber);
-              }else{
-                this.displayVariationNumber = this.checkDigitNumbers(1);
+        console.log('data', data);
+        
+          // this.data_api.getFBProject(this.passID.id).pipe(first()).subscribe(data => {
+              this.projectData = data;
+              this.projUploadFolder = data.uploadFolder;
+  
+              let varSetJobNum = this.variationAdminData.varSetJobNum ? this.variationAdminData.varSetJobNum : true;
+              let varSetCode = this.variationAdminData.varSetCode ? this.variationAdminData.varSetCode : 'V';
+              let varSetStartNumber = this.projectData.varProjStartNumber ? this.projectData.varProjStartNumber : 1;
+  
+              let displayJobNum = '';
+              if (varSetJobNum == true) {
+                  displayJobNum = this.projectData?.id;
               }
-
-            }
-
-          }else{ //if project variation NOT exist
-
-            if(varSetStartNumber > 1){   //if admin var num is higher than 0
-              this.displayVariationNumber =  this.checkDigitNumbers(varSetStartNumber);
-            }else{
-              this.displayVariationNumber = this.checkDigitNumbers(1);
-            }
-
-          }
-
-          this.selectionForm.patchValue({
-            selectionNumber: displayJobNum + "SEL" + this.checkDigitNumbers(this.displayVariationNumber ),
-            bmLineitem: this.checkGlobalBooleanVariationSettings(data.bmLineitem) ? data.bmLineitem : false,
-            bmTotalFigure: this.checkGlobalBooleanVariationSettings(data.bmTotalFigure) ? data.bmTotalFigure : false,
-            bmHideAll: this.checkGlobalBooleanVariationSettings(data.bmHideAll) ? data.bmHideAll : false,
-            qtyHideAll: this.checkGlobalBooleanVariationSettings(data.qtyHideAll) ? data.qtyHideAll : false,
-            unitHideAll: this.checkGlobalBooleanVariationSettings(data.unitHideAll) ? data.unitHideAll : false,
-            unitCostHideAll: this.checkGlobalBooleanVariationSettings(data.unitCostHideAll) ? data.unitCostHideAll : false,
-            gstHideAll: this.checkGlobalBooleanVariationSettings(data.gstHideAll) ? data.gstHideAll : false,
-            itemTotalHideAll: this.checkGlobalBooleanVariationSettings(data.itemTotalHideAll) ? data.itemTotalHideAll : false,
-          });
-
-          
-          console.log(this.selectionForm.value, 'checkmate')
-        
-
-          if(data.recipientVariation){
-
-            this.setProjectVariationRecipient = [];
-            let projectOwnerIDs;
-
-            projectOwnerIDs = data.recipientVariation;
-
-            projectOwnerIDs.forEach(value => {
-                if(this.findObjectByKey(this.projectOwnersProject, 'id', value)){
-                    var item = this.findObjectByKey(this.projectOwnersProject, 'id', value);
-                 
-                    this.setProjectVariationRecipient.push(item);
-                }
-                var index = this.projectOwners.findIndex(x => x.id == value);
-                if (index !== -1) {
-                  this.projectOwners.splice(index, 1);
-                  this.initializeFilterOwners();
-                }
-            });
-
-            this.projectVariationRecipientControl.setValue(this.setProjectVariationRecipient);
-            
-
-          }
-
-        
+  
+              if (this.projectData.counterVariation) { // if project variation exists
+                  if (this.projectData.counterVariation >= varSetStartNumber) { // if project var num is higher or equal to admin var num
+                      this.displayVariationNumber = this.checkDigitNumbers(parseInt(this.projectData.counterVariation) + 1);
+                  } else { // if project var num is lower than admin var num
+                      if (varSetStartNumber > 1) {  // if admin var num is higher than 0
+                          this.displayVariationNumber = this.checkDigitNumbers(varSetStartNumber);
+                      } else {
+                          this.displayVariationNumber = this.checkDigitNumbers(1);
+                      }
+                  }
+              } else { // if project variation does not exist
+                  if (varSetStartNumber > 1) {   // if admin var num is higher than 0
+                      this.displayVariationNumber = this.checkDigitNumbers(varSetStartNumber);
+                  } else {
+                      this.displayVariationNumber = this.checkDigitNumbers(1);
+                  }
+              }
+  
+              this.selectionForm.patchValue({
+                  selectionNumber: displayJobNum + "SEL" + this.checkDigitNumbers(this.displayVariationNumber),
+                  bmLineitem: this.checkGlobalBooleanVariationSettings(data.bmLineitem) ? data.bmLineitem : false,
+                  bmTotalFigure: this.checkGlobalBooleanVariationSettings(data.bmTotalFigure) ? data.bmTotalFigure : false,
+                  bmHideAll: this.checkGlobalBooleanVariationSettings(data.bmHideAll) ? data.bmHideAll : false,
+                  qtyHideAll: this.checkGlobalBooleanVariationSettings(data.qtyHideAll) ? data.qtyHideAll : false,
+                  unitHideAll: this.checkGlobalBooleanVariationSettings(data.unitHideAll) ? data.unitHideAll : false,
+                  unitCostHideAll: this.checkGlobalBooleanVariationSettings(data.unitCostHideAll) ? data.unitCostHideAll : false,
+                  gstHideAll: this.checkGlobalBooleanVariationSettings(data.gstHideAll) ? data.gstHideAll : false,
+                  itemTotalHideAll: this.checkGlobalBooleanVariationSettings(data.itemTotalHideAll) ? data.itemTotalHideAll : false,
+              });
+  
+              console.log(this.selectionForm.value, 'checkmate');
+  
+              if (data.recipientVariation) {
+                  this.setProjectVariationRecipient = [];
+                  let projectOwnerIDs;
+  
+                  projectOwnerIDs = data.recipientVariation;
+  
+                  projectOwnerIDs.forEach(value => {
+                      if (this.findObjectByKey(this.projectOwnersProject, 'id', value)) {
+                          var item = this.findObjectByKey(this.projectOwnersProject, 'id', value);
+                          this.setProjectVariationRecipient.push(item);
+                      }
+                      var index = this.projectOwners.findIndex(x => x.id == value);
+                      if (index !== -1) {
+                          this.projectOwners.splice(index, 1);
+                          this.initializeFilterOwners();
+                      }
+                  });
+  
+                  this.projectVariationRecipientControl.setValue(this.setProjectVariationRecipient);
+              }
+          // }
+        // );
       });
-    }
+  }
+  
 
     
 

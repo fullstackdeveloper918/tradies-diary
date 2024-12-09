@@ -18,11 +18,11 @@ export class AdminGuard implements CanActivate, CanActivateChild  {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean | UrlTree {
     let url: string = state.url;
-    console.log(url);
+    //console.log(url);
     return this.checkUserLogin(next, url);
         // if(this.authService.isLoggedIn){
             // return false;
-        //     console.log('true');
+        //     //console.log('true');
         //   }
         //   else{
             
@@ -37,10 +37,10 @@ export class AdminGuard implements CanActivate, CanActivateChild  {
   
   checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
 
-    console.log(route);
+    //console.log(route);
 
           if (localStorage.getItem('currentUser')) {
-            console.log(JSON.parse(localStorage.getItem('currentUser')));
+            //console.log(JSON.parse(localStorage.getItem('currentUser')));
             let userDetails = JSON.parse(localStorage.getItem('currentUser'));
             let userRole = userDetails.userRole;
             let userValid = userDetails.validAccount;
@@ -48,7 +48,7 @@ export class AdminGuard implements CanActivate, CanActivateChild  {
             if(userValid == true){
 
                 if (route.data.role && route.data.role.indexOf(userRole) === -1) {
-                  console.log('aw');
+                  //console.log('aw');
 
                   if(userRole == 'app_admin'){
                     this.router.navigate(['/dashboard']);

@@ -302,10 +302,10 @@ export class RFIPROJECTComponent {
   //Filter Status
   getRFIFilterStatus(){
 
-        this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
+        this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
         .where("projectId", '==', this.passID.id)
         .where("status", '==', this.filterVariationsForm.value.status)
-        .orderBy("variantsNumber", 'desc')
+        // .orderBy("variantsNumber", 'desc')
         .limit(10)
         ).snapshotChanges()
         .subscribe(response => {
@@ -361,17 +361,16 @@ export class RFIPROJECTComponent {
       return this.prev_strt_at[this.pagination_clicked_count - 1];
     }
 
-    nextPageFilterStatus() {
+    nextPageFilterStatus() {      
       this.disable_next = true;
-      this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
+      this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
         .limit(10)
         .where("projectId", '==', this.passID.id)
         .where("status", '==', this.filterVariationsForm.value.status)
-        .orderBy("variantsNumber", 'desc')
+        .orderBy("rfiNumber", 'desc')
         .startAfter(this.lastInResponse)
       ).get()
-        .subscribe(response => {
-
+        .subscribe(response => {          
           if (!response.docs.length) {
             this.disable_next = true;
             return;
@@ -402,10 +401,10 @@ export class RFIPROJECTComponent {
     //Show previous set 
     prevPageFilterStatus() {
       this.disable_prev = true;
-      this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
+      this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
         .where("projectId", '==', this.passID.id)
         .where("status", '==', this.filterVariationsForm.value.status)
-        .orderBy("variantsNumber", 'desc')
+        // .orderBy("variantsNumber", 'desc')
         .startAt(this.get_prev_startAt())
         .endBefore(this.firstInResponse)
         .limit(10)
@@ -443,11 +442,11 @@ export class RFIPROJECTComponent {
       var startDate = new Date(this.filterVariationsForm.value.dueDate) ;
       var endDate = new Date(this.filterVariationsForm.value.dueDate);
       endDate.setDate(startDate.getDate() + 1);
-      this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
+      this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
       .where("projectId", '==', this.passID.id)
       .where("dueDate", '>=', startDate)
       .where("dueDate", '<', endDate)
-      .orderBy("variantsNumber", 'desc')
+      // .orderBy("rfiNumber", 'desc')
       .limit(10)
       ).snapshotChanges()
       .subscribe(response => {
@@ -593,8 +592,8 @@ export class RFIPROJECTComponent {
 
     this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
     .where("projectId", '==', this.passID.id)
-    // .orderBy("variantsNumber", 'desc')
-    // .limit(10)
+    // .orderBy("rfiNumber", 'desc')
+    .limit(10)
     ).snapshotChanges()
     .subscribe(response => {
       console.log('response', response);
@@ -653,14 +652,15 @@ get_prev_startAt() {
 
 nextPage() {
   this.disable_next = true;
-  this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
+  this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
     .limit(10)
     .where("projectId", '==', this.passID.id)
-    .orderBy("variantsNumber", 'desc')
+    // .orderBy("variantsNumber", 'desc')
     .startAfter(this.lastInResponse)
   ).get()
     .subscribe(response => {
-
+     console.log('response',response);
+     
       if (!response.docs.length) {
         this.disable_next = true;
         return;
@@ -690,9 +690,9 @@ nextPage() {
 //Show previous set 
 prevPage() {
   this.disable_prev = true;
-  this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
+  this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
     .where("projectId", '==', this.passID.id)
-    .orderBy("variantsNumber", 'desc')
+    // .orderBy("variantsNumber", 'desc')
     .startAt(this.get_prev_startAt())
     .endBefore(this.firstInResponse)
     .limit(10)

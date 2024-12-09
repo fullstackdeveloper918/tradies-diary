@@ -191,12 +191,8 @@ export class RFIEDITCOMPONENTComponent {
       // private imageCompress: NgxImageCompressService
       ) { }
 
-  ngAfterViewInit(){
-    console.log('project owner constrl',this.projectRfiControl);
-  }
-
-  ngOnInit() {
-    console.log('project owner constrl',this.projectRfiControl);
+  ngOnInit() {    
+    console.log('projectRfiControl', this.projectRfiControl);
     
     this.deviceInfo = this.deviceService.getDeviceInfo();
      this.passID = {
@@ -212,13 +208,13 @@ export class RFIEDITCOMPONENTComponent {
           }
       );
 
-      console.log(location.origin)
+      //console.log(location.origin)
 
       if (localStorage.getItem('currentUser')) {
           this.userDetails = JSON.parse(localStorage.getItem('currentUser'));
       }
 
-      console.log(this.passID);
+      //console.log(this.passID);
 
       this.rfiForm = this.formBuilder.group({
           projectId: ['', Validators.required],
@@ -254,7 +250,7 @@ export class RFIEDITCOMPONENTComponent {
 
       // this.rfiForm.patchValue({
       //   projectId:  this.passID.id,
-      //   variantsNumber: 'test-001'
+      //   rfisNumber: 'test-001'
       // });
 
       // this.getFBProjectUsers();
@@ -292,20 +288,27 @@ export class RFIEDITCOMPONENTComponent {
   }
 
   getProject(){
+    // console.log('get Project is working');
+    
     this.data_api.getFBProject(this.passID.id).pipe(first()).subscribe(data => {
-        console.log('data',data);
         this.projectData = data;
         this.projUploadFolder = data.uploadFolder;
-
-        if(data.recipientRfi){
-
+         console.log('data.recie', data);
+         
+        if(data.recipientRFI){
+           console.log('this is working');
+           
           this.setProjectRfiRecipient = [];
           let projectOwnerIDs;
 
-          projectOwnerIDs = data.recipientRfi;
-          console.log(data.recipientRfi);
-          console.log(this.projectOwnersProject);
+          projectOwnerIDs = data.recipientRFI;
+          console.log('projrctOwnerIds', projectOwnerIDs);
+          
+          //console.log(data.recipientRFI);
+          //console.log(this.projectOwnersProject);
           projectOwnerIDs.forEach(value => {
+            console.log('value', value);
+            
               if(this.findObjectByKey(this.projectOwnersProject, 'id', value)){
                   var item = this.findObjectByKey(this.projectOwnersProject, 'id', value);
                   console.log('item',item);
@@ -319,8 +322,6 @@ export class RFIEDITCOMPONENTComponent {
           });
 
           this.projectRfiControl.patchValue(this.setProjectRfiRecipient);
-          console.log('projectRfiControl',this.projectRfiControl.value);
-
         }
         // if(!this rfiData){
           this.getRFI();
@@ -377,7 +378,7 @@ export class RFIEDITCOMPONENTComponent {
 
   public getRFI(){
     this.data_api.getFBAFI(this.passID.id2).subscribe(data => {
-        console.log('afi data',data);
+        //console.log('afi data',data);
         this.rfiData = data;
         this.setProjectOwners = [];
         let projectOwnerIDs;
@@ -419,11 +420,11 @@ export class RFIEDITCOMPONENTComponent {
           // itemTotalHideAll: this.checkBooleanVariationSettings(data.itemTotalHideAll) ? data.itemTotalHideAll : (this.checkGlobalBooleanVariationSettings(this.rfiAdminData.itemTotalHideAll) ? this.rfiAdminData.itemTotalHideAll : false),
         });
 
-        // console.log(data.qtyHideAll)
-        // console.log(this.checkBooleanVariationSettings(data.qtyHideAll))
-        // console.log(this.rfiAdminData.qtyHideAll);
-        // console.log(this.checkGlobalBooleanVariationSettings(this.rfiAdminData.qtyHideAll));
-        // console.log(this.rfiForm.value.qtyHideAll)
+        // //console.log(data.qtyHideAll)
+        // //console.log(this.checkBooleanVariationSettings(data.qtyHideAll))
+        // //console.log(this.rfiAdminData.qtyHideAll);
+        // //console.log(this.checkGlobalBooleanVariationSettings(this.rfiAdminData.qtyHideAll));
+        // //console.log(this.rfiForm.value.qtyHideAll)
 
         if(data.projectOwner){
           projectOwnerIDs = data.projectOwner;
@@ -436,16 +437,16 @@ export class RFIEDITCOMPONENTComponent {
           });
 
           this.projectOwnerControl.setValue(this.setProjectOwners);
-          console.log(this.setProjectOwners);
+          //console.log(this.setProjectOwners);
 
         }
 
         if (data.rfiGroupArray){
-          console.log(data.rfiGroupArray);
+          //console.log(data.rfiGroupArray);
           this.rfiGroupArray().clear()
           let i = 0;
           data.rfiGroupArray.forEach(t => {
-            console.log(t)
+            //console.log(t)
             let teacher: FormGroup = this.createrfiGroupArray();
             this.rfiGroupArray().push(teacher);
 
@@ -472,7 +473,7 @@ export class RFIEDITCOMPONENTComponent {
         }
 
         // this.data_api.getFBProject(data.projectId).pipe(first()).subscribe(data2 => {
-        //     console.log(data2);
+        //     //console.log(data2);
         //     this.projectData = data2;
         // });
 
@@ -489,11 +490,11 @@ export class RFIEDITCOMPONENTComponent {
       for (let item of group.itemArray) {
 
         const adminAdvocacy = this.rfiGroupArray().at(groupIndex).get("itemArray") as FormArray;
-        console.log(item.itemImage);
+        //console.log(item.itemImage);
 
         // await this.getBase64ImageFromURL(item.itemImage).subscribe((base64Data: string) => {  
-        //   console.log(base64Data);
-        //   console.log(itemIndex);
+        //   //console.log(base64Data);
+        //   //console.log(itemIndex);
         //     // this.imageURL[i] = base64Data;
         //     // this.imageURLRaw[i] = base64Data;
         //     adminAdvocacy.controls[itemIndex].patchValue({
@@ -503,7 +504,7 @@ export class RFIEDITCOMPONENTComponent {
         // });
 
         const awaitData = await this.getBase64ImageFromURL(item.itemImage).toPromise(); 
-        console.log(awaitData);
+        //console.log(awaitData);
         adminAdvocacy.controls[itemIndex].patchValue({
           itemImage: awaitData,
         });
@@ -518,7 +519,7 @@ export class RFIEDITCOMPONENTComponent {
   }
 
   // showApprovedOnly(event){
-  //     console.log(event.currentTarget.checked);
+  //     //console.log(event.currentTarget.checked);
   // }
 
   getBase64ImageFromURL(url: string): Observable<string> {
@@ -705,7 +706,7 @@ export class RFIEDITCOMPONENTComponent {
       let _gst = ((_subtotal + _bmp_subtotal) * _taxRate) /  100;
       let _itemTotal = _gst + _bmp_subtotal + _subtotal;
       
-      console.log(_subtotal);
+      //console.log(_subtotal);
       adminAdvocacy.controls[itemIndex].patchValue({
           // subTotal: _subtotal.toFixed(2),
           gst: _gst.toFixed(2),
@@ -716,29 +717,29 @@ export class RFIEDITCOMPONENTComponent {
   }
 
   computeGroupTotal(groupIndex){
-    console.log(groupIndex);
+    //console.log(groupIndex);
 
     let len = this.itemArray(groupIndex).length;
     let _groupTotal = 0;
-    console.log(this.itemArray(groupIndex));
+    //console.log(this.itemArray(groupIndex));
     for (let i = 0; i < len; i++) {
-      console.log(this.itemArray(groupIndex).value[i].itemTotal);
+      //console.log(this.itemArray(groupIndex).value[i].itemTotal);
       _groupTotal = _groupTotal + parseFloat(this.itemArray(groupIndex).value[i].itemTotal);
-      console.log(_groupTotal);
+      //console.log(_groupTotal);
     }
     let _groupBudget = this.rfiGroupArray().at(groupIndex).get('groupBudget').value;
     let _groupOverUnder = _groupBudget - _groupTotal;
-    console.log(_groupBudget);
-    console.log(_groupOverUnder);
-    console.log(_groupTotal);
+    //console.log(_groupBudget);
+    //console.log(_groupOverUnder);
+    //console.log(_groupTotal);
     
     this.rfiGroupArray().at(groupIndex).get('groupTotal').patchValue(_groupTotal.toFixed(2));
     this.rfiGroupArray().at(groupIndex).get('groupOverUnder').patchValue(_groupOverUnder.toFixed(2));
   }
 
   async onFileChange(event,groupIndex,itemIndex) {
-    console.log(groupIndex);
-    console.log(itemIndex);
+    //console.log(groupIndex);
+    //console.log(itemIndex);
     if(event.target.files && event.target.files.length) {
   
           const imageFile = event.target.files[0];
@@ -756,14 +757,14 @@ export class RFIEDITCOMPONENTComponent {
             }
           }
   
-          console.log(imageFile);
+          //console.log(imageFile);
   
           // Crop Lnadscape images and convert to base64
           const imageCropped = await this.fileListToBase64(event.target.files);
   
           // Convert Base64 to File
          
-          console.log(imageCropped);
+          //console.log(imageCropped);
   
           // Convert Base64 to File
           const compressedFiles = await  Promise.all(
@@ -776,7 +777,7 @@ export class RFIEDITCOMPONENTComponent {
             await compressedFiles.map(async (imageFile: File) => await imageCompression(imageFile, options))
           )
           
-          console.log(compressedFiles2);
+          //console.log(compressedFiles2);
   
   
           let reader = new FileReader();
@@ -908,7 +909,7 @@ export class RFIEDITCOMPONENTComponent {
   public getFBProjectUsers(){
  
       this.data_api.getFBUsersOrderedFname().subscribe((data) => {
-            console.log(data);
+            //console.log(data);
               if(data){
                 // this.projectOwners = [];
               //   this.projectWorkers = [];
@@ -934,7 +935,7 @@ export class RFIEDITCOMPONENTComponent {
                         
                   })
               }
-              // console.log(this.siteSupervisors);
+              // //console.log(this.siteSupervisors);
               this.initializeFilterOwners();
               this.initializeFilterOwnersProject();
 
@@ -951,7 +952,7 @@ export class RFIEDITCOMPONENTComponent {
 
   getFBAllTrades(): void {
     this.data_api.getFBAllTrades().subscribe(data => {
-      console.log(data);
+      //console.log(data);
 
         if(data){
 
@@ -1098,7 +1099,7 @@ export class RFIEDITCOMPONENTComponent {
         for (let item of group.itemArray) {
 
           const adminAdvocacy = this.rfiGroupArray().at(groupIndex).get("itemArray") as FormArray;
-          console.log(adminAdvocacy.controls[itemIndex].get('itemImage').status);
+          //console.log(adminAdvocacy.controls[itemIndex].get('itemImage').status);
 
           if(adminAdvocacy.controls[itemIndex].get('itemImage').status == 'INVALID'){
             invalid.push('Item image');
@@ -1109,8 +1110,8 @@ export class RFIEDITCOMPONENTComponent {
         groupIndex++;
       }
 
-      console.log(controlsRfi);
-      console.log(invalid);
+      //console.log(controlsRfi);
+      //console.log(invalid);
 
       let htmlVal = '';
 
@@ -1278,7 +1279,7 @@ getFooter2(currentPage, pageCount) {
 };
   
   splitArray(arr){
-    console.log(arr);
+    //console.log(arr);
     if(arr){
         if(arr.length > 1){
           return arr.join(', ');
@@ -1626,14 +1627,14 @@ getFooter2(currentPage, pageCount) {
   
   variationSettingsWidth(){
 
-        console.log(this.rfiForm.value.bmLineitem);
-        console.log(this.rfiForm.value.bmHideAll);
+        //console.log(this.rfiForm.value.bmLineitem);
+        //console.log(this.rfiForm.value.bmHideAll);
 
-        console.log(this.rfiForm.value.qtyHideAll);
-        console.log(this.rfiForm.value.unitHideAll);
-        console.log(this.rfiForm.value.unitCostHideAll);
-        console.log(this.rfiForm.value.gstHideAll);
-        console.log(this.rfiForm.value.itemTotalHideAll);
+        //console.log(this.rfiForm.value.qtyHideAll);
+        //console.log(this.rfiForm.value.unitHideAll);
+        //console.log(this.rfiForm.value.unitCostHideAll);
+        //console.log(this.rfiForm.value.gstHideAll);
+        //console.log(this.rfiForm.value.itemTotalHideAll);
 
         var descWidth = 50;
         let bulletWidths = [];
@@ -1685,7 +1686,7 @@ getFooter2(currentPage, pageCount) {
         // }
 
         let newArr = [descWidth+'%', ...bulletWidths];
-        // console.log(newArr);
+        // //console.log(newArr);
         return newArr;
 
   }
@@ -1743,7 +1744,7 @@ getFooter2(currentPage, pageCount) {
     // }
 
     let newArr = [{text:  'Description', style: 'tableHeader'}, ...bulletTitle];
-    console.log(newArr);
+    //console.log(newArr);
     return newArr;
   }
 
@@ -1834,7 +1835,7 @@ getFooter2(currentPage, pageCount) {
     var htmlDescription = htmlToPdfmake(item.description);
 
     let newArr = [{text:htmlDescription, style: 'fieldData'}, ...bulletValue];
-    console.log(newArr);
+    //console.log(newArr);
     return newArr;
   }
 
@@ -1919,8 +1920,8 @@ getFooter2(currentPage, pageCount) {
   }
 
   getOverunder(hideBudget,groupOverUnder){
-      console.log(hideBudget);
-      console.log(groupOverUnder);
+      //console.log(hideBudget);
+      //console.log(groupOverUnder);
       if(hideBudget != true){
           if(groupOverUnder < 0){
               return [ 
@@ -2053,7 +2054,7 @@ getFooter2(currentPage, pageCount) {
             //               style: 'fieldData',
             //             },
             //             {
-            //               text: this.rfiForm.value.variantsNumber, //(this.editForm.value.reportNumber ? this.editForm.value.reportNumber : ''),
+            //               text: this.rfiForm.value.rfisNumber, //(this.editForm.value.reportNumber ? this.editForm.value.reportNumber : ''),
             //               style: 'fieldData',
             //             }
             //           ],
@@ -2446,7 +2447,7 @@ getFooter2(currentPage, pageCount) {
   // testpdf(){
 
   //   const documentDefinition = this.getDocumentDefinition();
-  //   console.log(documentDefinition);
+  //   //console.log(documentDefinition);
   //   const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
   //   pdfDocGenerator.open();
 
@@ -2518,7 +2519,7 @@ getFooter2(currentPage, pageCount) {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-          console.log(result);
+          //console.log(result);
           if(result){   
             
             let currDateTime = Timestamp.fromDate(new Date());
@@ -2531,7 +2532,7 @@ getFooter2(currentPage, pageCount) {
               approvedRole: 'admin'
             }
 
-            console.log(tempdata);
+            //console.log(tempdata);
             this.data_api.approveAdminFBRFI(this.passID.id2,tempdata).then(data => {
 
                   $.notify({
@@ -2575,7 +2576,7 @@ getFooter2(currentPage, pageCount) {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-          console.log(result);
+          //console.log(result);
       });
 
   }
@@ -2584,7 +2585,7 @@ getFooter2(currentPage, pageCount) {
 
   public async saveStepCheckValidation(message,action){   // Generate and Upload PDF to Firebase  
 
-    console.log('rfiform',this.rfiForm.value);
+    //console.log('rfiform',this.rfiForm.value);
 
         let ownerList = this.projectOwnerControl.value;
         let ownerIDS = [];
@@ -2596,7 +2597,7 @@ getFooter2(currentPage, pageCount) {
         if(ownerList){
 
             ownerList.forEach( data => {
-              console.log(data);
+              //console.log(data);
                 ownerIDS.push(data.id);
                 this.pdfClientNames.push(data.name);
             });
@@ -2717,7 +2718,7 @@ getFooter2(currentPage, pageCount) {
 
   saveStepUploadQuotes(message,action){
 
-    console.log(this.rfiForm.value);
+    //console.log(this.rfiForm.value);
 
     let pdfDone = 0;
     let i = 0;
@@ -2732,7 +2733,7 @@ getFooter2(currentPage, pageCount) {
     }
 
     let folderName =  this.rfiForm.value.folderName;    
-      // console.log(this.rfiForm.value);
+      // //console.log(this.rfiForm.value);
       // return;
       if(pdfLen > 0){
 
@@ -2767,9 +2768,9 @@ getFooter2(currentPage, pageCount) {
 
                         ref.getDownloadURL().subscribe((url) => { 
           
-                          console.log(url);
+                          //console.log(url);
                           let splitName = url.split(/%2..*%2F(.*?)\?alt/);
-                          console.log(splitName[1]);
+                          //console.log(splitName[1]);
 
                           let splitName2 = splitName[1].split("-");
                           let myIndex = splitName2[1];
@@ -2788,7 +2789,7 @@ getFooter2(currentPage, pageCount) {
                           pdfDone = pdfDone + 1;
                           if(pdfDone == pdfLen){
                             this.progressOverlay.hide();
-                            console.log(this.rfiForm.value);
+                            //console.log(this.rfiForm.value);
                             this.saveStepUploadPDFwithQuotes(message,action);
                           } 
                         
@@ -2884,12 +2885,12 @@ getFooter2(currentPage, pageCount) {
           finalize(() => {
             ref.getDownloadURL().subscribe((url) => { 
               this.progressOverlay.hide();
-              console.log(url);
+              //console.log(url);
               this.rfiForm.patchValue({
                 pdfLink: url
               });
               
-              console.log(this.rfiForm.value);
+              //console.log(this.rfiForm.value);
 
               this.saveStepUploadImages(message,action);
             });
@@ -2913,9 +2914,9 @@ getFooter2(currentPage, pageCount) {
     let id = this.rfiForm.value.rfiName+'.pdf';
 
     pdfDocGenerator.getBase64((data) => {
-      console.log(data);
+      //console.log(data);
     
-      console.log(this.rfiForm.value);
+      //console.log(this.rfiForm.value);
 
 
       let ref = this.afStorage.ref(this.accountFirebase+'/'+this.projUploadFolder+'/Rfis/'+folderName+'/'+id);
@@ -2930,12 +2931,12 @@ getFooter2(currentPage, pageCount) {
         finalize(() => {
           ref.getDownloadURL().subscribe((url) => { 
             this.progressOverlay.hide();
-            console.log(url);
+            //console.log(url);
             this.rfiForm.patchValue({
               pdfLink: url
             });
             
-            console.log(this.rfiForm.value);
+            //console.log(this.rfiForm.value);
 
             this.saveStepUploadImages(message,action);
           });
@@ -2953,7 +2954,7 @@ getFooter2(currentPage, pageCount) {
     let imageLen = 0;
     for (let group of this.rfiForm.value.rfiGroupArray) { 
        for (let item of group.itemArray) {
-        console.log(item);
+        //console.log(item);
         imageLen++;
        }
     }
@@ -2961,8 +2962,8 @@ getFooter2(currentPage, pageCount) {
 
     let folderName =  this.rfiForm.value.folderName;    
 
-    console.log(imageLen);
-    // console.log(this.rfiForm.value);
+    //console.log(imageLen);
+    // //console.log(this.rfiForm.value);
     // return;
 
     this.progressOverlay.show('Uploading Images','#0771DE','white','lightslategray',1);
@@ -2990,9 +2991,9 @@ getFooter2(currentPage, pageCount) {
             finalize(() => {
               ref.getDownloadURL().subscribe((url) => { 
                 // this.downloadURLs = this.downloadURLs.concat([url]);
-                console.log(url);
+                //console.log(url);
                 let splitName = url.split(/%2..*%2F(.*?)\?alt/);
-                console.log(splitName[1]);
+                //console.log(splitName[1]);
 
                 this.downloadArray.push({
                     url: url,
@@ -3002,7 +3003,7 @@ getFooter2(currentPage, pageCount) {
                 imageDone = imageDone + 1;
                 if(imageDone == imageLen){
                   this.progressOverlay.hide();
-                  console.log(this.downloadArray);
+                  //console.log(this.downloadArray);
                    this.saveStepUpdateVariation(message,action);
                 } 
               });
@@ -3011,7 +3012,7 @@ getFooter2(currentPage, pageCount) {
       }
     }
 
-    console.log(this.rfiForm.value);
+    //console.log(this.rfiForm.value);
 
   }
 
@@ -3023,7 +3024,7 @@ getFooter2(currentPage, pageCount) {
           tempIndex++;
         }
 
-        console.log(this.rfiForm.value);
+        //console.log(this.rfiForm.value);
 
         if( this.downloadArray){
             //Sort Download URLS by filename
@@ -3031,12 +3032,12 @@ getFooter2(currentPage, pageCount) {
               return a.nameIndex - b.nameIndex;
             });
 
-            console.log(this.downloadArray);
+            //console.log(this.downloadArray);
 
             this.downloadArray.forEach((data) => {
               this.downloadURLs.push(data.url);
             });
-            console.log(this.downloadURLs);
+            //console.log(this.downloadURLs);
         }
 
         let groupIndex = 0;   
@@ -3055,7 +3056,7 @@ getFooter2(currentPage, pageCount) {
             itemIndex++;
             i++;
 
-            console.log(this.rfiForm.value);
+            //console.log(this.rfiForm.value);
             
           }
           const adminAdvocacy2 = this.rfiGroupArray().at(groupIndex)
@@ -3068,7 +3069,7 @@ getFooter2(currentPage, pageCount) {
 
           groupIndex++;
         }
-        console.log(this.rfiForm.value);
+        //console.log(this.rfiForm.value);
 
         if(message == 'submitAdmin'){
           this.rfiForm.patchValue({
@@ -3090,9 +3091,9 @@ getFooter2(currentPage, pageCount) {
 
         this.data_api.updateFBRFI(this.passID.id2,this.rfiForm.value).then(data => {
 
-          console.log('Updated Rfi successfully!');
+          //console.log('Updated Rfi successfully!');
 
-          console.log(data);
+          //console.log(data);
 
           $.notify({
             icon: 'notifications',
@@ -3136,7 +3137,7 @@ getFooter2(currentPage, pageCount) {
   ownerSelectChange(event)
   {
     if(event.isUserInput) {
-      console.log(event.source.value, event.source.selected);
+      //console.log(event.source.value, event.source.selected);
         if(event.source.selected == true){
             // const clientEmail = this.editForm.get('clientEmail') as FormArray;
             // clientEmail.push(this.formBuilder.control(event.source.value.email));
@@ -3162,7 +3163,7 @@ getFooter2(currentPage, pageCount) {
 
   sendAdminEmail(variantID,projectID){
 
-    console.log(this.rfiForm.value);
+    //console.log(this.rfiForm.value);
     const adminEmails = [];
     const cc = [];
 
@@ -3194,12 +3195,12 @@ getFooter2(currentPage, pageCount) {
       rfiName: this.rfiForm.value.rfiName,
       subjectTitle: 'RFI Admin Approval'
     }
-    console.log(tempdata);
+    //console.log(tempdata);
 
     this.spinnerService.show();
     const callableTest = this.functions.httpsCallable('sendFBrfisRequest');
     callableTest(tempdata).subscribe(result => {
-      console.log(result)
+      //console.log(result)
       this.spinnerService.hide();
       $.notify({
         icon: 'notifications',
@@ -3237,7 +3238,7 @@ public getUniqueListBy(arr, key) {
 
 sendClientEmail(variantID,projectID){
 
-    console.log(this.rfiForm.value);
+    //console.log(this.rfiForm.value);
     const adminEmails = [];
     const cc = [];
 
@@ -3250,9 +3251,9 @@ sendClientEmail(variantID,projectID){
       });
     }
 
-    let recipientRfi = this.setProjectRfiRecipient;
-    if(recipientRfi){
-      recipientRfi.forEach(user => {
+    let recipientRFI = this.setProjectRfiRecipient;
+    if(recipientRFI){
+      recipientRFI.forEach(user => {
         adminEmails.push({
             Email: user.email
           });
@@ -3269,7 +3270,7 @@ sendClientEmail(variantID,projectID){
     }
 
     let myURL = window.location.href ;
-    let rep2 = '/dashboard-variants/'+variantID ;
+    let rep2 = '/dashboard-rfis/'+variantID ;
     let rep1 = this.router.url ;
     let newUrl = myURL.replace(rep1, rep2)
     
@@ -3287,12 +3288,13 @@ sendClientEmail(variantID,projectID){
       rfiName: this.rfiForm.value.rfiName,
       subjectTitle: 'Rfi Approval Request'
     }
-    console.log(tempdata);
+    
+    //console.log(tempdata);
 
     this.spinnerService.show();
     const callableTest = this.functions.httpsCallable('sendFBRfiRequest');
     callableTest(tempdata).subscribe(result => {
-      console.log(result)
+      //console.log(result)
       this.spinnerService.hide();
       $.notify({
         icon: 'notifications',
@@ -3326,7 +3328,7 @@ sendClientEmail(variantID,projectID){
 
 getAdminSettings(){
     this.data_api.getFBAdminSettings().subscribe((data) => {
-        console.log(data);
+        //console.log(data);
         this.adminData = data;
         this.colorBtnDefault = data.colourEnabledButton ? data.colourEnabledButton : '';
         this.colorHlightDefault = data.colourHighlight ? data.colourHighlight : '';
@@ -3357,7 +3359,7 @@ onButtonOut(hoverName: HTMLElement) {
 getRFISettings(){
 
     this.data_api.getFBRfisSettings().subscribe((data) => {
-        console.log(data);
+        //console.log(data);
         this.rfiAdminData = data;
         this.getFBProjectUsers();
     }); 
@@ -3370,7 +3372,7 @@ openAddOwnerDialog(): void {
   });
 
   dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if(result == 'success'){   
           // setTimeout(function(){
           //   window.location.reload();
@@ -3414,7 +3416,7 @@ openTableItemsAddDialog(groupIndex): void {
   })
   
   dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if(result){   
         
           let curLen = this.itemArray(groupIndex).length;
@@ -3453,7 +3455,7 @@ openTableItemsEditDialog(groupIndex,itemIndex): void {
         // itemName: this.itemArray(groupIndex).at(itemIndex).get('itemName').value,
         // supplier: this.itemArray(groupIndex).at(itemIndex).get('supplier').value,
         itemImage: this.itemArray(groupIndex).at(itemIndex).get('itemImage').value,
-        imageCaption: this.itemArray(groupIndex).at(itemIndex).get('imageCaption').value,
+        // imageCaption: this.itemArray(groupIndex).at(itemIndex).get('imageCaption').value,
         hasImage: this.itemArray(groupIndex).at(itemIndex).get('hasImage').value,
         description: this.itemArray(groupIndex).at(itemIndex).get('description').value,
         // quantity: this.itemArray(groupIndex).at(itemIndex).get('quantity').value,
@@ -3490,7 +3492,7 @@ openTableItemsEditDialog(groupIndex,itemIndex): void {
   })
   
   dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if(result){   
         
           // let curLen = this.itemArray(groupIndex).length;
@@ -3521,7 +3523,7 @@ openTableItemsEditDialog(groupIndex,itemIndex): void {
 
 
 openExternalQuotesDialog(index): void {
-  console.log('which files')
+  //console.log('which files')
     const dialogRef = this.dialog.open(ExternalQuotesEditDialog, {
         width: '700px',
         data: this.rfiGroupArray().at(index).get('files').value
@@ -3531,10 +3533,10 @@ openExternalQuotesDialog(index): void {
   
         if(result){   
 
-          console.log(result);
+          //console.log(result);
       
           this.rfiGroupArray().at(index).get('files').patchValue(result);
-          console.log(this.rfiForm.value);
+          //console.log(this.rfiForm.value);
 
           this.saveStepCheckValidation('','')
         //       setTimeout(() => {
@@ -3558,7 +3560,7 @@ openTableVarGroupNameAddDialog(groupIndex): void {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-        console.log(result);
+        //console.log(result);
         if(result){   
           this.rfiGroupArray().at(groupIndex).get("groupName").patchValue(result.groupName);
         }
@@ -3574,7 +3576,7 @@ openTableVarGroupNameAddDialog(groupIndex): void {
 //   var srcAttr = target.attributes.src;
   
 //   this.imgSrc = srcAttr.nodeValue;
-//   console.log(this.imgSrc);
+//   //console.log(this.imgSrc);
 //   // this.imgStampString = timestamp.toDate();
 // }
 btnFunctionCancel(){
@@ -3712,7 +3714,7 @@ constructor(
   public placeholderImage: PlaceholderImage,
   public enlargeImage: EnlargeImage,
   @Inject(MAT_DIALOG_DATA) public data) {
-    console.log('data',data);
+    //console.log('data',data);
     
   }
 
@@ -3726,7 +3728,7 @@ get g(){
 
 getFBUom(): void {
   this.data_api.getFBUom().subscribe(data => {
-    console.log(data);
+    //console.log(data);
 
     if(data.uomArray){
 
@@ -3765,7 +3767,7 @@ resetImage(){
 
 }
 
-ngOnInit() {
+ngOnInit() {    
   this.getAdminSettings();
   this.rfiForm = this.formBuilder.group({
     // itemName: '',
@@ -3784,7 +3786,7 @@ ngOnInit() {
   }, {
   });
 
-  console.log(this.data)
+  //console.log(this.data)
   this.listTrades = this.data.listTrades;
 
   this.getFBUom();
@@ -3800,7 +3802,7 @@ ngOnInit() {
 
 getAdminSettings(){
     this.data_api.getFBAdminSettings().subscribe((data) => {
-        console.log(data);
+        //console.log(data);
         this.adminData = data;
         this.colorBtnDefault = data.colourEnabledButton ? data.colourEnabledButton : '';
     }); 
@@ -3808,7 +3810,7 @@ getAdminSettings(){
 
 onButtonEnter(hoverName: HTMLElement) {
   hoverName.style.backgroundColor = this.adminData.colourHoveredButton ?  this.adminData.colourHoveredButton: '';
-  console.log(hoverName);
+  //console.log(hoverName);
 }
 
 onButtonOut(hoverName: HTMLElement) {
@@ -3885,7 +3887,7 @@ openAddUomDialog(): void {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      //console.log(result);
         if(result){   
               setTimeout(() => {
 
@@ -3912,7 +3914,7 @@ public onComputeTotal(){
     let _gst = ((_subtotal + _bmp_subtotal) * _taxRate) /  100;
     let _itemTotal = _gst + _bmp_subtotal + _subtotal;
     
-    console.log(_subtotal);
+    //console.log(_subtotal);
     this.rfiForm.patchValue({
         subTotal: _subtotal.toFixed(2),
         gst: _gst.toFixed(2),
@@ -3942,8 +3944,8 @@ public findInvalidControls() {
       }
   }
 
-  console.log(controlsRfi);
-  console.log(invalid);
+  //console.log(controlsRfi);
+  //console.log(invalid);
 
   let htmlVal = '';
 
@@ -3983,14 +3985,14 @@ async onFileChange(event) {
           }
         }
 
-        console.log(imageFile);
+        //console.log(imageFile);
 
         // Crop Lnadscape images and convert to base64
         const imageCropped = await this.fileListToBase64(event.target.files);
 
         // Convert Base64 to File
        
-        console.log(imageCropped);
+        //console.log(imageCropped);
 
         // Convert Base64 to File
         const compressedFiles = await  Promise.all(
@@ -4003,7 +4005,7 @@ async onFileChange(event) {
           await compressedFiles.map(async (imageFile: File) => await imageCompression(imageFile, options))
         )
         
-        console.log(compressedFiles2);
+        //console.log(compressedFiles2);
 
 
         let reader = new FileReader();
@@ -4203,7 +4205,7 @@ get g(){
 
 getFBUom(): void {
   this.data_api.getFBUom().subscribe(data => {
-    console.log(data);
+    //console.log(data);
 
     if(data.uomArray){
 
@@ -4262,7 +4264,7 @@ ngOnInit() {
       }, {
       });
 
-      console.log(this.data);
+      //console.log(this.data);
 
       this.editForm.patchValue({
         // itemName: this.data.itemName,
@@ -4280,15 +4282,15 @@ ngOnInit() {
         hasImage: this.data.hasImage ? this.data.hasImage: false,
       });
       
-      console.log(this.editForm.value);
+      //console.log(this.editForm.value);
 
       this.getFBUom();
 
       this.listTrades = this.data.listTrades;
       this.initializeFilterTrades();
       
-      // console.log(this.placeholderImage.placeholderImage1);
-      // console.log(this.data.itemImage);
+      // //console.log(this.placeholderImage.placeholderImage1);
+      // //console.log(this.data.itemImage);
       // if( (this.placeholderImage.placeholderImage1 != this.data.itemImage) && (this.placeholderImage.placeholderImage2 != this.data.itemImage) ){
       //   this.isUpdatedImage = true;
       // }
@@ -4297,7 +4299,7 @@ ngOnInit() {
 
 getAdminSettings(){
     this.data_api.getFBAdminSettings().subscribe((data) => {
-        console.log(data);
+        //console.log(data);
         this.adminData = data;
         this.colorBtnDefault = data.colourEnabledButton ? data.colourEnabledButton : '';
     }); 
@@ -4305,7 +4307,7 @@ getAdminSettings(){
 
 onButtonEnter(hoverName: HTMLElement) {
   hoverName.style.backgroundColor = this.adminData.colourHoveredButton ?  this.adminData.colourHoveredButton: '';
-  console.log(hoverName);
+  //console.log(hoverName);
 }
 
 onButtonOut(hoverName: HTMLElement) {
@@ -4381,7 +4383,7 @@ openAddUomDialog(): void {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      //console.log(result);
         if(result){   
               setTimeout(() => {
 
@@ -4409,7 +4411,7 @@ public onComputeTotal(){
     let _gst = ((_subtotal + _bmp_subtotal) * _taxRate) /  100;
     let _itemTotal = _gst + _bmp_subtotal + _subtotal;
     
-    console.log(_subtotal);
+    //console.log(_subtotal);
     this.editForm.patchValue({
         subTotal: _subtotal.toFixed(2),
         gst: _gst.toFixed(2),
@@ -4440,8 +4442,8 @@ public findInvalidControls() {
         }
     }
 
-    console.log(controlsRfi);
-    console.log(invalid);
+    //console.log(controlsRfi);
+    //console.log(invalid);
 
     let htmlVal = '';
 
@@ -4480,14 +4482,14 @@ async onFileChange(event) {
           }
         }
 
-        console.log(imageFile);
+        //console.log(imageFile);
 
         // Crop Lnadscape images and convert to base64
         const imageCropped = await this.fileListToBase64(event.target.files);
 
         // Convert Base64 to File
        
-        console.log(imageCropped);
+        //console.log(imageCropped);
 
         // Convert Base64 to File
         const compressedFiles = await  Promise.all(
@@ -4500,7 +4502,7 @@ async onFileChange(event) {
           await compressedFiles.map(async (imageFile: File) => await imageCompression(imageFile, options))
         )
         
-        console.log(compressedFiles2);
+        //console.log(compressedFiles2);
 
 
         let reader = new FileReader();
@@ -4676,7 +4678,7 @@ get g(){
 //     this.data_api.addActivityLog(this.userDetails.user_id,passData)
 //       .subscribe(
 //         (result) => {
-//           console.log(result);
+//           //console.log(result);
 //           this.dialogRef.close('success');
 //         }
 //     ); 
@@ -4686,7 +4688,7 @@ public checkFBUserExist(): void {
 
     this.spinnerService.show();
     this.data_api.checkFBUserExist(this.rfiForm.value.userEmail).pipe(first()).subscribe(data => {
-      console.log(data);
+      //console.log(data);
 
         if(data.length > 0){
 
@@ -4747,11 +4749,11 @@ public addNewUserOwner() {
         userAccounts: this.itemUserAccounts,
     });
 
-    console.log(this.rfiForm.value);
+    //console.log(this.rfiForm.value);
 
     this.spinnerService.show();
     this.data_api.createUser(this.rfiForm.value).then(() => {
-          console.log('Created new Owner successfully!');
+          //console.log('Created new Owner successfully!');
 
             $.notify({
               icon: 'notifications',
@@ -4815,7 +4817,7 @@ ngOnInit() {
 
 onButtonEnter(hoverName: HTMLElement) {
   hoverName.style.backgroundColor = this.adminData.colourHoveredButton ?  this.adminData.colourHoveredButton: '';
-  console.log(hoverName);
+  //console.log(hoverName);
 }
 
 onButtonOut(hoverName: HTMLElement) {
@@ -4824,7 +4826,7 @@ onButtonOut(hoverName: HTMLElement) {
 
 getAdminSettings(){
   this.data_api.getFBAdminSettings().subscribe((data) => {
-      console.log(data);
+      //console.log(data);
       if(data){
         this.adminData = data;
         this.colorBtnDefault = data.colourEnabledButton ? data.colourEnabledButton : '';
@@ -4889,7 +4891,7 @@ public addNewUom() {
     this.spinnerService.show();
 
     this.data_api.createFBUomDaily(this.rfiForm.value.uom).then((result) => {
-      console.log(result);
+      //console.log(result);
       this.dialogRef.close('success');
       this.spinnerService.hide();
       this.dialogRef.close(result);
@@ -4932,7 +4934,7 @@ ngOnInit() {
 
 onButtonEnter(hoverName: HTMLElement) {
   hoverName.style.backgroundColor = this.adminData.colourHoveredButton ?  this.adminData.colourHoveredButton: '';
-  console.log(hoverName);
+  //console.log(hoverName);
 }
 
 onButtonOut(hoverName: HTMLElement) {
@@ -4988,15 +4990,15 @@ public async confirmRemove() {
   // this.dialogRef.close(this.pdfSrcs);
 
   for (let i = 0; i < this.rep.length; i++) {
-      console.log(this.rep[i]);
+      //console.log(this.rep[i]);
       if(this.rep[i] == true){
         // this.pdfSrcs.splice(i, 1);
         this.tbdPDF.push(this.data[i]);
-        console.log(i)
+        //console.log(i)
       }
   }
-  console.log(this.pdfSrcs);
-  console.log(this.tbdPDF);
+  //console.log(this.pdfSrcs);
+  //console.log(this.tbdPDF);
  
   let arrayDiff = this.pdfSrcs.filter(x => !this.tbdPDF.includes(x));
 
@@ -5011,7 +5013,7 @@ public async confirmRemove() {
 
 ngOnInit() {
   this.getAdminSettings();
-  console.log(this.data)
+  //console.log(this.data)
   // this.pdfSrcs = this.data
   // this.rfiForm = this.formBuilder.group({
   //   pdfSrcs: ['']
@@ -5029,7 +5031,7 @@ ngOnInit() {
 
 getAdminSettings(){
     this.data_api.getFBAdminSettings().subscribe((data) => {
-        console.log(data);
+        //console.log(data);
         this.adminData = data;
         this.colorBtnDefault = data.colourEnabledButton ? data.colourEnabledButton : '';
     }); 
@@ -5037,7 +5039,7 @@ getAdminSettings(){
 
 onButtonEnter(hoverName: HTMLElement) {
   hoverName.style.backgroundColor = this.adminData.colourHoveredButton ?  this.adminData.colourHoveredButton: '';
-  console.log(hoverName);
+  //console.log(hoverName);
 }
 
 onButtonOut(hoverName: HTMLElement) {
@@ -5109,7 +5111,7 @@ public async confirmApprove() {
 
 ngOnInit() {
   this.getAdminSettings();
-  console.log(this.data)
+  //console.log(this.data)
   // this.pdfSrcs = this.data
   this.rfiForm = this.formBuilder.group({
     comments: ['', Validators.required],
@@ -5121,7 +5123,7 @@ ngOnInit() {
 
 getAdminSettings(){
     this.data_api.getFBAdminSettings().subscribe((data) => {
-        console.log(data);
+        //console.log(data);
         this.adminData = data;
         this.colorBtnDefault = data.colourEnabledButton ? data.colourEnabledButton : '';
     }); 
@@ -5129,7 +5131,7 @@ getAdminSettings(){
 
 onButtonEnter(hoverName: HTMLElement) {
   hoverName.style.backgroundColor = this.adminData.colourHoveredButton ?  this.adminData.colourHoveredButton: '';
-  console.log(hoverName);
+  //console.log(hoverName);
 }
 
 onButtonOut(hoverName: HTMLElement) {
@@ -5172,7 +5174,7 @@ onNoClick(): void {
 
 ngOnInit() {
   this.getAdminSettings();
-  console.log(this.data);
+  //console.log(this.data);
   this.comments = this.data
   // this.pdfSrcs = this.data
   // this.rfiForm = this.formBuilder.group({
@@ -5186,7 +5188,7 @@ ngOnInit() {
 
 getAdminSettings(){
     this.data_api.getFBAdminSettings().subscribe((data) => {
-        console.log(data);
+        //console.log(data);
         this.adminData = data;
         this.colorBtnDefault = data.colourEnabledButton ? data.colourEnabledButton : '';
     }); 
@@ -5194,7 +5196,7 @@ getAdminSettings(){
 
 onButtonEnter(hoverName: HTMLElement) {
   hoverName.style.backgroundColor = this.adminData.colourHoveredButton ?  this.adminData.colourHoveredButton: '';
-  console.log(hoverName);
+  //console.log(hoverName);
 }
 
 onButtonOut(hoverName: HTMLElement) {
@@ -5280,7 +5282,7 @@ ngOnInit() {
   }, {
   });
 
-  console.log(this.data)
+  //console.log(this.data)
   // this.listVisitors = this.data.listVisitors;
   // this.listReasons = this.data.listReasons;
   this.getFBVarGroupNames();
@@ -5308,7 +5310,7 @@ public getFBVarGroupNames(): void {
 
 onButtonEnter(hoverName: HTMLElement) {
   hoverName.style.backgroundColor = this.adminData.colourHoveredButton ?  this.adminData.colourHoveredButton: '';
-  console.log(hoverName);
+  //console.log(hoverName);
 }
 
 onButtonOut(hoverName: HTMLElement) {
@@ -5353,7 +5355,7 @@ openAddDialog(): void {
   });
 
   dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      //console.log(result);
       if(result){   
 
         this.data_api.getFBVarGroupNames().subscribe(data => {
@@ -5448,7 +5450,7 @@ public createFBVarGroupName(): void {
 
     this.spinnerService.show();
 
-    console.log(this.rfiForm.value.supplierName);
+    //console.log(this.rfiForm.value.supplierName);
     
     this.data_api.createFBVarGroupNameDaily(this.rfiForm.value.groupName).then((result) => {
 
@@ -5500,7 +5502,7 @@ ngOnInit() {
 
 onButtonEnter(hoverName: HTMLElement) {
   hoverName.style.backgroundColor = this.adminData.colourHoveredButton ?  this.adminData.colourHoveredButton: '';
-  console.log(hoverName);
+  //console.log(hoverName);
 }
 
 onButtonOut(hoverName: HTMLElement) {

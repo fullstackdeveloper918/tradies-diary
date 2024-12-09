@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   message:string;
 
   constructor( private router: Router, private spinnerService: NgxLoadingSpinnerService, private myService: MyService ) {
-    console.log(this.message);
+    // console.log(this.message);
     router.events.subscribe(
       (event: RouterEvent): void => {
         if (event instanceof RouteConfigLoadStart) {

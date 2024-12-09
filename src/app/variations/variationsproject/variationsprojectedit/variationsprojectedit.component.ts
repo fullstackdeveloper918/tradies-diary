@@ -289,7 +289,7 @@ export class VariationsProjectEditComponent implements OnInit {
 
     getProject(){
       this.data_api.getFBProject(this.passID.id).pipe(first()).subscribe(data => {
-          console.log(data);
+          console.log('data',data);
           this.projectData = data;
           this.projUploadFolder = data.uploadFolder;
 

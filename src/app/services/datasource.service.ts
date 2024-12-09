@@ -122,7 +122,7 @@ export class DatasourceService {
   }
 
   getCurrentProject(){
-    console.log('this.accontfirebase', this.accountFirebase);
+    //console.log('this.accontfirebase', this.accountFirebase);
     
       return this.accountFirebase;
   }
@@ -203,9 +203,9 @@ export class DatasourceService {
     var startDate = new Date(date) ;
     var endDate = new Date(date);
     endDate.setDate(startDate.getDate() + 1);
-    console.log(projectId);
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(projectId);
+    //console.log(startDate);
+    //console.log(endDate);
     // let itemCol= this.afs.collection(this.accountFirebase+'/timesheet', ref => ref.where("projectId", '==', projectId).where("selectedDate", '>=', startDate).where("selectedDate", '<', endDate));
     // return itemCol.valueChanges();
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/timesheet', ref => ref
@@ -250,9 +250,9 @@ export class DatasourceService {
     var startDate = new Date(date) ;
     var endDate = new Date(date);
     endDate.setDate(startDate.getDate() + 1);
-    console.log(projectId);
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(projectId);
+    //console.log(startDate);
+    //console.log(endDate);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     .where("projectId", '==', projectId)
     .where("todaysDate", '>=', startDate)
@@ -262,12 +262,12 @@ export class DatasourceService {
   }
 
   getFBDailyWorkerLogs(projectId,startDate,endDate): any {
-    console.log(projectId);
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(projectId);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
+    //console.log(endDate2);
     // let itemCol= this.afs.collection(this.accountFirebase+'/timesheet', ref => ref.where("projectId", '==', projectId).where("selectedDate", '>=', startDate).where("selectedDate", '<', endDate));
     // return itemCol.valueChanges();
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/timesheet', ref => ref
@@ -312,7 +312,7 @@ export class DatasourceService {
     // create rfis
 
     async createFBRFI(id, formValue) {
-      console.log('formvlaue', formValue);
+      //console.log('formvlaue', formValue);
       return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis').doc(id).set(formValue)
     }
 
@@ -326,7 +326,7 @@ export class DatasourceService {
     }
 
     updateFBRFI(id,formValue): any {
-      console.log('formvalue', formValue);
+      ////console.log('formvalue', formValue);
       return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis').doc(id).update(formValue)
     }
 
@@ -403,7 +403,7 @@ export class DatasourceService {
     }
     
     getFBVariations(projectId): any {
-      console.log(projectId);
+      //console.log(projectId);
       let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
       .where("projectId", '==', projectId));
       // return itemCol.valueChanges({ idField: 'id' }).pipe(debounceTime(500));
@@ -425,7 +425,7 @@ export class DatasourceService {
   //   ).snapshotChanges()
   //   .subscribe(response => {
   //       if (!response.length) {
-  //         console.log("No Data Available");
+  //         //console.log("No Data Available");
   //         return false;
   //       }
   //       return response;
@@ -446,9 +446,9 @@ export class DatasourceService {
     var startDate = new Date(date) ;
     var endDate = new Date(date);
     endDate.setDate(startDate.getDate() + 1);
-    console.log(projectId);
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(projectId);
+    //console.log(startDate);
+    //console.log(endDate);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/weeklyReport', ref => ref
     .where("projectId", '==', projectId)
     .where("weekendDate", '>=', startDate)
@@ -490,9 +490,9 @@ export class DatasourceService {
     // var endDate = new Date(date);
     // var startDate = new Date(date) ; 
     // startDate.setDate(endDate.getDate() + 1);
-    console.log(projectId);
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(projectId);
+    //console.log(startDate);
+    //console.log(endDate);
     // let itemCol= this.afs.collection(this.accountFirebase+'/timesheet', ref => ref.where("projectId", '==', projectId).where("selectedDate", '>=', startDate).where("selectedDate", '<', endDate));
     // return itemCol.valueChanges();
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/timesheet', ref => ref
@@ -527,7 +527,7 @@ export class DatasourceService {
   }
 
   getFBProjectsSelection(): any {
-    console.log('running for selection')
+    //console.log('running for selection')
     let itemCol = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/projects', ref => ref
     .orderBy('projectName', 'asc')
     );
@@ -594,7 +594,7 @@ export class DatasourceService {
 
     let itemCol = this.afs.collection('users', ref => ref
     .where("userAccounts", 'array-contains', this.accountFirebase));
-    console.log(itemCol, 'itemcol')
+    //console.log(itemCol, 'itemcol')
     return itemCol.valueChanges({ idField: 'id' }).pipe(debounceTime(500));
   }
 
@@ -1306,9 +1306,9 @@ export class DatasourceService {
   
   // Get Admin Settings
   getFBAdminSettings(){
-    console.log(this.accountFirebase);
+    //console.log(this.accountFirebase);
     let itemDoc = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/admin').doc('/admin_settings');
-    console.log(itemDoc);
+    //console.log(itemDoc);
     return itemDoc.valueChanges();
   }
 
@@ -1357,9 +1357,9 @@ export class DatasourceService {
   }
 
   getFBCounterDailyReport(){
-    console.log(this.accountFirebase);
+    //console.log(this.accountFirebase);
     let itemDoc = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/admin').doc('/counter_daily');
-    console.log(itemDoc);
+    //console.log(itemDoc);
     return itemDoc.valueChanges();
   }
 
@@ -1368,9 +1368,9 @@ export class DatasourceService {
   }
 
   getFBCounterWeeklyReport(){
-    console.log(this.accountFirebase);
+    //console.log(this.accountFirebase);
     let itemDoc = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/admin').doc('/counter_weekly');
-    console.log(itemDoc);
+    //console.log(itemDoc);
     return itemDoc.valueChanges();
   }
 
@@ -1379,9 +1379,9 @@ export class DatasourceService {
   }
 
   // getFBCounterVariation(){
-  //   console.log(this.accountFirebase);
+  //   //console.log(this.accountFirebase);
   //   let itemDoc = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/admin').doc('/counter_variation');
-  //   console.log(itemDoc);
+  //   //console.log(itemDoc);
   //   return itemDoc.valueChanges();
   // }
 
@@ -1390,7 +1390,7 @@ export class DatasourceService {
   // }
 
   updateFBCounterProjectVariation(id,counter): any {
-    console.log(id,counter, 'check both')
+    //console.log(id,counter, 'check both')
     return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/projects').doc(id).update({
       counterVariation: counter
     })
@@ -1398,24 +1398,24 @@ export class DatasourceService {
 
   // Get Variations Settings
   getFBVariationsSettings(){
-    console.log(this.accountFirebase);
+    //console.log(this.accountFirebase);
     let itemDoc = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/admin').doc('/variations_settings');
-    console.log(itemDoc);
+    //console.log(itemDoc);
     return itemDoc.valueChanges();
   }
 
   // get rfi settings
   getFBRfisSettings(){
-    console.log(this.accountFirebase);
+    //console.log(this.accountFirebase);
     let itemDoc = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/admin').doc('/rfis_settings');
-    console.log(itemDoc);
+    //console.log(itemDoc);
     return itemDoc.valueChanges();
   }
 
   getFBSelectionSettings(){
-    console.log(this.accountFirebase);
+    //console.log(this.accountFirebase);
     let itemDoc = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/admin').doc('/selections_settings');
-    console.log(itemDoc);
+    //console.log(itemDoc);
     return itemDoc.valueChanges();
   }
 
@@ -1453,8 +1453,8 @@ export class DatasourceService {
     var startDate = new Date(date) ;
     var endDate = new Date(date);
     endDate.setDate(startDate.getDate() + 1);
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     .where("todaysDate", '>=', startDate)
     .where("todaysDate", '<', endDate));
@@ -1465,8 +1465,8 @@ export class DatasourceService {
     var startDate = new Date(date) ;
     var endDate = new Date(date);
     endDate.setDate(startDate.getDate() + 1);
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/weeklyReport', ref => ref
     .where("weekendDate", '>=', startDate)
     .where("weekendDate", '<', endDate));
@@ -1477,8 +1477,8 @@ export class DatasourceService {
     var startDate = new Date(date) ;
     var endDate = new Date(date);
     endDate.setDate(startDate.getDate() + 1);
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     // let itemCol= this.afs.collection(this.accountFirebase+'/timesheet', ref => ref.where("projectId", '==', projectId).where("selectedDate", '>=', startDate).where("selectedDate", '<', endDate));
     // return itemCol.valueChanges();
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/timesheet', ref => ref
@@ -1488,7 +1488,7 @@ export class DatasourceService {
   }
 
   getFBDashboardSearchProjectDailyReport(projectId): any {
-    console.log(projectId);
+    //console.log(projectId);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     .where("projectId", '==', projectId)
     .orderBy("todaysDate", 'desc'));
@@ -1496,7 +1496,7 @@ export class DatasourceService {
   }
 
   getFBDashboardSearchProjectWeeklyReport(projectId): any {
-    console.log(projectId);
+    //console.log(projectId);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/weeklyReport', ref => ref
     .where("projectId", '==', projectId)
     .orderBy("weekendDate", 'desc'));
@@ -1504,7 +1504,7 @@ export class DatasourceService {
   }
 
   getFBDashboardSearchProjectWorker(projectId): any {
-    console.log(projectId);
+    //console.log(projectId);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/timesheet', ref => ref
     .where("projectId", '==', projectId)
     .orderBy("selectedDate", 'desc'));
@@ -1520,7 +1520,7 @@ export class DatasourceService {
   // }
 
   getFBDashboardSearchTradeReport(tradeID): any {
-    console.log(tradeID);
+    //console.log(tradeID);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     .where("tradesIdArray", 'array-contains', tradeID)
     .orderBy("todaysDate", 'desc')
@@ -1529,11 +1529,11 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsbyDateRangeOnly(startDate,endDate): any {
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
+    //console.log(endDate2);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     // .where("staffIdArray", 'array-contains', workerID)
     // .where("projectId", '==', projectId)
@@ -1544,11 +1544,11 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsbyDateRangeOnly2(startDate,endDate): any {
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2); 
+    //console.log(endDate2); 
     // let itemCol= this.afs.collection(this.accountFirebase+'/timesheet', ref => ref.where("projectId", '==', projectId).where("selectedDate", '>=', startDate).where("selectedDate", '<', endDate));
     // return itemCol.valueChanges();
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/timesheet', ref => ref
@@ -1561,11 +1561,11 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsbyDateRange(projectId,startDate,endDate,workerID): any {
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
+    //console.log(endDate2);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     .where("staffIdArray", 'array-contains', workerID)
     .where("projectId", '==', projectId)
@@ -1576,13 +1576,13 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsbyDateRange2(projectId,startDate,endDate,workerID): any {
-    console.log(projectId);
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(projectId);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
-    console.log(workerID);  
+    //console.log(endDate2);
+    //console.log(workerID);  
     // let itemCol= this.afs.collection(this.accountFirebase+'/timesheet', ref => ref.where("projectId", '==', projectId).where("selectedDate", '>=', startDate).where("selectedDate", '<', endDate));
     // return itemCol.valueChanges();
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/timesheet', ref => ref
@@ -1595,11 +1595,11 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsbyDateRangeProjectOnly(projectId,startDate,endDate): any {
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
+    //console.log(endDate2);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     .where("projectId", '==', projectId)
     .where("todaysDate", '>=', startDate)
@@ -1609,12 +1609,12 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsbyDateRangeProjectOnly2(projectId,startDate,endDate): any {
-    console.log(projectId);
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(projectId);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
+    //console.log(endDate2);
     // let itemCol= this.afs.collection(this.accountFirebase+'/timesheet', ref => ref.where("projectId", '==', projectId).where("selectedDate", '>=', startDate).where("selectedDate", '<', endDate));
     // return itemCol.valueChanges();
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/timesheet', ref => ref
@@ -1626,11 +1626,11 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsbyDateRangeWorkerOnly(startDate,endDate,workerID): any {
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
+    //console.log(endDate2);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     .where("staffIdArray", 'array-contains', workerID)
     .where("todaysDate", '>=', startDate)
@@ -1640,12 +1640,12 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsbyDateRangeWorkerOnly2(startDate,endDate,workerID): any {
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
-    console.log(workerID);  
+    //console.log(endDate2);
+    //console.log(workerID);  
     // let itemCol= this.afs.collection(this.accountFirebase+'/timesheet', ref => ref.where("projectId", '==', projectId).where("selectedDate", '>=', startDate).where("selectedDate", '<', endDate));
     // return itemCol.valueChanges();
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/timesheet', ref => ref
@@ -1657,11 +1657,11 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsTradebyDateRangeOnly(startDate,endDate): any {
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
+    //console.log(endDate2);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     // .where("tradesIdArray", 'array-contains', tradeId)
     // .where("projectId", '==', projectId)
@@ -1672,11 +1672,11 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsTradebyDateRange(projectId,startDate,endDate,tradeId): any {
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
+    //console.log(endDate2);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     .where("tradesIdArray", 'array-contains', tradeId)
     .where("projectId", '==', projectId)
@@ -1687,11 +1687,11 @@ export class DatasourceService {
   }
   
   filterFBDailyReportsTradebyDateRangeProjectOnly(projectId,startDate,endDate): any {
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
+    //console.log(endDate2);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     .where("projectId", '==', projectId)
     .where("todaysDate", '>=', startDate)
@@ -1701,11 +1701,11 @@ export class DatasourceService {
   }
 
   filterFBDailyReportsTradebyDateRangeTradeOnly(startDate,endDate,tradeId): any {
-    console.log(startDate);
-    console.log(endDate);
+    //console.log(startDate);
+    //console.log(endDate);
     var endDate2 = new Date(endDate);
     endDate2.setDate(endDate.getDate() + 1);
-    console.log(endDate2);
+    //console.log(endDate2);
     let itemCol= this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport', ref => ref
     .where("tradesIdArray", 'array-contains', tradeId)
     .where("todaysDate", '>=', startDate)

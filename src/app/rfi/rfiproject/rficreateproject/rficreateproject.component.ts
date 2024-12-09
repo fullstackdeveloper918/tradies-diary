@@ -848,7 +848,7 @@ computeGroupTotal(groupIndex){
 
       for (const name in controlsVariation) {
           if (controlsVariation[name].invalid) {
-              if(name == 'variationsName'){
+              if(name == 'rfiName'){
                 invalid.push('Variation Name');
               }else if(name == 'dueDate'){
                 invalid.push('Due Date');
@@ -1784,7 +1784,7 @@ computeGroupTotal(groupIndex){
                       style: 'fieldData',
                     },
                     {
-                      text: this.rfiForm.value.variationsName,
+                      text: this.rfiForm.value.rfiName,
                       style: 'fieldData',
                     },
                     {
@@ -1968,7 +1968,7 @@ computeGroupTotal(groupIndex){
           },
         ],
       },
-      { text: this.rfiForm.value.variationsName, style: 'fieldHeader', margin: [0, -33, 0, 20 ],},
+      { text: this.rfiForm.value.rfiName, style: 'fieldHeader', margin: [0, -33, 0, 20 ],},
       { text: '', style: 'fieldHeader', margin: [0, 0, 0, 20 ],},
       this.getOpeningMessage(this.rfiForm.value.openingMessage),
       { text: '', style: 'fieldHeader', margin: [0, 0, 0, 20 ],},
@@ -2450,7 +2450,7 @@ if(str){
   
             const pdfBytes = await mergedPdf.save();
             let folderName =  this.rfiForm.value.folderName;  
-            let id = this.rfiForm.value.variationsName+'.pdf';
+            let id = this.rfiForm.value.rfiName+'.pdf';
             pdfDocGenerator.getBase64((data) => {
               let ref = this.afStorage.ref(this.accountFirebase+'/'+this.projUploadFolder+'/Variations/'+folderName+'/'+id);
 
@@ -2503,7 +2503,7 @@ if(str){
 
       const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
 
-      let id = this.rfiForm.value.variationsName+'.pdf';
+      let id = this.rfiForm.value.rfiName+'.pdf';
       
       let folderName =  this.rfiForm.value.folderName;   
 
@@ -2765,7 +2765,7 @@ if(str){
       openingMessage: this.rfiForm.value.openingMessage,
       closingMessage: this.rfiForm.value.closingMessage,
       projectName: this.projectData.projectName,
-      variationName: this.rfiForm.value.variationsName
+      variationName: this.rfiForm.value.rfiName
     }
   
 

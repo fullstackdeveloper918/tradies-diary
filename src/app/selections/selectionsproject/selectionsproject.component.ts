@@ -457,7 +457,7 @@ export class SelectionsProjectComponent implements OnInit {
         .where("projectId", '==', this.passID.id)
         .where("dueDate", '>=', startDate)
         .where("dueDate", '<', endDate)
-        .orderBy("variantsNumber", 'desc')
+        // .orderBy("selectionNumber", 'desc')
         .limit(10)
         ).snapshotChanges()
         .subscribe(response => {
@@ -673,10 +673,12 @@ export class SelectionsProjectComponent implements OnInit {
     this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
       .limit(10)
       .where("projectId", '==', this.passID.id)
-      .orderBy("variantsNumber", 'desc')
+      // .orderBy("rfiNumber", 'desc')
       .startAfter(this.lastInResponse)
     ).get()
       .subscribe(response => {
+        console.log('response', response);
+        
 
         if (!response.docs.length) {
           this.disable_next = true;
@@ -709,7 +711,7 @@ export class SelectionsProjectComponent implements OnInit {
     this.disable_prev = true;
     this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
       .where("projectId", '==', this.passID.id)
-      .orderBy("variantsNumber", 'desc')
+      // .orderBy("selectionNumber", 'desc')
       .startAt(this.get_prev_startAt())
       .endBefore(this.firstInResponse)
       .limit(10)
