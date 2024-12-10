@@ -20,13 +20,13 @@
                                     </button> 
                                 </div>
                                 <div class="col-md-6">
-                                    <form [formGroup]="filterVariationsForm" class="dcb-form" style="justify-content: flex-end;display: flex;">
-                                        <div class="filter-holder">
+                                    <form [formGroup]="filterSelectionsForm" class="dcb-form" style="justify-content: flex-end;display: flex;">
+                                        <div class="filter-holder w-100">
                                                
                                                     <div class="holder-filter-by"> 
                                                         <label><i class="material-icons">filter_alt</i> Filter by</label>
                                                         <mat-select placeholder="Select Filter Type" [(value)]="selected" name="searchChoice" #singleSelect>
-                                                            <mat-option (click)="filterVariationsForm.reset()"
+                                                            <mat-option (click)="filterSelectionsForm.reset()"
                                                                 *ngFor="let searchChoice of searchChoices"
                                                                 [value]="searchChoice.value">
                                                                 {{ searchChoice.viewValue }}
@@ -39,7 +39,7 @@
                                                         <ng-container *ngIf="selected; else notShow">
 
                                                             <label *ngIf="selected == 'status'"><i class="material-icons">filter_alt</i>Select Status</label>
-                                                            <mat-select *ngIf="selected == 'status'" (selectionChange)="filterVariations()" formControlName="status" id="status" name="status">
+                                                            <mat-select *ngIf="selected == 'status'" (selectionChange)="filterSelections()" formControlName="status" id="status" name="status">
                                                                     <mat-option *ngFor="let _varStatus of varStatus" [value]="_varStatus.value">
                                                                     {{ _varStatus.viewValue }}
                                                                     </mat-option>
@@ -47,7 +47,7 @@
 
                                                             <label *ngIf="selected == 'due_date'"><i class="material-icons">filter_alt</i>Enter Date</label>
                                                             <ng-container  *ngIf="selected == 'due_date'">
-                                                                <input (dateChange)="filterVariations()" matInput [matDatepicker]="pickerflight"
+                                                                <input (dateChange)="filterSelections()" matInput [matDatepicker]="pickerflight"
                                                                 placeholder="Enter Due Date (dd/mm/yyyy)" (click)="pickerflight.open()" formControlName="dueDate">
                                                                 <mat-datepicker-toggle matSuffix [for]="pickerflight"  style = "display: none;">
                                                                 </mat-datepicker-toggle>
@@ -83,7 +83,7 @@
                             </div>
                             
                             <div class = "row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 table">
                     
                                         <ng2-smart-table [settings]="selectionSettings" [source]="source"></ng2-smart-table>
                                    

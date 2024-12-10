@@ -592,7 +592,7 @@ export class RFIPROJECTComponent {
 
     this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
     .where("projectId", '==', this.passID.id)
-    // .orderBy("rfiNumber", 'desc')
+    .orderBy("rfiNumber", 'desc')
     .limit(10)
     ).snapshotChanges()
     .subscribe(response => {
@@ -625,6 +625,8 @@ export class RFIPROJECTComponent {
         //Push first item to use for Previous action
         this.push_prev_startAt(this.firstInResponse);
         }, error => {
+          console.log('errror', error);
+          
         });
 
 }
@@ -655,7 +657,7 @@ nextPage() {
   this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
     .limit(10)
     .where("projectId", '==', this.passID.id)
-    // .orderBy("variantsNumber", 'desc')
+    .orderBy("rfiNumber", 'desc')
     .startAfter(this.lastInResponse)
   ).get()
     .subscribe(response => {
@@ -692,7 +694,7 @@ prevPage() {
   this.disable_prev = true;
   this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
     .where("projectId", '==', this.passID.id)
-    // .orderBy("variantsNumber", 'desc')
+    .orderBy("rfiNumber", 'desc')
     .startAt(this.get_prev_startAt())
     .endBefore(this.firstInResponse)
     .limit(10)

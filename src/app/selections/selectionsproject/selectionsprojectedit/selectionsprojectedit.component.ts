@@ -70,7 +70,7 @@ export class SelectionsprojecteditComponent {
 
   public filter_list_trades: ReplaySubject<any[]>[] = [];
 
-  projectVariationRecipientControl = new FormControl([]);
+  projectSelectionControl = new FormControl([]);
 
   projectOwnerControl = new FormControl([]);//One time Variation Control
 
@@ -306,7 +306,7 @@ export class SelectionsprojecteditComponent {
               }
           });
 
-          this.projectVariationRecipientControl.setValue(this.setProjectSelectionRecipient);
+          this.projectSelectionControl.setValue(this.setProjectSelectionRecipient);
           console.log(this.setProjectSelectionRecipient);
 
         }
@@ -2848,15 +2848,16 @@ getFooter2(currentPage, pageCount) {
 
       const pdfA =  await PDFDocument.load(buffer);
       const copiedPagesA = await mergedPdf.copyPages(pdfA, pdfA.getPageIndices());
-      copiedPagesA.forEach((page) => mergedPdf.addPage(page));
-
+      copiedPagesA.forEach((page) => mergedPdf.addPage(page));        
         for (const document of myFiles) {
             const existingPdfBytes = await fetch(document).then((res) =>
               res.arrayBuffer()
             );
-      
+            console.log('esitingpdbytes', existingPdfBytes);
+             
             const pdfDoc = await PDFDocument.load(existingPdfBytes);
-      
+            console.log('pdfdoc', pdfDoc);
+            
             const copiedPages = await mergedPdf.copyPages(
               pdfDoc,
               pdfDoc.getPageIndices()

@@ -5,3 +5,8 @@
 .flex-colcol {
     gap: 60px;
 }
+
+.table{
+    overflow-x: scroll;
+}
+

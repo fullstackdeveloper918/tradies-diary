@@ -41,11 +41,11 @@
                                           <div class="row">
                                               <div class="col-lg-62 col-md-6">
                                                   <label style="width: 100%;display: flex;justify-content: space-between;">Project Selection Recipient/s</label>
-                                                  <mat-select [formControl]="projectVariationRecipientControl" placeholder="Clients" multiple #multiSelect disabled class="no-dropdown">
+                                                  <mat-select [formControl]="projectSelectionRecipientControl" placeholder="Clients" multiple #multiSelect disabled class="no-dropdown">
                       
                                                   <mat-select-trigger>
                                                       <mat-chip-set>
-                                                      <mat-chip *ngFor="let topping of projectVariationRecipientControl.value; index as i" [removable]="false"
+                                                      <mat-chip *ngFor="let topping of projectSelectionRecipientControl.value; index as i" [removable]="false"
                                                           (removed)="onToppingRemoved(topping, i)">
                                                           {{ topping.name }}
                                                           <!-- <mat-icon matChipRemove>cancel</mat-icon> -->
@@ -406,7 +406,7 @@
                                       (mouseleave)="onButtonOut($event.target)"  
                                       type="button"  
                                       class="btn dcb-btn btn-compact" 
-                                      (click)="addVariationGroupArray()">Add Group
+                                      (click)="addSelectionGroupArray()">Add Group
                                   </button>
                               
                                   <div class="row">

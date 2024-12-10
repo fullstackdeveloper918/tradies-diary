@@ -37,6 +37,7 @@ declare const $: any;
 @Component({
   selector: 'app-selectionsproject',
   templateUrl: './selectionsproject.component.html',
+  styleUrls : ['./selectionsproject.component.css'],
   providers: [
     {provide: DateAdapter, useClass: AppDateAdapter},
     {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS},
@@ -52,7 +53,7 @@ export class SelectionsProjectComponent implements OnInit {
 
     projectData;
 
-    filterVariationsForm: FormGroup;
+    filterSelectionsForm: FormGroup;
 
     searchChoices = [
       {value: 'status', viewValue: 'Status'},
@@ -127,7 +128,7 @@ export class SelectionsProjectComponent implements OnInit {
                 return row.selectionNumber;
             }
           },            
-          variation_name: {
+          selection_name: {
             title: 'Selection Name',
             sort: false,
             valuePrepareFunction: (cell,row) => {
@@ -193,8 +194,8 @@ export class SelectionsProjectComponent implements OnInit {
         disable_next: boolean = false;
         disable_prev: boolean = false;
 
-        public variationSearchStatus = [];
-        public variationSearchDueDate = [];
+        public selectionSearchStatus = [];
+        public selectionSearchDueDate = [];
 
         public listmode = 'default';
 
@@ -249,10 +250,10 @@ export class SelectionsProjectComponent implements OnInit {
         //     staffFormArray: this.formBuilder.array([ this.createStaffForm() ]),
         // });
         //   this.getFBTrade();
-         this.getVariations();
+         this.getSelections();
          this.getProject();
 
-         this.filterVariationsForm = this.formBuilder.group({
+         this.filterSelectionsForm = this.formBuilder.group({
             status: [''],
             dueDate: [''],
         });
@@ -275,7 +276,7 @@ export class SelectionsProjectComponent implements OnInit {
         hoverName.style.backgroundColor = this.adminData.colourEnabledButton ?  this.adminData.colourEnabledButton: '';
   }
 
-    // public getVariations(){
+    // public getSelections(){
     //   this.data_api.getFBVariations(this.passID.id).subscribe(data => {
     //       console.log(data);
     //       //this.source = data;
@@ -283,9 +284,9 @@ export class SelectionsProjectComponent implements OnInit {
     //   });
 
     // }
-    getTotal(variationGroupArray){
+    getTotal(selectionGroupArray){
       let total = 0;
-      for (let group of variationGroupArray) { 
+      for (let group of selectionGroupArray) { 
         total = total + parseFloat(group.groupTotal)
       }
       return total;
@@ -297,24 +298,24 @@ export class SelectionsProjectComponent implements OnInit {
       });
     }
 
-    filterVariations(){
+    filterSelections(){
 
-      if( this.filterVariationsForm.value.status){
+      if( this.filterSelectionsForm.value.status){
         this.listmode = 'filter-status';
-        this.getVariationsFilterStatus();
-      }else if( this.filterVariationsForm.value.dueDate){
+        this.getSelectionsFilterStatus();
+      }else if( this.filterSelectionsForm.value.dueDate){
         this.listmode = 'filter-duedate';
-        this.getVariationsFilterDueDate();
+        this.getSelectionsFilterDueDate();
       }
       
     }
 
     //Filter Status
-    getVariationsFilterStatus(){
+    getSelectionsFilterStatus(){
 
           this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
           .where("projectId", '==', this.passID.id)
-          .where("status", '==', this.filterVariationsForm.value.status)
+          .where("status", '==', this.filterSelectionsForm.value.status)
           .orderBy("selectionNumber", 'desc')
           .limit(10)
           ).snapshotChanges()
@@ -376,7 +377,7 @@ export class SelectionsProjectComponent implements OnInit {
         this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
           .limit(10)
           .where("projectId", '==', this.passID.id)
-          .where("status", '==', this.filterVariationsForm.value.status)
+          .where("status", '==', this.filterSelectionsForm.value.status)
           .orderBy("variantsNumber", 'desc')
           .startAfter(this.lastInResponse)
         ).get()
@@ -414,7 +415,7 @@ export class SelectionsProjectComponent implements OnInit {
         this.disable_prev = true;
         this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
           .where("projectId", '==', this.passID.id)
-          .where("status", '==', this.filterVariationsForm.value.status)
+          .where("status", '==', this.filterSelectionsForm.value.status)
           .orderBy("variantsNumber", 'desc')
           .startAt(this.get_prev_startAt())
           .endBefore(this.firstInResponse)
@@ -448,10 +449,10 @@ export class SelectionsProjectComponent implements OnInit {
 
 
     //Filter Due Date
-    getVariationsFilterDueDate(){
+    getSelectionsFilterDueDate(){
 
-        var startDate = new Date(this.filterVariationsForm.value.dueDate) ;
-        var endDate = new Date(this.filterVariationsForm.value.dueDate);
+        var startDate = new Date(this.filterSelectionsForm.value.dueDate) ;
+        var endDate = new Date(this.filterSelectionsForm.value.dueDate);
         endDate.setDate(startDate.getDate() + 1);
         this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
         .where("projectId", '==', this.passID.id)
@@ -513,8 +514,8 @@ export class SelectionsProjectComponent implements OnInit {
 
     nextPageFilterDueDate() {
 
-      var startDate = new Date(this.filterVariationsForm.value.dueDate) ;
-      var endDate = new Date(this.filterVariationsForm.value.dueDate);
+      var startDate = new Date(this.filterSelectionsForm.value.dueDate) ;
+      var endDate = new Date(this.filterSelectionsForm.value.dueDate);
       endDate.setDate(startDate.getDate() + 1);
 
       this.disable_next = true;
@@ -557,8 +558,8 @@ export class SelectionsProjectComponent implements OnInit {
     //Show previous set 
     prevPageFilterDueDate() {
 
-      var startDate = new Date(this.filterVariationsForm.value.dueDate) ;
-      var endDate = new Date(this.filterVariationsForm.value.dueDate);
+      var startDate = new Date(this.filterSelectionsForm.value.dueDate) ;
+      var endDate = new Date(this.filterSelectionsForm.value.dueDate);
       endDate.setDate(startDate.getDate() + 1);
 
       this.disable_prev = true;
@@ -599,15 +600,15 @@ export class SelectionsProjectComponent implements OnInit {
 
     // Default 
 
-    getVariations(){
-       console.log('getvariaton is working');
+    getSelections(){
+       console.log('getvariaton is working'); 
       console.log('this.accountFirebase', this.accountFirebase);
       console.log('prejctId', this.passID.id);
       
       
       this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
       .where("projectId", '==', this.passID.id)
-      // .orderBy("selectionNumber", 'desc')
+      .orderBy("selectionNumber", 'desc')
       .limit(10)
       ).snapshotChanges()
       .subscribe(response => {
@@ -673,7 +674,7 @@ export class SelectionsProjectComponent implements OnInit {
     this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
       .limit(10)
       .where("projectId", '==', this.passID.id)
-      // .orderBy("rfiNumber", 'desc')
+      .orderBy("selectionNumber", 'desc')
       .startAfter(this.lastInResponse)
     ).get()
       .subscribe(response => {
@@ -711,7 +712,7 @@ export class SelectionsProjectComponent implements OnInit {
     this.disable_prev = true;
     this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
       .where("projectId", '==', this.passID.id)
-      // .orderBy("selectionNumber", 'desc')
+      .orderBy("selectionNumber", 'desc')
       .startAt(this.get_prev_startAt())
       .endBefore(this.firstInResponse)
       .limit(10)
@@ -744,10 +745,10 @@ export class SelectionsProjectComponent implements OnInit {
 
   public reset(){
     this.listmode = 'default';
-    this.filterVariationsForm.patchValue({
+    this.filterSelectionsForm.patchValue({
       status: '',
       dueDate: '',
     });
-    this.getVariations();
+    this.getSelections();
   }
 }

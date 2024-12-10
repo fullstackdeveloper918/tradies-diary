@@ -4237,7 +4237,6 @@ export class UserAddOwnerDialog implements OnInit {
   // }
   
   public checkFBUserExist(): void {
-
       this.spinnerService.show();
       this.data_api.checkFBUserExist(this.addFestForm.value.userEmail).pipe(first()).subscribe(data => {
   

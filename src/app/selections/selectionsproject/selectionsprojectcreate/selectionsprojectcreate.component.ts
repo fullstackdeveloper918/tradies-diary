@@ -75,9 +75,9 @@ export class SelectionsprojectcreateComponent implements OnInit {
 
     public filter_list_trades: ReplaySubject<any[]>[] = [];
 
-    projectVariationRecipientControl = new FormControl([]);
+    projectSelectionRecipientControl = new FormControl([]);
 
-    public setProjectVariationRecipient = [];
+    public setProjectSelectionRecipient = [];
 
     projectOwnerControl = new FormControl([]); //One time Variation Control
 
@@ -104,9 +104,9 @@ export class SelectionsprojectcreateComponent implements OnInit {
 
     selectionId;
 
-    variationAdminData;
+    selectionAdminData;
 
-    displayVariationNumber;
+    displaySelectionNumber;
 
     unitMeasurements=[
       {value: 'M3', viewValue: 'M3'},
@@ -290,8 +290,8 @@ export class SelectionsprojectcreateComponent implements OnInit {
               this.projectData = data;
               this.projUploadFolder = data.uploadFolder;
   
-              let varSetJobNum = this.variationAdminData.varSetJobNum ? this.variationAdminData.varSetJobNum : true;
-              let varSetCode = this.variationAdminData.varSetCode ? this.variationAdminData.varSetCode : 'V';
+              let varSetJobNum = this.selectionAdminData.varSetJobNum ? this.selectionAdminData.varSetJobNum : true;
+              let varSetCode = this.selectionAdminData.varSetCode ? this.selectionAdminData.varSetCode : 'V';
               let varSetStartNumber = this.projectData.varProjStartNumber ? this.projectData.varProjStartNumber : 1;
   
               let displayJobNum = '';
@@ -301,24 +301,24 @@ export class SelectionsprojectcreateComponent implements OnInit {
   
               if (this.projectData.counterVariation) { // if project variation exists
                   if (this.projectData.counterVariation >= varSetStartNumber) { // if project var num is higher or equal to admin var num
-                      this.displayVariationNumber = this.checkDigitNumbers(parseInt(this.projectData.counterVariation) + 1);
+                      this.displaySelectionNumber = this.checkDigitNumbers(parseInt(this.projectData.counterVariation) + 1);
                   } else { // if project var num is lower than admin var num
                       if (varSetStartNumber > 1) {  // if admin var num is higher than 0
-                          this.displayVariationNumber = this.checkDigitNumbers(varSetStartNumber);
+                          this.displaySelectionNumber = this.checkDigitNumbers(varSetStartNumber);
                       } else {
-                          this.displayVariationNumber = this.checkDigitNumbers(1);
+                          this.displaySelectionNumber = this.checkDigitNumbers(1);
                       }
                   }
               } else { // if project variation does not exist
                   if (varSetStartNumber > 1) {   // if admin var num is higher than 0
-                      this.displayVariationNumber = this.checkDigitNumbers(varSetStartNumber);
+                      this.displaySelectionNumber = this.checkDigitNumbers(varSetStartNumber);
                   } else {
-                      this.displayVariationNumber = this.checkDigitNumbers(1);
+                      this.displaySelectionNumber = this.checkDigitNumbers(1);
                   }
               }
   
               this.selectionForm.patchValue({
-                  selectionNumber: displayJobNum + "SEL" + this.checkDigitNumbers(this.displayVariationNumber),
+                  selectionNumber: displayJobNum + "SEL" + this.checkDigitNumbers(this.displaySelectionNumber),
                   bmLineitem: this.checkGlobalBooleanVariationSettings(data.bmLineitem) ? data.bmLineitem : false,
                   bmTotalFigure: this.checkGlobalBooleanVariationSettings(data.bmTotalFigure) ? data.bmTotalFigure : false,
                   bmHideAll: this.checkGlobalBooleanVariationSettings(data.bmHideAll) ? data.bmHideAll : false,
@@ -332,7 +332,7 @@ export class SelectionsprojectcreateComponent implements OnInit {
               console.log(this.selectionForm.value, 'checkmate');
   
               if (data.recipientVariation) {
-                  this.setProjectVariationRecipient = [];
+                  this.setProjectSelectionRecipient = [];
                   let projectOwnerIDs;
   
                   projectOwnerIDs = data.recipientVariation;
@@ -340,7 +340,7 @@ export class SelectionsprojectcreateComponent implements OnInit {
                   projectOwnerIDs.forEach(value => {
                       if (this.findObjectByKey(this.projectOwnersProject, 'id', value)) {
                           var item = this.findObjectByKey(this.projectOwnersProject, 'id', value);
-                          this.setProjectVariationRecipient.push(item);
+                          this.setProjectSelectionRecipient.push(item);
                       }
                       var index = this.projectOwners.findIndex(x => x.id == value);
                       if (index !== -1) {
@@ -349,7 +349,7 @@ export class SelectionsprojectcreateComponent implements OnInit {
                       }
                   });
   
-                  this.projectVariationRecipientControl.setValue(this.setProjectVariationRecipient);
+                  this.projectSelectionRecipientControl.setValue(this.setProjectSelectionRecipient);
               }
           // }
         // );
@@ -401,7 +401,7 @@ export class SelectionsprojectcreateComponent implements OnInit {
       });
     }
 
-    addVariationGroupArray() {
+    addSelectionGroupArray() {
       this.selectionGroupArray().push(this.createVariationGroupArray());
     }
   
@@ -2258,7 +2258,7 @@ cleanChar(str){
         } 
         
 
-        if(  (this.selectionForm.value.projectOwner.length < 1) &&  (this.setProjectVariationRecipient.length < 1) ){
+        if(  (this.selectionForm.value.projectOwner.length < 1) &&  (this.setProjectSelectionRecipient.length < 1) ){
 
           swal.fire({
             title: "Please Add at least 1 Selection Recipient",
@@ -2614,10 +2614,10 @@ cleanChar(str){
           groupIndex++;
         }
       
-        console.log(this.selectionForm.value.projectId,  this.displayVariationNumber , 'see')
+        console.log(this.selectionForm.value.projectId,  this.displaySelectionNumber , 'see')
 
    
-        this.data_api.updateFBCounterProjectVariation(this.selectionForm.value.projectId, this.displayVariationNumber ).then((res) => {
+        this.data_api.updateFBCounterProjectVariation(this.selectionForm.value.projectId, this.displaySelectionNumber ).then((res) => {
             console.log('res', res)
         });
 
@@ -2860,8 +2860,10 @@ cleanChar(str){
   getVariationSettings(){
 
       this.data_api.getFBVariationsSettings().subscribe((data) => {
+        console.log('settting data', data);
+        
           if(data){
-              this.variationAdminData = data;
+              this.selectionAdminData = data;
               this.selectionForm.patchValue({
                 openingMessage: data.varDefaultOpening,
                 closingMessage: data.varDefaultClosing,
@@ -2869,7 +2871,6 @@ cleanChar(str){
               
           }
           this.getFBProjectUsers();
-          
       }); 
   }
 
