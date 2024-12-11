@@ -120,7 +120,7 @@
                                               
                                           <div class="card-body">
                                               <div class="row">
-                                                  <div class="col-md-2 col-lg-2">
+                                            <div class="col-md-2 col-lg-2">
                                                       <!-- <label>Group Name</label> -->
                                                       <label style="width: 100%;display: flex;justify-content: space-between;">Group Name <span class="btn-span" (click)="openTableVarGroupNameAddDialog(groupIndex)" mat-button>Update</span></label>
                                                       <input placeholder="Group Name" type="hidden" formControlName="groupName" >
@@ -161,17 +161,17 @@
                                                           <thead>
                                                           <tr style="min-height:48px">
                                                               <th class="action-col" *ngIf="group.get('groupStatus').value != 'approved'"></th>
-                                                              <!-- <th>Item Name</th> -->
+                                                              <th>Item Name</th>
                                                               <th>Image</th>
-                                                              <!-- <th>Supplier Name</th> -->
+                                                              <th>Supplier Name</th>
                                                               <th>Description</th>
-                                                              <!-- <th>Quantity</th> -->
-                                                              <!-- <th>Unit of Measurement</th>
+                                                              <th>Quantity</th>
+                                                              <th>Unit of Measurement</th>
                                                               <th class="currency-cell">Unit Cost</th>
                                                               <th class="currency-cell">Builder's Margin(%)</th>
                                                               <th class="currency-cell">Subtotal</th>
                                                               <th class="currency-cell">GST</th>
-                                                              <th class="currency-cell">Item Total</th> -->
+                                                              <th class="currency-cell">Item Total</th>
                                                           </tr>
                                                           </thead>
                                                           <tbody>
@@ -180,21 +180,21 @@
                                                                       <td class="action-col" *ngIf="group.get('groupStatus').value != 'approved'">
                                                                           <i class="material-icons"  (click)= "openTableItemsEditDialog(groupIndex,itemIndex)">edit</i>
                                                                           <!-- <i (click) = "openTableEmployeesTaskEditDialog(empIndex,skillIndex,getStaffName(staff.get('staffOnSite').value))" class="material-icons">edit</i> -->
-                                                                          <i (click)= "removeGroupItem(groupIndex,itemIndex)" class="material-icons">delete</i>
+                                                                                <i (click)= "removeGroupItem(groupIndex,itemIndex)" class="material-icons">delete</i>
                                                                       </td>
-                                                                      <!-- <td>
+                                                                      <td>
                                                                           <span>{{  item.get('itemName').value }}</span>
-                                                                      </td> -->
+                                                                      </td>
                                                                       <td style="height: 48px;">
                                                                           <img *ngIf="item.get('hasImage').value == true" (click)="enlargeImage.enlargeImage(item.get('itemImage').value)" data-toggle="modal" data-target="#myModal" style="cursor: zoom-in;max-width:50px;margin: 5px 0;" [src]=" item.get('itemImage').value">
                                                                       </td>
-                                                                      <!-- <td>
+                                                                      <td>
                                                                           <span>{{ getSupplierName(item.get('supplier')?.value) }}</span>
-                                                                      </td> -->
+                                                                      </td>
                                                                       <td>
                                                                           <span>{{ htmlToText(item.get('description')?.value) }}</span>
                                                                       </td>
-                                                                      <!-- <td>
+                                                                      <td>
                                                                           <span>{{ item.get('quantity')?.value }} </span>
                                                                       </td>
                                                                       <td>
@@ -214,7 +214,7 @@
                                                                       </td>
                                                                       <td class="currency-cell">
                                                                           <span>{{ item.get('itemTotal')?.value | currency:'':'' }} </span>
-                                                                      </td> -->
+                                                                      </td>
                                                                   </tr>
                                                               </ng-container>
                                                           </tbody> 

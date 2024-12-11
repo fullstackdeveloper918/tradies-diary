@@ -273,7 +273,7 @@
                                                         <label *ngIf="group.get('groupStatus').value">Group Status</label>
                                                         <input style="text-transform: capitalize;" *ngIf="group.get('groupStatus').value" matInput placeholder="Group Status" type="text"  [value]="group.get('groupStatus').value"  readonly>
                                                     </div>
-
+                                                    <span style="margin-left:0 !important;margin-top: 4px;" (click)= "removeGroup(groupIndex)" mat-button class="btn-span"  *ngIf="group.get('groupStatus').value != 'approved'">Remove Group</span>
                                                 </div>
                                             </div>
 

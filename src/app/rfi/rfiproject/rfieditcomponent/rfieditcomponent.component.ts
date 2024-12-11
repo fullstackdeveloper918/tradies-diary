@@ -640,19 +640,19 @@ export class RFIEDITCOMPONENTComponent {
 
   createItemArray(): FormGroup {
     return this.formBuilder.group({
-      // itemName: '',
-      // supplier: '',
+      itemName: '',
+      supplier: '',
       description: '',
-      // quantity: '',
-      // uom: '',
-      // unitCost: '',
-      // // subTotal : '',
-      // buildersMargin: '',
-      // gst: '',
-      // itemTotal: '',
+      quantity: '',
+      uom: '',
+      unitCost: '',
+      subTotal : '',
+      buildersMargin: '',
+      gst: '',
+      itemTotal: '',
       itemImage: ['', Validators.required],
       hasImage: '',
-      // imageCaption: '',
+      imageCaption: '',
     });
   }
 
@@ -3424,19 +3424,19 @@ openTableItemsAddDialog(groupIndex): void {
           this.itemArray(groupIndex).push(this.createItemArray());
 
 
-          // this.itemArray(groupIndex).at(curLen).get('itemName').patchValue(result.itemName);
-          // this.itemArray(groupIndex).at(curLen).get('supplier').patchValue(result.supplier);
+          this.itemArray(groupIndex).at(curLen).get('itemName').patchValue(result.itemName);
+          this.itemArray(groupIndex).at(curLen).get('supplier').patchValue(result.supplier);
           this.itemArray(groupIndex).at(curLen).get('itemImage').patchValue(result.itemImage);
-          // this.itemArray(groupIndex).at(curLen).get('imageCaption').patchValue(result.imageCaption);
+          this.itemArray(groupIndex).at(curLen).get('imageCaption').patchValue(result.imageCaption);
           this.itemArray(groupIndex).at(curLen).get('hasImage').patchValue(result.hasImage);
           this.itemArray(groupIndex).at(curLen).get('description').patchValue(result.description);
-          // this.itemArray(groupIndex).at(curLen).get('quantity').patchValue(result.quantity);
-          // this.itemArray(groupIndex).at(curLen).get('uom').patchValue(result.uom);
-          // this.itemArray(groupIndex).at(curLen).get('unitCost').patchValue(result.unitCost);
-          // this.itemArray(groupIndex).at(curLen).get('subTotal').patchValue(result.subTotal);
-          // this.itemArray(groupIndex).at(curLen).get('buildersMargin').patchValue(result.buildersMargin);
-          // this.itemArray(groupIndex).at(curLen).get('gst').patchValue(result.gst);
-          // this.itemArray(groupIndex).at(curLen).get('itemTotal').patchValue(result.itemTotal);
+          this.itemArray(groupIndex).at(curLen).get('quantity').patchValue(result.quantity);
+          this.itemArray(groupIndex).at(curLen).get('uom').patchValue(result.uom);
+          this.itemArray(groupIndex).at(curLen).get('unitCost').patchValue(result.unitCost);
+          this.itemArray(groupIndex).at(curLen).get('subTotal').patchValue(result.subTotal);
+          this.itemArray(groupIndex).at(curLen).get('buildersMargin').patchValue(result.buildersMargin);
+          this.itemArray(groupIndex).at(curLen).get('gst').patchValue(result.gst);
+          this.itemArray(groupIndex).at(curLen).get('itemTotal').patchValue(result.itemTotal);
           
           this.computeGroupTotal(groupIndex);
       }
@@ -3445,26 +3445,25 @@ openTableItemsAddDialog(groupIndex): void {
 }
 
 
-openTableItemsEditDialog(groupIndex,itemIndex): void {
-  
+openTableItemsEditDialog(groupIndex,itemIndex): void {  
   const dialogRef = this.dialog.open(TableItemsEditDialog, {
       width: '650px',
       disableClose: true,
       data: {
         listTrades: this.listTrades,
-        // itemName: this.itemArray(groupIndex).at(itemIndex).get('itemName').value,
-        // supplier: this.itemArray(groupIndex).at(itemIndex).get('supplier').value,
+        itemName: this.itemArray(groupIndex).at(itemIndex).get('itemName').value,
+        supplier: this.itemArray(groupIndex).at(itemIndex).get('supplier').value,
         itemImage: this.itemArray(groupIndex).at(itemIndex).get('itemImage').value,
-        // imageCaption: this.itemArray(groupIndex).at(itemIndex).get('imageCaption').value,
+        imageCaption: this.itemArray(groupIndex).at(itemIndex).get('imageCaption').value,
         hasImage: this.itemArray(groupIndex).at(itemIndex).get('hasImage').value,
         description: this.itemArray(groupIndex).at(itemIndex).get('description').value,
-        // quantity: this.itemArray(groupIndex).at(itemIndex).get('quantity').value,
-        // uom: this.itemArray(groupIndex).at(itemIndex).get('uom').value,
-        // unitCost: this.itemArray(groupIndex).at(itemIndex).get('unitCost').value,
-        // subTotal: this.itemArray(groupIndex).at(itemIndex).get('subTotal').value,
-        // buildersMargin: this.itemArray(groupIndex).at(itemIndex).get('buildersMargin').value,
-        // gst: this.itemArray(groupIndex).at(itemIndex).get('gst').value,
-        // itemTotal: this.itemArray(groupIndex).at(itemIndex).get('itemTotal').value,
+        quantity: this.itemArray(groupIndex).at(itemIndex).get('quantity').value,
+        uom: this.itemArray(groupIndex).at(itemIndex).get('uom').value,
+        unitCost: this.itemArray(groupIndex).at(itemIndex).get('unitCost').value,
+        subTotal: this.itemArray(groupIndex).at(itemIndex).get('subTotal').value,
+        buildersMargin: this.itemArray(groupIndex).at(itemIndex).get('buildersMargin').value,
+        gst: this.itemArray(groupIndex).at(itemIndex).get('gst').value,
+        itemTotal: this.itemArray(groupIndex).at(itemIndex).get('itemTotal').value,
       }
   });
 
@@ -3495,24 +3494,24 @@ openTableItemsEditDialog(groupIndex,itemIndex): void {
       //console.log(result);
       if(result){   
         
-          // let curLen = this.itemArray(groupIndex).length;
+          let curLen = this.itemArray(groupIndex).length;
 
-          // this.itemArray(groupIndex).push(this.createItemArray());
+          this.itemArray(groupIndex).push(this.createItemArray());
 
 
-          // this.itemArray(groupIndex).at(itemIndex).get('itemName').patchValue(result.itemName);
-          // this.itemArray(groupIndex).at(itemIndex).get('supplier').patchValue(result.supplier);
+          this.itemArray(groupIndex).at(itemIndex).get('itemName').patchValue(result.itemName);
+          this.itemArray(groupIndex).at(itemIndex).get('supplier').patchValue(result.supplier);
           this.itemArray(groupIndex).at(itemIndex).get('itemImage').patchValue(result.itemImage);
-          // this.itemArray(groupIndex).at(itemIndex).get('imageCaption').patchValue(result.imageCaption);
+          this.itemArray(groupIndex).at(itemIndex).get('imageCaption').patchValue(result.imageCaption);
           this.itemArray(groupIndex).at(itemIndex).get('hasImage').patchValue(result.hasImage);
           this.itemArray(groupIndex).at(itemIndex).get('description').patchValue(result.description);
-          // this.itemArray(groupIndex).at(itemIndex).get('quantity').patchValue(result.quantity);
-          // this.itemArray(groupIndex).at(itemIndex).get('uom').patchValue(result.uom);
-          // this.itemArray(groupIndex).at(itemIndex).get('unitCost').patchValue(result.unitCost);
-          // this.itemArray(groupIndex).at(itemIndex).get('subTotal').patchValue(result.subTotal);
-          // this.itemArray(groupIndex).at(itemIndex).get('buildersMargin').patchValue(result.buildersMargin);
-          // this.itemArray(groupIndex).at(itemIndex).get('gst').patchValue(result.gst);
-          // this.itemArray(groupIndex).at(itemIndex).get('itemTotal').patchValue(result.itemTotal);
+          this.itemArray(groupIndex).at(itemIndex).get('quantity').patchValue(result.quantity);
+          this.itemArray(groupIndex).at(itemIndex).get('uom').patchValue(result.uom);
+          this.itemArray(groupIndex).at(itemIndex).get('unitCost').patchValue(result.unitCost);
+          this.itemArray(groupIndex).at(itemIndex).get('subTotal').patchValue(result.subTotal);
+          this.itemArray(groupIndex).at(itemIndex).get('buildersMargin').patchValue(result.buildersMargin);
+          this.itemArray(groupIndex).at(itemIndex).get('gst').patchValue(result.gst);
+          this.itemArray(groupIndex).at(itemIndex).get('itemTotal').patchValue(result.itemTotal);
 
           this.computeGroupTotal(groupIndex);
 
@@ -3770,19 +3769,19 @@ resetImage(){
 ngOnInit() {    
   this.getAdminSettings();
   this.rfiForm = this.formBuilder.group({
-    // itemName: '',
-    // supplier: '',
+    itemName: '',
+    sppulier: '',
     description:  ['', Validators.required],
-    // quantity: ['', Validators.required],
-    // uom: ['', Validators.required],
-    // unitCost: ['', Validators.required],
-    // subTotal : '',
-    // buildersMargin: ['', Validators.required],
-    // gst: '',
-    // itemTotal: '',
+    quantity: ['', Validators.required],
+    uom: ['', Validators.required],
+    unitCost: ['', Validators.required],
+    subTotal : '',
+    buildersMargin: ['', Validators.required],
+    gst: '',
+    itemTotal: '',
     itemImage:'',
     hasImage: '',
-    // imageCaption: '',
+    imageCaption: '',
   }, {
   });
 
@@ -4248,37 +4247,37 @@ ngOnInit() {
 
       this.getAdminSettings();
       this.editForm = this.formBuilder.group({
-        // itemName: '',
-        // supplier: '',
+        itemName: '',
+        supplier: '',
         description: [this.items, Validators.required],
-        // quantity:['', Validators.required],
-        // uom: ['', Validators.required],
-        // unitCost:['', Validators.required],
-        // subTotal : '',
-        // buildersMargin: ['', Validators.required],
-        // gst: '',
-        // itemTotal: '',
+        quantity:['', Validators.required],
+        uom: ['', Validators.required],
+        unitCost:['', Validators.required],
+        subTotal : '',
+        buildersMargin: ['', Validators.required],
+        gst: '',
+        itemTotal: '',
         itemImage: '', //['', Validators.required],
         hasImage: '',
-        // imageCaption: ''
+        imageCaption: ''
       }, {
       });
 
       //console.log(this.data);
 
       this.editForm.patchValue({
-        // itemName: this.data.itemName,
-        // supplier: this.data.supplier,
+        itemName: this.data.itemName,
+        supplier: this.data.supplier,
         description: this.data.description,
-        // quantity: this.data.quantity,
-        // uom: this.data.uom,
-        // unitCost: this.data.unitCost,
-        // buildersMargin: this.data.buildersMargin,
-        // subTotal : this.data.quantity * ( (this.data.unitCost * 1) + ( (this.data.buildersMargin * this.data.unitCost) / 100 )), //this.data.subTotal,
-        // gst: this.data.gst,
-        // itemTotal: this.data.itemTotal,
+        quantity: this.data.quantity,
+        uom: this.data.uom,
+        unitCost: this.data.unitCost,
+        buildersMargin: this.data.buildersMargin,
+        subTotal : this.data.quantity * ( (this.data.unitCost * 1) + ( (this.data.buildersMargin * this.data.unitCost) / 100 )), //this.data.subTotal,
+        gst: this.data.gst,
+        itemTotal: this.data.itemTotal,
         itemImage: this.data.itemImage,
-        // imageCaption: this.data.imageCaption,
+        imageCaption: this.data.imageCaption,
         hasImage: this.data.hasImage ? this.data.hasImage: false,
       });
       

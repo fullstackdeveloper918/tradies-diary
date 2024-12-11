@@ -10,7 +10,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col">
                                     <button mat-button 
                                         [ngStyle]="{ backgroundColor: colorBtnDefault }" 
                                         (mouseenter)="onButtonEnter($event.target)" 
@@ -19,7 +19,17 @@
                                         [routerLink]="['/selections/project/'+passID.id+'/create']">Add New Selection
                                     </button> 
                                 </div>
-                                <div class="col-md-6">
+                                 
+                                <!-- SEARCH FILTER BY NAME -->
+
+                                <div class="col">
+                                    <div class="holder-filter-by"> 
+                                        <label><i class="material-icons">filter_alt</i> Filter by Name</label>
+                                        <input matInput placeholder="Enter Name" formControlName="nameFilter" (input)="searchByNameFilterSelection($event)">
+                                    </div>
+                                </div>
+
+                                <div class="col">
                                     <form [formGroup]="filterSelectionsForm" class="dcb-form" style="justify-content: flex-end;display: flex;">
                                         <div class="filter-holder w-100">
                                                

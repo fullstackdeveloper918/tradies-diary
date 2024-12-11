@@ -10,7 +10,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col">
                                     <button mat-button 
                                         [ngStyle]="{ backgroundColor: colorBtnDefault }" 
                                         (mouseenter)="onButtonEnter($event.target)" 
@@ -19,7 +19,15 @@
                                         [routerLink]="['/variations/project/'+passID.id+'/create']">Add New Variation
                                     </button> 
                                 </div>
-                                <div class="col-md-6">
+                                
+                                <div class="col">
+                                    <div class="holder-filter-by"> 
+                                        <label><i class="material-icons">filter_alt</i> Filter by Name</label>
+                                        <input matInput placeholder="Enter Name" formControlName="nameFilter" (input)="searchByNameFilterVariation($event)">
+                                    </div>
+                                </div>
+
+                                <div class="col">
                                     <form [formGroup]="filterVariationsForm" class="dcb-form" style="justify-content: flex-end;display: flex;">
                                         <div class="filter-holder w-100">
                                                
@@ -33,7 +41,7 @@
                                                             </mat-option>
                                                         </mat-select>
                                                     </div>
-    
+
                                                     <div class="holder-filter-with">
                                                         
                                                         <ng-container *ngIf="selected; else notShow">

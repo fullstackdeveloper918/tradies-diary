@@ -428,19 +428,19 @@ export class RFICREATEPROJECTComponent {
   
   createItemArray(): FormGroup {
     return this.formBuilder.group({
-      // itemName: '',
-      // supplier: '',
+      itemName: '',
+      supplier: '',
       description: '',
-      // quantity: '',
-      // uom: '',
-      // unitCost: '',
-      // // subTotal : '',
-      // buildersMargin: '',
-      // gst: '',
-      // itemTotal: '',
+      quantity: '',
+      uom: '',
+      unitCost: '',
+      subTotal : '',
+      buildersMargin: '',
+      gst: '',
+      itemTotal: '',
       itemImage: ['', Validators.required],
       hasImage: '',
-      // imageCaption: ''
+      imageCaption: ''
     });
   }
 
@@ -3036,25 +3036,26 @@ openTableItemsAddDialog(groupIndex): void {
   })
 
   dialogRef.afterClosed().subscribe(result => {
-  
+    
       if(result){   
+        console.log('result', result);
         
           let curLen = this.itemArray(groupIndex).length;
           this.itemArray(groupIndex).push(this.createItemArray());
 
-          // this.itemArray(groupIndex).at(curLen).get('itemName').patchValue(result.itemName);
-          // this.itemArray(groupIndex).at(curLen).get('supplier').patchValue(result.supplier);
+          this.itemArray(groupIndex).at(curLen).get('itemName').patchValue(result.itemName);
+          this.itemArray(groupIndex).at(curLen).get('supplier').patchValue(result.supplier);
           this.itemArray(groupIndex).at(curLen).get('itemImage').patchValue(result.itemImage);
-          // this.itemArray(groupIndex).at(curLen).get('imageCaption').patchValue(result.imageCaption);
+          this.itemArray(groupIndex).at(curLen).get('imageCaption').patchValue(result.imageCaption);
           this.itemArray(groupIndex).at(curLen).get('hasImage').patchValue(result.hasImage);
           this.itemArray(groupIndex).at(curLen).get('description').patchValue(result.description);
-          // this.itemArray(groupIndex).at(curLen).get('quantity').patchValue(result.quantity);
-          // this.itemArray(groupIndex).at(curLen).get('uom').patchValue(result.uom);
-          // this.itemArray(groupIndex).at(curLen).get('unitCost').patchValue(result.unitCost);
-          // this.itemArray(groupIndex).at(curLen).get('subTotal').patchValue(result.subTotal);
-          // this.itemArray(groupIndex).at(curLen).get('buildersMargin').patchValue(result.buildersMargin);
-          // this.itemArray(groupIndex).at(curLen).get('gst').patchValue(result.gst);
-          // this.itemArray(groupIndex).at(curLen).get('itemTotal').patchValue(result.itemTotal);
+          this.itemArray(groupIndex).at(curLen).get('quantity').patchValue(result.quantity);
+          this.itemArray(groupIndex).at(curLen).get('uom').patchValue(result.uom);
+          this.itemArray(groupIndex).at(curLen).get('unitCost').patchValue(result.unitCost);
+          this.itemArray(groupIndex).at(curLen).get('subTotal').patchValue(result.subTotal);
+          this.itemArray(groupIndex).at(curLen).get('buildersMargin').patchValue(result.buildersMargin);
+          this.itemArray(groupIndex).at(curLen).get('gst').patchValue(result.gst);
+          this.itemArray(groupIndex).at(curLen).get('itemTotal').patchValue(result.itemTotal);
 
           this.computeGroupTotal(groupIndex);
 
@@ -3349,19 +3350,19 @@ resetImage(){
 ngOnInit() {
   this.getAdminSettings();
   this.rfiForm = this.formBuilder.group({
-    // itemName: '',
-    // supplier: '',
+    itemName: '',
+    supplier: '',
     description: ['', Validators.required],
-    // quantity: ['', Validators.required],
-    // uom: ['', Validators.required],
-    // unitCost: ['', Validators.required],
-    // subTotal : '',
-    // buildersMargin: ['', Validators.required],
-    // gst: '',
-    // itemTotal: '',
+    quantity: ['', Validators.required],
+    uom: ['', Validators.required],
+    unitCost: ['', Validators.required],
+    subTotal : '',
+    buildersMargin: ['', Validators.required],
+    gst: '',
+    itemTotal: '',
     itemImage:'',// ['', Validators.required],
     hasImage: '',
-    // imageCaption: ''
+    imageCaption: ''
   }, {
   });
 

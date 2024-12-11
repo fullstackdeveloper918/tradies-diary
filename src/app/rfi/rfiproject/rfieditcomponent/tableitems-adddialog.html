@@ -62,7 +62,7 @@
                             <quill-editor [styles]="{height: '70px'}" formControlName="description" id="description"></quill-editor>
                     </div>
             </div>
-            <!-- <div class = "row">
+            <div class = "row">
                     <div class="col-md-4">
                             <label>Item Name</label>
                             <input matInput placeholder="Item Name" type="text" formControlName="itemName">
@@ -111,13 +111,13 @@
                                     
                             </mat-select> 
 
-                            <mat-select formControlName="uom" id="uom" placeholder="UOM" name="uom">
+                            <!-- <mat-select formControlName="uom" id="uom" placeholder="UOM" name="uom">
                                     <ng-container *ngFor="let unitMeasurement of unitMeasurements" >
                                             <mat-option [value]="unitMeasurement.value">
                                                     {{ unitMeasurement.viewValue }}
                                             </mat-option>
                                     </ng-container> 
-                            </mat-select> 
+                            </mat-select>  -->
                     </div>
                     <div class="variant-ctrl">
                             <label>Unit Cost*</label>
@@ -142,7 +142,7 @@
                             <input  placeholder="Item Total" type="hidden" formControlName="itemTotal">
                             <input matInput placeholder="Total" type="text" [value]="rfiForm.get('itemTotal').value"  readonly>
                     </div>
-            </div> -->
+            </div>
     </form>
 </div>
 <div mat-dialog-actions>

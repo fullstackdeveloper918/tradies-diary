@@ -194,19 +194,18 @@
                                                     <table class="smart-table-2">
                                                         <thead>
                                                         <tr>
-                                                            <!-- <th class="action-col" *ngIf="group.get('groupStatus').value != 'approved'"></th> -->
-                                                            <th class="action-col">Action</th>
-                                                            <!-- <th>Item Name</th> -->
+                                                            <th class="action-col" *ngIf="group.get('groupStatus').value != 'approved'"></th>
+                                                            <th>Item Name</th>
                                                             <th>Image</th>
-                                                            <!-- <th>Supplier Name</th> -->
+                                                            <th>Supplier Name</th>
                                                             <th>Description</th>
-                                                            <!-- <th>Quantity</th>
+                                                            <th>Quantity</th>
                                                             <th>Unit of Measurement</th>
                                                             <th class="currency-cell">Unit Cost</th>
                                                             <th class="currency-cell">Builder's Margin(%)</th>
                                                             <th class="currency-cell">Subtotal</th>
                                                             <th class="currency-cell">GST</th>
-                                                            <th class="currency-cell">Item Total</th> -->
+                                                            <th class="currency-cell">Item Total</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -216,19 +215,19 @@
                                                                         <i class="material-icons"  (click)= "openTableItemsEditDialog(groupIndex,itemIndex)">edit</i>
                                                                         <i (click)= "removeGroupItem(groupIndex,itemIndex)" class="material-icons">delete</i>
                                                                     </td>
-                                                                    <!-- <td>
+                                                                    <td>
                                                                         <span>{{  item.get('itemName').value }}</span>
-                                                                    </td> -->
+                                                                    </td>
                                                                     <td style="height: 48px;">
                                                                         <img  *ngIf="item.get('hasImage').value == true" (click)="enlargeImage.enlargeImage(item.get('itemImage').value)" data-toggle="modal" data-target="#myModal" style="cursor: zoom-in;max-width:50px;margin: 5px 0;" [src]=" item.get('itemImage').value">
                                                                     </td>
-                                                                    <!-- <td>
+                                                                    <td>
                                                                         <span>{{ getSupplierName(item.get('supplier')?.value) }}</span>
-                                                                    </td> -->
+                                                                    </td>
                                                                     <td>
                                                                         <span>{{ htmlToText(item.get('description')?.value) }}</span>
                                                                     </td>
-                                                                    <!-- <td>
+                                                                    <td>
                                                                         <span>{{ item.get('quantity')?.value }} </span>
                                                                     </td>
                                                                     <td>
@@ -248,13 +247,13 @@
                                                                     </td>
                                                                     <td class="currency-cell">
                                                                         <span>{{ item.get('itemTotal')?.value | currency:'':'' }} </span>
-                                                                    </td> -->
+                                                                    </td>
                                                                 </tr>
                                                             </ng-container>
                                                         </tbody> 
                                                     </table>
                                                 </div>
-                                                <!-- <div class="row">
+                                                <!-- <div class="d-flex justify-content-end">
                                                     <div class="col-md-1 col-lg-1">
                                                         <label>Group Total</label>
                                                         <input placeholder="Group Total" type="hidden" formControlName="groupTotal" >
@@ -272,7 +271,7 @@
                                                         <label *ngIf="group.get('groupStatus').value">Group Status</label>
                                                         <input style="text-transform: capitalize;" *ngIf="group.get('groupStatus').value" matInput placeholder="Group Status" type="text"  [value]="group.get('groupStatus').value"  readonly>
                                                     </div>
-
+                                                    <span style="margin-left:0 !important;margin-top: 4px;" (click)= "removeGroup(groupIndex)" mat-button class="btn-span"  *ngIf="group.get('groupStatus').value != 'approved'">Remove Group</span>
                                                 </div> -->
                                             </div>
 
@@ -566,8 +565,8 @@
                                                             <img style="background: #EBEBEB;width: 100%;" [src]="rfiForm.get('signature').value">
                                                             <label style="text-align:center">Undecided</label>
                                                         </div>
-                                                        <span style="margin-left:0 !important;margin-top: 4px;" (click)= "removeGroup(groupIndex)" mat-button class="btn-span"  *ngIf="group.get('groupStatus').value != 'approved'">Remove Group</span>
                                                     </div> -->
+                                                    <!-- <span style="margin-left:0 !important;margin-top: 4px;" (click)= "removeGroup(groupIndex)" mat-button class="btn-span"  *ngIf="group.get('groupStatus').value != 'approved'">Remove Group</span> -->
                                                 </div>
 
                                             </div>
