@@ -3491,12 +3491,12 @@ openTableItemsEditDialog(groupIndex,itemIndex): void {
   })
   
   dialogRef.afterClosed().subscribe(result => {
-      //console.log(result);
+      console.log('result',result);
       if(result){   
         
           let curLen = this.itemArray(groupIndex).length;
 
-          this.itemArray(groupIndex).push(this.createItemArray());
+          // this.itemArray(groupIndex).push(this.createItemArray());
 
 
           this.itemArray(groupIndex).at(itemIndex).get('itemName').patchValue(result.itemName);
