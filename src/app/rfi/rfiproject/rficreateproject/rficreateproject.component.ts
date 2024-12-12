@@ -3071,19 +3071,19 @@ openTableItemsEditDialog(groupIndex,itemIndex): void {
       disableClose: true,
       data: {
         listTrades: this.listTrades,
-        // itemName: this.itemArray(groupIndex).at(itemIndex).get('itemName').value,
-        // supplier: this.itemArray(groupIndex).at(itemIndex).get('supplier').value,
+        itemName: this.itemArray(groupIndex).at(itemIndex).get('itemName').value,
+        supplier: this.itemArray(groupIndex).at(itemIndex).get('supplier').value,
         itemImage: this.itemArray(groupIndex).at(itemIndex).get('itemImage').value,
-        // imageCaption: this.itemArray(groupIndex).at(itemIndex).get('imageCaption').value,
+        imageCaption: this.itemArray(groupIndex).at(itemIndex).get('imageCaption').value,
         hasImage: this.itemArray(groupIndex).at(itemIndex).get('hasImage').value,
         description: this.itemArray(groupIndex).at(itemIndex).get('description').value,
-        // quantity: this.itemArray(groupIndex).at(itemIndex).get('quantity').value,
-        // uom: this.itemArray(groupIndex).at(itemIndex).get('uom').value,
-        // unitCost: this.itemArray(groupIndex).at(itemIndex).get('unitCost').value,
-        // // subTotal: this.itemArray(groupIndex).at(itemIndex).get('subTotal').value,
-        // buildersMargin: this.itemArray(groupIndex).at(itemIndex).get('buildersMargin').value,
-        // gst: this.itemArray(groupIndex).at(itemIndex).get('gst').value,
-        // itemTotal: this.itemArray(groupIndex).at(itemIndex).get('itemTotal').value,
+        quantity: this.itemArray(groupIndex).at(itemIndex).get('quantity').value,
+        uom: this.itemArray(groupIndex).at(itemIndex).get('uom').value,
+        unitCost: this.itemArray(groupIndex).at(itemIndex).get('unitCost').value,
+        // subTotal: this.itemArray(groupIndex).at(itemIndex).get('subTotal').value,
+        buildersMargin: this.itemArray(groupIndex).at(itemIndex).get('buildersMargin').value,
+        gst: this.itemArray(groupIndex).at(itemIndex).get('gst').value,
+        itemTotal: this.itemArray(groupIndex).at(itemIndex).get('itemTotal').value,
       }
   });
   
@@ -3812,35 +3812,35 @@ resetImage(){
 ngOnInit() {
   this.getAdminSettings();
   this.editForm = this.formBuilder.group({
-    // itemName: '',
-    // supplier: '',
+    itemName: '',
+    supplier: '',
     description: ['', Validators.required],
-    // quantity:['', Validators.required],
-    // uom: ['', Validators.required],
-    // unitCost:['', Validators.required],
-    // subTotal : '',
-    // buildersMargin: ['', Validators.required],
-    // gst: '',
-    // itemTotal: '',
+    quantity:['', Validators.required],
+    uom: ['', Validators.required],
+    unitCost:['', Validators.required],
+    subTotal : '',
+    buildersMargin: ['', Validators.required],
+    gst: '',
+    itemTotal: '',
     itemImage: '', //['', Validators.required],
     hasImage: '',
-    // imageCaption: ''
+    imageCaption: ''
   }, {
   });
 
   this.editForm.patchValue({
-    // itemName: this.data.itemName,
-    // supplier: this.data.supplier,
+    itemName: this.data.itemName,
+    supplier: this.data.supplier,
     description: this.data.description,
-    // quantity: this.data.quantity,
-    // uom: this.data.uom,
-    // unitCost: this.data.unitCost,
-    // buildersMargin: this.data.buildersMargin,
-    // subTotal : this.data.quantity * ( (this.data.unitCost * 1) + ( (this.data.buildersMargin * this.data.unitCost) / 100 )), //this.data.subTotal,
-    // gst: this.data.gst,
-    // itemTotal: this.data.itemTotal,
+    quantity: this.data.quantity,
+    uom: this.data.uom,
+    unitCost: this.data.unitCost,
+    buildersMargin: this.data.buildersMargin,
+    subTotal : this.data.quantity * ( (this.data.unitCost * 1) + ( (this.data.buildersMargin * this.data.unitCost) / 100 )), //this.data.subTotal,
+    gst: this.data.gst,
+    itemTotal: this.data.itemTotal,
     itemImage: this.data.itemImage,
-    // imageCaption: this.data.imageCaption,
+    imageCaption: this.data.imageCaption,
     hasImage: this.data.hasImage ? this.data.hasImage: false,
   });
 
