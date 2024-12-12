@@ -24,6 +24,12 @@
          
                             <div class="fileinput fileinput-new text-center" style="display:block;margin-bottom:0;">
                                     <div>     
+                                        <div 
+                                        class="border border-primary rounded text-center bg-light text-muted" 
+                                        style="min-height: 68px; padding: 10px 0px 0px 0;" 
+                                        (drop)="onDrop($event)" >
+                                        <h5>Drag Files Here</h5>
+                                        </div> 
                                             <span 
                                                     [ngStyle]="{ backgroundColor: colorBtnDefault }" 
                                                     (mouseenter)="onButtonEnter($event.target)" 

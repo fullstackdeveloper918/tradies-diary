@@ -23,17 +23,24 @@
                                 </label>
              
                                 <div class="fileinput fileinput-new text-center" style="display:block;margin-bottom:0;">
-                                        <div>     
-                                                <span 
-                                                        [ngStyle]="{ backgroundColor: colorBtnDefault }" 
-                                                        (mouseenter)="onButtonEnter($event.target)" 
-                                                        (mouseleave)="onButtonOut($event.target)" 
-                                                        class="btn btn-change btn-file dcb-btn btn-compact">
-                                                        <span class="fileinput-new">Select image</span>
-                                                        <!-- <span class="fileinput-exists">Change</span> -->
-                                                        <input accept="image/*" type="file" name="..." (change)="onFileChange($event)" />
-                                                </span>
-                                        </div>
+                                <div>     
+                                <div 
+                                class="border border-primary rounded text-center bg-light text-muted" 
+                                style="min-height: 68px; padding: 10px 0px 0px 0;" 
+                                (drop)="onDrop($event)" >
+                                <h5>Drag Files Here</h5>
+                                <p>Or click to select files</p>
+                                </div>
+                                <span 
+                                [ngStyle]="{ backgroundColor: colorBtnDefault }" 
+                                (mouseenter)="onButtonEnter($event.target)" 
+                                (mouseleave)="onButtonOut($event.target)" 
+                                class="btn btn-change btn-file dcb-btn btn-compact">
+                                <span class="fileinput-new">Select image</span>
+                                <!-- <span class="fileinput-exists">Change</span> -->
+                                <input accept="image/*" type="file" name="..." (change)="onFileChange($event)" />
+                                </span>
+                                </div>
                                 </div>
   
                         </div>

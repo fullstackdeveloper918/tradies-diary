@@ -3964,6 +3964,12 @@ public findInvalidControls() {
 
 }
 
+ //  ON DROP EVENT
+ onDrop(event: DragEvent): void {  
+  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    this.onFileChange({ target: { files: event.dataTransfer.files } });
+}
+}
 
 async onFileChange(event) {
 
@@ -4460,6 +4466,13 @@ public findInvalidControls() {
         icon: "error"
     })
 
+}
+
+ //  ON DROP EVENT
+ onDrop(event: DragEvent): void {  
+  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    this.onFileChange({ target: { files: event.dataTransfer.files } });
+}
 }
 
 async onFileChange(event) {

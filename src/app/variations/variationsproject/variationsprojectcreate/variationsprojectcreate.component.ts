@@ -3364,8 +3364,8 @@ export class TableCreateItemsAddDialog implements OnInit {
       itemImage:'',// ['', Validators.required],
       hasImage: '',
       imageCaption: ''
-    }, {
-    });
+    }
+  );
 
     this.getFBUom();
     this.listTrades = this.data.listTrades;
@@ -3540,6 +3540,18 @@ export class TableCreateItemsAddDialog implements OnInit {
           icon: "error"
       })
 
+  }
+
+
+  //  ON DROP EVENT
+  onDrop(event: DragEvent): void {
+    console.log('event',event);
+    
+    this.addFestForm.patchValue({hasImage: true})
+    console.log('hasimge', this.addFestForm.value.hasImage);
+    if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+      this.onFileChange({ target: { files: event.dataTransfer.files } });
+  }
   }
 
   async onFileChange(event) {
@@ -4021,6 +4033,17 @@ export class TableCreateItemsEditDialog implements OnInit {
       })
 
   }
+
+   //  ON DROP EVENT
+ onDrop(event: DragEvent): void {
+  console.log('event',event);
+  
+  this.editForm.patchValue({hasImage: true})
+  console.log('hasimge', this.editForm.value.hasImage);
+  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    this.onFileChange({ target: { files: event.dataTransfer.files } });
+}
+}
 
   async onFileChange(event) {
 

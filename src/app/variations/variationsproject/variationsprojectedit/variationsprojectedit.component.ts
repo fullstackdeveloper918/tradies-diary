@@ -3957,6 +3957,15 @@ export class TableItemsAddDialog implements OnInit {
 
 }
 
+ //  ON DROP EVENT
+ onDrop(event: DragEvent): void {  
+  this.addFestForm.patchValue({hasImage: true})
+  console.log('hasimge', this.addFestForm.value.hasImage);
+  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    this.onFileChange({ target: { files: event.dataTransfer.files } });
+}
+}
+
 
   async onFileChange(event) {
 
@@ -4454,6 +4463,17 @@ export class TableItemsEditDialog implements OnInit {
       })
 
   }
+
+  //  ON DROP EVENT
+ onDrop(event: DragEvent): void {
+  console.log('event',event);
+  
+  this.editForm.patchValue({hasImage: true})
+  console.log('hasimge', this.editForm.value.hasImage);
+  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    this.onFileChange({ target: { files: event.dataTransfer.files } });
+}
+}
 
   async onFileChange(event) {
 

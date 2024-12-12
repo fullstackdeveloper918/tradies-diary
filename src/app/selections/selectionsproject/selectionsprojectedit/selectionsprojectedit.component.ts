@@ -3959,6 +3959,13 @@ export class TableItemsAddDialog implements OnInit {
 
 }
 
+ //  ON DROP EVENT
+ onDrop(event: DragEvent): void {  
+  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    this.onFileChange({ target: { files: event.dataTransfer.files } });
+}
+}
+
 
   async onFileChange(event) {
 
@@ -4456,6 +4463,14 @@ export class TableItemsEditDialog implements OnInit {
       })
 
   }
+
+   //  ON DROP EVENT
+ onDrop(event: DragEvent): void {  
+  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    this.onFileChange({ target: { files: event.dataTransfer.files } });
+}
+}
+
 
   async onFileChange(event) {
 

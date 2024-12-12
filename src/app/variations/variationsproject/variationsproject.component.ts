@@ -664,43 +664,46 @@ export class VariationsProjectComponent implements OnInit {
     getVariations(){
       console.log('prejctId', this.passID.id);
       console.log('this.accountFirebase', this.accountFirebase);
-      console.log('prejctId', this.passID.id);
-      
+console.log('prejctId', this.passID.id);
+    
       this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
-      .where("projectId", '==', this.passID.id)
-      .orderBy("variantsNumber", 'desc')
-      .limit(10)
-      ).snapshotChanges()
-      .subscribe(response => {
-          if (!response.length) {
-            return false;
-          }
-
-          this.firstInResponse = response[0].payload.doc;
-          this.lastInResponse = response[response.length - 1].payload.doc;
-
-          this.tableData = [];
-          for (let item of response) {
-            const itemData = item.payload.doc.data();
-            itemData.id = item.payload.doc.id;
-            this.tableData.push(itemData);
+          .where("projectId", '==', this.passID.id)
+          .orderBy("variantsNumber", 'desc')
+          .limit(10)
+        ).snapshotChanges()
+.subscribe(response => {
+                if (!response.length) {
+                    return false;
+        }
+    
+                this.firstInResponse = response[0].payload.doc;
+        this.lastInResponse = response[response.length - 1].payload.doc;
+    
+        this.tableData = [];
+        for (let item of response) {
+          const itemData = item.payload.doc.data();
+          itemData.id = item.payload.doc.id;
+          this.tableData.push(itemData);
             console.log('table data', this.tableData);
             
             //this.tableData.push(item.payload.doc.data());
-          }
+        }
+    
+        this.source = new LocalDataSource(this.tableData)    
+        //Initialize values
+        this.prev_strt_at = [];
+        this.pagination_clicked_count = 0;
+        this.disable_next = false;
+        this.disable_prev = false;
+    
+        //Push first item to use for Previous action
+        this.push_prev_startAt(this.firstInResponse);
+      }, error => {
+        });
 
-          this.source = new LocalDataSource(this.tableData)
-          //Initialize values
-          this.prev_strt_at = [];
-          this.pagination_clicked_count = 0;
-          this.disable_next = false;
-          this.disable_prev = false;
+  }
 
-          //Push first item to use for Previous action
-          this.push_prev_startAt(this.firstInResponse);
-          }, error => {
-          });
-
+  onScroll(event: any): void {
   }
 
   //Add document

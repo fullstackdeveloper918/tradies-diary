@@ -3402,6 +3402,13 @@ export class TableCreateItemsAddDialog implements OnInit {
       })
 
   }
+   //  ON DROP EVENT
+ onDrop(event: DragEvent): void {  
+  console.log('hasimge', this.selectionForm.value.hasImage);
+  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    this.onFileChange({ target: { files: event.dataTransfer.files } });
+}
+}
 
   async onFileChange(event) {
 
@@ -3882,6 +3889,14 @@ export class TableCreateItemsEditDialog implements OnInit {
       })
 
   }
+
+  
+ //  ON DROP EVENT
+ onDrop(event: DragEvent): void {  
+  if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+    this.onFileChange({ target: { files: event.dataTransfer.files } });
+}
+}
 
   async onFileChange(event) {
 
