@@ -98,6 +98,19 @@
                                         <ng2-smart-table [settings]="selectionSettings" [source]="source"></ng2-smart-table>
                                    
                                 </div>
+                                <div class="w-100 d-flex justify-content-center">
+                                    <button 
+                                    *ngIf="!loading" 
+                                    (click)="getAllSelections()" 
+                                    [disabled]="disable_next" 
+                                    [ngStyle]="{ backgroundColor: colorBtnDefault }" 
+                                    (mouseenter)="onButtonEnter($event.target)" 
+                                    (mouseleave)="onButtonOut($event.target)"  
+                                    class="btn dcb-btn btn-sm float-right btn-compact">
+                                    Load more
+                                  </button>      
+                                  <h1 *ngIf="loading">Loading...</h1>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer pb-4">

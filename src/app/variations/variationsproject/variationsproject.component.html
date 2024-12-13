@@ -122,13 +122,28 @@
                             </div>
                             
                             <div class = "row">
-                                <div class="col-md-12" style="overflow-x: scroll;" (scroll)="onScroll($event)"
+                                <div class="col-md-12" style="overflow-x: scroll;"
                                     >
                                 <!-- <div class="col-md-12" style="overflow-x: scroll;"> -->
                                     <!-- <div style="width: 1590px;"> -->
                                         <ng2-smart-table [settings]="settings" [source]="source" ></ng2-smart-table>
                                     <!-- </div> -->
                                 </div>
+                                <div class="w-100 d-flex justify-content-center">
+                                    <button 
+                                    *ngIf="!loading" 
+                                    (click)="getAllVariations()" 
+                                    [disabled]="disable_next" 
+                                    [ngStyle]="{ backgroundColor: colorBtnDefault }" 
+                                    (mouseenter)="onButtonEnter($event.target)" 
+                                    (mouseleave)="onButtonOut($event.target)"  
+                                    class="btn dcb-btn btn-sm float-right btn-compact">
+                                    Load more
+                                  </button>      
+                                  <h1 *ngIf="loading">Loading...</h1>
+                                </div>
+                                
+                                <!-- <p *ngIf="loading">Loading...</p> -->
                             </div>
                         </div>
                         <div class="card-footer pb-4">

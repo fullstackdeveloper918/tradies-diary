@@ -38,7 +38,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { VariationImage } from '../../../services/variation-image';
 import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
-import { PDFDocument } from 'pdf-lib'
+import { parseDate, PDFDocument } from 'pdf-lib'
 import { EnlargeImage } from '../../../services/enlarge-image';
 import { PDFIcons } from '../../../services/pdf-icons';
 
@@ -253,10 +253,116 @@ export class VariationsProjectCreateComponent implements OnInit {
         this.getFBAllTrades();
         this.getAdminSettings();
         this.getVariationSettings();
-        // this.getProject();
+        // // this.getProject();
         
         this.accountFirebase = this.data_api.getCurrentProject();
+        this.setFormValue();
+        setInterval(()=>{
+          this.saveForm();
+        },5000)
+        console.log('filter_list_ownersner', this.filter_list_owners);
         
+    }
+
+    ngOnDestroy(){
+      console.log('ondestroy works');
+      this.addFestForm.reset();
+    }
+
+    setProjectOwners
+
+    // set form values
+    setFormValue(){
+     const formData = localStorage.getItem('formData');
+     setTimeout(()=>{
+      if(formData){
+        const parsedData = JSON.parse(formData);
+        console.log('parsedData', parsedData);
+        if(parsedData){
+          // this.projectOwnerControl.setValue(parsedData.clientEmail)
+          this.addFestForm.patchValue({
+            variationsName: parsedData.variationsName,
+            dueDate: parsedData.dueDate ? parsedData.dueDate : '', 
+            openingMessage : parsedData.openingMessage, 
+            closingMessage: parsedData.closingMessage,
+            clientEmail: parsedData.clientEmail,
+            // pdfLink: parsedData.pdfLink,
+            bmLineitem: this.checkBooleanVariationSettings(parsedData.bmLineitem) ? parsedData.bmLineitem : false,
+            bmTotalFigure: this.checkBooleanVariationSettings(parsedData.bmTotalFigure) ? parsedData.bmTotalFigure : false,
+            bmHideAll: this.checkBooleanVariationSettings(parsedData.bmHideAll) ? parsedData.bmHideAll : false,
+            qtyHideAll: this.checkBooleanVariationSettings(parsedData.qtyHideAll) ? parsedData.qtyHideAll : false,
+            unitHideAll: this.checkBooleanVariationSettings(parsedData.unitHideAll) ? parsedData.unitHideAll : false,
+            unitCostHideAll: this.checkBooleanVariationSettings(parsedData.unitCostHideAll) ? parsedData.unitCostHideAll : false,
+            gstHideAll: this.checkBooleanVariationSettings(parsedData.gstHideAll) ? parsedData.gstHideAll : false,
+            itemTotalHideAll: this.checkBooleanVariationSettings(parsedData.itemTotalHideAll) ? parsedData.itemTotalHideAll : false,
+            // comments:  parsedData.comments ? parsedData.comments : '',
+            // approvedAt: parsedData.approvedAt ? parsedData.approvedAt : '',
+            // approvedBy:  parsedData.approvedBy ? parsedData.approvedBy : '',
+            // approvedRole: parsedData.approvedRoleparsedData.approvedRole ? parsedData.approvedRoleparsedData.approvedRole  : ''
+          })
+          // let projectOwnerIDs
+          // if(parsedData.projectOwner){
+          //   projectOwnerIDs = parsedData.projectOwner;
+  
+          //   projectOwnerIDs.forEach(value => {
+          //       if(this.findObjectByKey(this.projectOwners, 'id', value)){
+          //           var item = this.findObjectByKey(this.projectOwners, 'id', value);
+          //           this.setProjectOwners.push(item);
+          //       }
+          //   });
+  
+          //   this.projectOwnerControl.setValue(this.setProjectOwners);
+          //   console.log(this.setProjectOwners);
+  
+          // }
+  
+          if (parsedData.variationGroupArray){
+            console.log(parsedData.variationGroupArray);
+            this.variationGroupArray().clear()
+            let i = 0;
+            parsedData.variationGroupArray.forEach(t => {
+              console.log(t)
+              let teacher: FormGroup = this.createVariationGroupArray();
+              this.variationGroupArray().push(teacher);
+  
+              if(t.itemArray){
+  
+                  (teacher.get("itemArray") as FormArray).clear()
+                  let x = 0;
+                    t.itemArray.forEach(b => {
+                      
+                      let item = this.createItemArray();
+                        (teacher.get("itemArray") as FormArray).push(item)
+  
+                    });
+  
+                    x++;
+              }
+              // this.initializeFilterTrades(i);
+              // this.loadTradeStaffs(i,t.tradesOnSite);
+              i++;
+            });
+            console.log('createdGroupArray', this.variationGroupArray().value);
+            console.log('parseddata array', parsedData.variationGroupArray);
+            
+            this.variationGroupArray().patchValue(parsedData.variationGroupArray)    
+        }
+       }
+      }
+     },4000)
+    }
+
+    checkBooleanVariationSettings(value){
+      if( ((value == true) || (value == false)) && (value !== '') ){
+        return true;
+      }else{
+        return false;
+      }
+  }
+
+    // SAVE FORM
+    saveForm(){
+    localStorage.setItem('formData',JSON.stringify(this.addFestForm.value))
     }
 
     public isNumber(num){
@@ -303,6 +409,8 @@ export class VariationsProjectCreateComponent implements OnInit {
 
 
           if(this.projectData.counterVariation){ //if project variation exist
+            console.log('counterVariation', this.projectData.counterVariation);
+            
 
             if(this.projectData.counterVariation >= varSetStartNumber){ //if project var num is higher or equal than admin var num
 

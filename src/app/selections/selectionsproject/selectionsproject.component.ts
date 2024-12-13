@@ -559,7 +559,7 @@ export class SelectionsProjectComponent implements OnInit {
     pop_prev_startAtFilterDueDate(prev_first_doc) {
       this.prev_strt_at.forEach(element => {
         if (prev_first_doc.data().id == element.data().id) {
-          element = null;
+          element = null; 
         }
       });
     }
@@ -660,11 +660,6 @@ export class SelectionsProjectComponent implements OnInit {
     // Default 
 
     getSelections(){
-       console.log('getvariaton is working'); 
-      console.log('this.accountFirebase', this.accountFirebase);
-      console.log('prejctId', this.passID.id);
-      
-      
       this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
       .where("projectId", '==', this.passID.id)
       .orderBy("selectionNumber", 'desc')
@@ -705,6 +700,41 @@ export class SelectionsProjectComponent implements OnInit {
             
           });
 
+  }
+
+  loading: boolean = false;
+  // GET ALL SELECTIONS
+  getAllSelections(){
+    this.loading = true;
+    setTimeout(()=>{
+      this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
+        .where("projectId", '==', this.passID.id)
+        .orderBy("selectionNumber", 'desc')
+        ).snapshotChanges()
+        .subscribe(response => {
+          console.log('response', response);
+          
+            if (!response.length) {
+              return false;
+            }
+  
+            this.firstInResponse = response[0].payload.doc;
+            this.lastInResponse = response[response.length - 1].payload.doc;
+            console.log('this.firstREponse', this.firstInResponse);
+            
+  
+            this.tableData = [];
+            for (let item of response) {
+              const itemData = item.payload.doc.data();
+              itemData.id = item.payload.doc.id;
+              this.tableData.push(itemData);
+            }
+  
+            this.source = new LocalDataSource(this.tableData)
+            this.loading = false;
+            this.disable_next = true;
+          })
+    }, 2000)
   }
 
   //Add document

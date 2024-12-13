@@ -690,6 +690,43 @@ export class RFIPROJECTComponent {
 
 }
 
+loading: boolean = false;
+// GET ALL VARIATIONS
+
+getAllRFI(){
+  this.loading = true;
+  setTimeout(()=>{
+    this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
+      .where("projectId", '==', this.passID.id)
+      .orderBy("rfiNumber", 'desc')
+      ).snapshotChanges()
+      .subscribe(response => {
+        console.log('response', response);
+        
+          if (!response.length) {
+            return false;
+          }
+  
+          this.firstInResponse = response[0].payload.doc;
+          this.lastInResponse = response[response.length - 1].payload.doc;
+  
+          this.tableData = [];
+          for (let item of response) {
+            const itemData = item.payload.doc.data();
+            itemData.id = item.payload.doc.id;
+            this.tableData.push(itemData);
+            console.log('this.tableData', this.tableData);
+            
+            //this.tableData.push(item.payload.doc.data());
+          }
+  
+          this.source = new LocalDataSource(this.tableData)
+          this.loading = false;
+          this.disable_next = true;
+        })
+  })
+}
+
 //Add document
 push_prev_startAt(prev_first_doc) {
   this.prev_strt_at.push(prev_first_doc);
