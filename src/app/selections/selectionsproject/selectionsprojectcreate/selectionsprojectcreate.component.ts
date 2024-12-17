@@ -163,6 +163,8 @@ export class SelectionsprojectcreateComponent implements OnInit {
     };
 
     deviceInfo;
+    saveFormInterval: any
+
 
     constructor(
         private route: ActivatedRoute,
@@ -250,8 +252,109 @@ export class SelectionsprojectcreateComponent implements OnInit {
         // this.getProject();
         
         this.accountFirebase = this.data_api.getCurrentProject();
+        // FOR AUTO SAVE FORM
+        this.setFormValue();
+        this.saveFormInterval = setInterval(()=>{
+          this.saveForm();
+        },5000)
         
     }
+
+    ngOnDestroy(){
+      clearInterval(this.saveFormInterval);
+      localStorage.removeItem("formData")
+      localStorage.removeItem('projectOwnerControl')
+    }
+
+     // SET FORM VALUE FOR AUTO SAVE
+     setFormValue(){
+      const formData = localStorage.getItem('formData');
+      setTimeout(()=>{
+       if(formData){
+         const parsedData = JSON.parse(formData);
+         console.log('parsedData', parsedData);
+         if(parsedData){
+           // this.projectOwnerControl.setValue(parsedData.clientEmail)
+           this.selectionForm.patchValue({
+            selectionName: parsedData.selectionName,
+             dueDate: parsedData.dueDate ? parsedData.dueDate : '', 
+             openingMessage : parsedData.openingMessage, 
+             closingMessage: parsedData.closingMessage,
+             clientEmail: parsedData.clientEmail,
+             // pdfLink: parsedData.pdfLink,
+             bmLineitem: parsedData.bmLineitem ? parsedData.bmLineitem : false,
+             bmTotalFigure: parsedData.bmTotalFigure ? parsedData.bmTotalFigure : false,
+             bmHideAll: parsedData.bmHideAll ? parsedData.bmHideAll : false,
+             qtyHideAll: parsedData.qtyHideAll ? parsedData.qtyHideAll : false,
+             unitHideAll: parsedData.unitHideAll ? parsedData.unitHideAll : false,
+             unitCostHideAll: parsedData.unitCostHideAll ? parsedData.unitCostHideAll : false,
+             gstHideAll: parsedData.gstHideAll ? parsedData.gstHideAll : false,
+             itemTotalHideAll: parsedData.itemTotalHideAll ? parsedData.itemTotalHideAll : false,
+             // comments:  parsedData.comments ? parsedData.comments : '',
+             // approvedAt: parsedData.approvedAt ? parsedData.approvedAt : '',
+             // approvedBy:  parsedData.approvedBy ? parsedData.approvedBy : '',
+             // approvedRole: parsedData.approvedRoleparsedData.approvedRole ? parsedData.approvedRoleparsedData.approvedRole  : ''
+           })
+           let parsedProjectOwnerControl = JSON.parse(localStorage.getItem('projectOwnerControl'));
+           if(parsedProjectOwnerControl){
+             this.projectOwnerControl.setValue(parsedProjectOwnerControl)
+           }          
+           // let projectOwnerIDs
+           // if(parsedData.projectOwner){
+           //   projectOwnerIDs = parsedData.projectOwner;
+   
+           //   projectOwnerIDs.forEach(value => {
+           //       if(this.findObjectByKey(this.projectOwners, 'id', value)){
+           //           var item = this.findObjectByKey(this.projectOwners, 'id', value);
+           //           this.setProjectOwners.push(item);
+           //       }
+           //   });
+   
+           //   this.projectOwnerControl.setValue(this.setProjectOwners);
+           //   console.log(this.setProjectOwners);
+   
+           // }
+   
+           if (parsedData.selectionGroupArray){
+             console.log(parsedData.selectionGroupArray);
+             this.selectionGroupArray().clear()
+             let i = 0;
+             parsedData.selectionGroupArray.forEach(t => {
+               console.log(t)
+               let teacher: FormGroup = this.createVariationGroupArray();
+               this.selectionGroupArray().push(teacher);
+   
+               if(t.itemArray){
+   
+                   (teacher.get("itemArray") as FormArray).clear()
+                   let x = 0;
+                     t.itemArray.forEach(b => {
+                       
+                       let item = this.createItemArray();
+                         (teacher.get("itemArray") as FormArray).push(item)
+   
+                     });
+   
+                     x++;
+               }
+               // this.initializeFilterTrades(i);
+               // this.loadTradeStaffs(i,t.tradesOnSite);
+               i++;
+             });
+             console.log('createdGroupArray', this.selectionGroupArray().value);
+             console.log('parseddata array', parsedData.selectionGroupArray);
+             
+             this.selectionGroupArray().patchValue(parsedData.selectionGroupArray)    
+         }
+        }
+       }
+      },4000)
+     }
+
+         // SAVE FORM FOR AUTO SAVE
+    saveForm(){
+      localStorage.setItem('formData',JSON.stringify(this.selectionForm.value))
+      }
 
 
     
@@ -2653,6 +2756,7 @@ cleanChar(str){
     }
     ownerSelectChange(event){
       if(event.isUserInput) {
+        localStorage.setItem('projectOwnerControl', JSON.stringify(this.projectOwnerControl.value))
           if(event.source.selected == true){
               // const clientEmail = this.editForm.get('clientEmail') as FormArray;
               // clientEmail.push(this.formBuilder.control(event.source.value.email));

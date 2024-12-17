@@ -218,9 +218,7 @@ export class VariationsProjectComponent implements OnInit {
         // private imageCompress: NgxImageCompressService
         ) { }
 
-    ngOnInit() {
-      console.log('source', this.source);
-        
+    ngOnInit() {        
         this.getAdminSettings();
         this.passID = {
             id: this.route.snapshot.params['id'],
@@ -667,10 +665,10 @@ export class VariationsProjectComponent implements OnInit {
       this.loading = true;
       this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
         .where("projectId", '==', this.passID.id)
-        .orderBy("variantsNumber", 'desc')
-        .limit(10)
+        // .orderBy("variantsNumber", 'desc')
+        // .limit(10)
       ).snapshotChanges()
-.subscribe(response => {
+.subscribe(response => {  
               if (!response.length) {
                   return false;
       }

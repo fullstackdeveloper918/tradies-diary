@@ -73,7 +73,7 @@
                                                   <label style="width: 100%;display: flex;justify-content: space-between;">One-time RFI Recipient/s<span class="btn-span" (click)="openAddOwnerDialog()" mat-button cdkFocusInitial>Add New</span></label>
                                                   <mat-select [formControl]="projectOwnerControl" placeholder="RFI Recipients" multiple #multiSelect>
                       
-                                                  <mat-select-trigger>
+                                                  <!-- <mat-select-trigger> -->
                                                       <mat-chip-set>
                                                       <mat-chip *ngFor="let topping of projectOwnerControl.value; index as i" [removable]="true"
                                                           (removed)="onToppingRemoved(topping, i)">
@@ -81,7 +81,7 @@
                                                           <mat-icon matChipRemove>cancel</mat-icon>
                                                       </mat-chip>
                                                       </mat-chip-set>
-                                                  </mat-select-trigger>
+                                                  <!-- </mat-select-trigger> -->
                                                   <mat-option>
                                                       <ngx-mat-select-search 
                                                       [formControl]="search_control_owner"

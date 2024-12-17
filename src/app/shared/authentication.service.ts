@@ -66,42 +66,44 @@ export class AuthenticationService {
         if (user) {
 
           user.getIdTokenResult()
-          .then( idTokenResult => {
+          .then( idTokenResult => {            
             if(idTokenResult.claims){
               if(idTokenResult.claims.user_id){
-                  this.data_api.getFBUser(idTokenResult.claims.user_id).subscribe((data) => {
-                        console.log(data.userAccounts.includes(this.accountFirebase));
-                        console.log('data.userAccounts', data.userAccounts);
-                        console.log('data.accountFirebase', this.accountFirebase);
-                        
-                        
+                this.data_api.getFBUser(idTokenResult.claims.user_id).subscribe((data) => {
+                  console.log('data', data);
+                  
+                  if (data?.userAccounts?.includes(this.accountFirebase)) {
+                    console.log('User account exists:', data.userAccounts);
+                    localStorage.setItem('currentUser', JSON.stringify(idTokenResult.claims));
+                
+                    let currentUserData = localStorage.getItem("currentUser");
+                    currentUserData = currentUserData ? JSON.parse(currentUserData) : [];
+                
+                    console.log(currentUserData);
+                
+                    currentUserData['validAccount'] = true;
 
-                        if(data.userAccounts.includes(this.accountFirebase)){
-
-                          localStorage.setItem('currentUser', JSON.stringify(idTokenResult.claims));
-
-                          let currentUserData = localStorage.getItem("currentUser");
-
-                          currentUserData = currentUserData ? JSON.parse(currentUserData) : [];
-
-                          console.log(currentUserData);
-
-                          currentUserData['validAccount']= true;    
-                          
-                          console.log(currentUserData);
-
-                          localStorage.setItem("currentUser", JSON.stringify(currentUserData));
-
-                          this.doClaimsNavigation();
-
-                        }else{
-
-                          this.router.navigate(['/pages/login']);
-                          alert('You are not registered as user on this account');
-                        }
-                        
-                    }
-                  );
+                    // *********************************************************************************************************
+                    // currentUserData['userRole'] = 'project_owner'; // REMOVE THIS AFTER THAT
+                    if(idTokenResult.claims.user_id=="uNyP9DuGffYx5dIX5fgh1QiZE9k1"){
+                    currentUserData['userRole'] = 'project_owner'; // REMOVE THIS AFTER THAT
+                    } else if(idTokenResult.claims.user_id=='ITzkWEyQ0pT88LQjRwrVYJ6h1RB2'){
+                     currentUserData['userRole'] = 'app_admin'; // REMOVE THIS AFTER THAT
+                    } else if(idTokenResult.claims.user_id=='HB3L6RQAixcI6LsxkJrWiB0xaFs2')
+                      currentUserData['userRole'] = 'project_supervisor'; 
+                    // **************************************************************************************************
+                
+                    console.log(currentUserData);
+                
+                    localStorage.setItem("currentUser", JSON.stringify(currentUserData));
+                
+                    this.doClaimsNavigation();
+                  } else{
+                    this.router.navigate(['/pages/login']);
+                    alert('You are not registered as a user on this account');
+                  }
+                });
+                
               }
 
               

@@ -232,12 +232,31 @@ export class DashboardClientComponent {
       this.getFBProjects();
       // this.getSupervisors();
   }
+  
+  findIdFromEmail(): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      this.data_api.getFBUsersOrdered().subscribe((data: any) => {
+        console.log('data', data);
+        const user = data.find((user: any) => user.userEmail === this.userDetails.email);
+        console.log('user', user ? user.id : 'No user found');
+        
+        if (user) {
+          resolve(user.id); // Resolve the promise with the user.id
+        } else {
+          resolve(null); // If no user found, resolve with null or handle as needed
+        }
+      }, (error) => {
+        reject(error); // Reject the promise if there's an error in the observable
+      });
+    });
+  }
 
-  getFBRecent(){
-
-        this.data_api.getFBClientVariations(this.userDetails.user_id).pipe().subscribe(dataDailyReports => {
+  async getFBRecent(){
+       const toSearchId = await this.findIdFromEmail();
+       console.log('toSearchId', toSearchId)
+        this.data_api.getFBClientVariations(toSearchId).pipe().subscribe(dataDailyReports => {
             console.log(dataDailyReports);
-
+            // this.source = new LocalDataSource(dataDailyReports)
             if(dataDailyReports){
                 this.dashboardDailyReportList = [];
                 dataDailyReports.forEach(data =>{  
@@ -249,7 +268,7 @@ export class DashboardClientComponent {
                     
                 })
             }
-            // this.source = new LocalDataSource(this.dashboardDailyReportList)
+            this.source = new LocalDataSource(this.dashboardDailyReportList)
             this.getFBRecent2();
             // console.log(this.dashboardDailyReportList);
 

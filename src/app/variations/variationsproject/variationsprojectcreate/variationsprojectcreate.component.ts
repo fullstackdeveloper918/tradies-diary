@@ -165,6 +165,8 @@ export class VariationsProjectCreateComponent implements OnInit {
 
     deviceInfo;
 
+    saveFormInterval: any
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -256,22 +258,22 @@ export class VariationsProjectCreateComponent implements OnInit {
         // // this.getProject();
         
         this.accountFirebase = this.data_api.getCurrentProject();
+        // FOR AUTO SAVE FORM
         this.setFormValue();
-        setInterval(()=>{
+        this.saveFormInterval = setInterval(()=>{
           this.saveForm();
         },5000)
-        console.log('filter_list_ownersner', this.filter_list_owners);
-        
     }
 
-    ngOnDestroy(){
-      console.log('ondestroy works');
-      this.addFestForm.reset();
-    }
-
+      ngOnDestroy(){
+        clearInterval(this.saveFormInterval);
+        localStorage.removeItem("formData")
+        localStorage.removeItem('projectOwnerControl')
+      }
+      
     setProjectOwners
 
-    // set form values
+    // SET FORM VALUE FOR AUTO SAVE
     setFormValue(){
      const formData = localStorage.getItem('formData');
      setTimeout(()=>{
@@ -300,6 +302,10 @@ export class VariationsProjectCreateComponent implements OnInit {
             // approvedBy:  parsedData.approvedBy ? parsedData.approvedBy : '',
             // approvedRole: parsedData.approvedRoleparsedData.approvedRole ? parsedData.approvedRoleparsedData.approvedRole  : ''
           })
+          let parsedProjectOwnerControl = JSON.parse(localStorage.getItem('projectOwnerControl'));
+          if(parsedProjectOwnerControl){
+            this.projectOwnerControl.setValue(parsedProjectOwnerControl)
+          }          
           // let projectOwnerIDs
           // if(parsedData.projectOwner){
           //   projectOwnerIDs = parsedData.projectOwner;
@@ -360,7 +366,7 @@ export class VariationsProjectCreateComponent implements OnInit {
       }
   }
 
-    // SAVE FORM
+    // SAVE FORM FOR AUTO SAVE
     saveForm(){
     localStorage.setItem('formData',JSON.stringify(this.addFestForm.value))
     }
@@ -851,7 +857,8 @@ export class VariationsProjectCreateComponent implements OnInit {
     initializeFilterOwners() {
 
       this.filter_list_owners.next(this.projectOwners.slice());
-
+       console.log('filter_list_owners ', this.filter_list_owners );
+       
         this.search_control_owner.valueChanges
         .pipe(takeUntil(this._onDestroy))
         .subscribe(() => {
@@ -2471,7 +2478,7 @@ cleanChar(str){
                       let _percentage$ = task.percentageChanges();
 
                       _percentage$.subscribe(
-                        (prog: number) => {
+                        (prog: number) => { 
                           this.progressOverlay.setProgress(Math.ceil(prog));
                       });
                       
@@ -2805,8 +2812,7 @@ cleanChar(str){
 
     ownerSelectChange(event)
     {
-
-      console.log(event, 'event')
+      localStorage.setItem('projectOwnerControl', JSON.stringify(this.projectOwnerControl.value))
       if(event.isUserInput) {
        
           if(event.source.selected == true){
@@ -2828,7 +2834,7 @@ cleanChar(str){
                 });
               }
           }
-
+          
       }
     }
 

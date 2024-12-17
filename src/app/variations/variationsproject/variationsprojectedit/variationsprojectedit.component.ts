@@ -2803,7 +2803,7 @@ export class VariationsProjectEditComponent implements OnInit {
     }
 
     async saveStepUploadPDFwithQuotes(message,action){
-
+     
         let myFiles = [];
 
         let imageDone = 0;
@@ -2831,7 +2831,7 @@ export class VariationsProjectEditComponent implements OnInit {
                   }
             }
           }
-        }
+        }  
 
       this.progressOverlay.show('Merging PDF','#0771DE','white','lightslategray',1);
 
@@ -2847,7 +2847,7 @@ export class VariationsProjectEditComponent implements OnInit {
         const copiedPagesA = await mergedPdf.copyPages(pdfA, pdfA.getPageIndices());
         copiedPagesA.forEach((page) => mergedPdf.addPage(page));
 
-          for (const document of myFiles) {
+          for (const document of myFiles) {           
               const existingPdfBytes = await fetch(document).then((res) =>
                 res.arrayBuffer()
               );

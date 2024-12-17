@@ -585,7 +585,7 @@ export class DatasourceService {
   }
 
   getFBUser(id): any {
-
+        
     let itemDoc = this.afs.collection('/users').doc(id);
     return itemDoc.valueChanges({ idField: 'id' }).pipe(take(1));
   }
@@ -1254,7 +1254,9 @@ export class DatasourceService {
     return itemCol.valueChanges({ idField: 'id' })
   }
 
-  getFBClientVariations(clientID): any {
+    getFBClientVariations(clientID): any {
+    console.log('clientID',clientID);
+    
     let itemCol = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
     .where("projectOwner", 'array-contains', clientID)
     );
