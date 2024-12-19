@@ -67,7 +67,7 @@ export class AuthenticationService {
 
           user.getIdTokenResult()
           .then( idTokenResult => {            
-            if(idTokenResult.claims){
+            if(idTokenResult.claims){              
               if(idTokenResult.claims.user_id){
                 this.data_api.getFBUser(idTokenResult.claims.user_id).subscribe((data) => {
                   console.log('data', data);
@@ -83,16 +83,6 @@ export class AuthenticationService {
                 
                     currentUserData['validAccount'] = true;
 
-                    // *********************************************************************************************************
-                    // currentUserData['userRole'] = 'project_owner'; // REMOVE THIS AFTER THAT
-                    if(idTokenResult.claims.user_id=="uNyP9DuGffYx5dIX5fgh1QiZE9k1"){
-                    currentUserData['userRole'] = 'project_owner'; // REMOVE THIS AFTER THAT
-                    } else if(idTokenResult.claims.user_id=='ITzkWEyQ0pT88LQjRwrVYJ6h1RB2'){
-                     currentUserData['userRole'] = 'app_admin'; // REMOVE THIS AFTER THAT
-                    } else if(idTokenResult.claims.user_id=='HB3L6RQAixcI6LsxkJrWiB0xaFs2')
-                      currentUserData['userRole'] = 'project_supervisor'; 
-                    // **************************************************************************************************
-                
                     console.log(currentUserData);
                 
                     localStorage.setItem("currentUser", JSON.stringify(currentUserData));

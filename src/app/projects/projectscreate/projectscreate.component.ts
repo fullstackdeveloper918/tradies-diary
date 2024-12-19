@@ -512,7 +512,6 @@ export class ProjectsCreateComponent implements OnInit {
                           
                     })
                 }
-                console.log(this.siteSupervisors);
                 this.initializeFilterOwners();
                 this.initializeFilterWorkers();
                 this.initializeFilterSupervisors();

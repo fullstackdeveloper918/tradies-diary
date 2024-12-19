@@ -544,7 +544,7 @@ export class DatasourceService {
   
   getFBProjectsSupervisor(supervisorID): any {
     let itemCol = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/projects', ref => ref
-    .where("siteSupervisor", '==', supervisorID));
+    .where("siteSupervisor", '==', supervisorID)); 
     return itemCol.valueChanges({ idField: 'id' })
   }
 

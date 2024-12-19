@@ -3695,7 +3695,7 @@ export class DailyProjectComponent implements OnInit  {
                 createdAt: Timestamp.fromDate(new Date()),
                 createdBy: this.userDetails.user_id
               });
-            
+
               this.data_api.createFBDailyReport(this.editForm.value).then(data => {
        
                 this.dailyReportId = data;
@@ -3781,7 +3781,7 @@ export class DailyProjectComponent implements OnInit  {
                     this.getRecentImagesDailyReport();
                     this.addLog('create','Created New Daily Report');
                   })
- 
+                  
               });
              
           }

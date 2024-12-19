@@ -147,7 +147,7 @@ export class DailyReportComponent implements OnInit {
 
         data.forEach(data =>{ 
           if (!this.projectList.find(item => item.id === data.id)) {
-            this.projectList.push(data)
+            this.projectList.push(data)            
           }
         })
 
@@ -164,7 +164,7 @@ export class DailyReportComponent implements OnInit {
 
         data.forEach(data =>{ 
           if (!this.projectList.find(item => item.id === data.id)) {
-            this.projectList.push(data)
+            this.projectList.push(data)            
           }
         })
 

@@ -386,12 +386,12 @@ export class DashboardDailySupervisorComponent {
           this.projectNames.push(data2)
 
           if(data2.siteSupervisor){
-            if(data2.siteSupervisor == this.userDetails.user_id){
+            if(data2.siteSupervisor == this.userDetails.user_id){  
                 tempSupervisorProjects.push(data2);
             }
 
             if(data2.altSupervisor){
-              if(data2.altSupervisor.includes( this.userDetails.user_id)){
+              if(data2.altSupervisor.includes( this.userDetails.user_id)){ 
                   tempSupervisorProjects.push(data2);
               }
             }
@@ -783,7 +783,7 @@ export class DailyProjectSelectDialog implements OnInit {
     this.addFestForm = this.formBuilder.group({
       projectId: ['', Validators.required]
     }, {
-    });
+    });    
     this.projectNames = this.data;
     this.initializeFilterProjects();
     this.getAdminSettings();
@@ -809,7 +809,7 @@ export class DailyProjectSelectDialog implements OnInit {
   }
 
   initializeFilterProjects() {
-  
+    
     this.filter_list_projects.next(this.projectNames.slice());
 
       this.search_control_project.valueChanges

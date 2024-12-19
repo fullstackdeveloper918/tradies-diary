@@ -1,11 +1,11 @@
 <!-- <h1 mat-dialog-title>Add Item</h1> -->
 <div mat-dialog-content class=" table-pop">
         <form [formGroup]="addFestForm" class="dcb-form">
-                <div class = "row">
-                        <div class="col-md-9" style="display:flex;align-items: center;">
-                                <h1 style="color:#000000de;color:#000000de;">Add Item</h1>
+                <div class = "row add_items">
+                        <div class="col-md-12" style="display:flex;align-items: center;">
+                                <h1 style="color:#000000de;color:#000000de;" class="pt-2">Add Item</h1>
                         </div>
-                        <div class="col-md-3" style="text-align: center;padding: 5px;">
+                        <div class="col-md-12" style="text-align: center;">
                                 <label>Image
                                         <i style="color: rgb(7, 113, 222);
                                         display: inline-block;
@@ -25,7 +25,7 @@
                                 <div class="fileinput fileinput-new text-center" style="display:block;margin-bottom:0;">
                                 <div>     
                                 <div 
-                                class="border border-primary rounded text-center bg-light text-muted" 
+                                class="uploaded_div rounded text-center bg-light text-muted" 
                                 style="min-height: 68px; padding: 10px 0px 0px 0;" 
                                 (drop)="onDrop($event)" >
                                 <h5>Drag Files Here</h5>

@@ -666,9 +666,9 @@ export class VariationsProjectComponent implements OnInit {
       this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
         .where("projectId", '==', this.passID.id)
         // .orderBy("variantsNumber", 'desc')
-        // .limit(10)
+        .limit(10)
       ).snapshotChanges()
-.subscribe(response => {  
+        .subscribe(response => {  
               if (!response.length) {
                   return false;
       }

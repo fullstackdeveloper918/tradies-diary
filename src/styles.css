@@ -1660,6 +1660,26 @@ span.btn-span{
 .dcb-form .no-dropdown .mat-mdc-select-arrow-wrapper {
     display: none;
 }
+
+/* 19-12-24 */
+.uploaded_div {
+    outline: 1px dashed #848484 !important;
+    outline-offset: 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 90px !important;
+    margin-bottom: 10px;
+}
+.uploaded_div h5{
+    color:#000;
+}
+.uploaded_div p , .uploaded_div h5{
+    padding: 0px;
+    margin: 0px;
+}
+/* 19-12-24 end */
 @media only screen and (max-width: 768px) {
  
     #changelogs .item {
