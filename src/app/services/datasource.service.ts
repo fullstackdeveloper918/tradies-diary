@@ -58,6 +58,7 @@ export class DatasourceService {
     // this.timesheetsRef = afs.collection(this.dbPath2);
 
     if(location.origin == 'http://localhost:4200'){
+      console.log('4200 is woking')
       this.bridgeURL = 'https://api-staging.tradiesdiary.com/wp-json/report/v1';
       this.apiURL = 'https://api-staging.tradiesdiary.com/wp-json/wp/v2';
       this.logoURL='https://api-staging.tradiesdiary.com/logo.png';
@@ -81,6 +82,20 @@ export class DatasourceService {
       //this.accountFirebase = 'firebase';
       this.accountFirebase = 'diarystaging';
     }
+    else if(location.origin.includes('tradies-testing')){
+      console.log('new testing is wokring')
+      this.bridgeURL = 'https://api-staging.tradiesdiary.com/wp-json/report/v1';
+      this.apiURL = 'https://api-staging.tradiesdiary.com/wp-json/wp/v2';
+      this.logoURL='https://api-staging.tradiesdiary.com/logo.png';
+      this.pdfHeaderUrl1='https://api-staging.tradiesdiary.com/header1.png';
+      this.pdfHeaderUrl2='https://api-staging.tradiesdiary.com/header2.png';
+      this.pdfFooterURL='https://api-staging.tradiesdiary.com/footer.png';
+      this.tokenURL='https://api-staging.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
+      this.resetUrl = 'https://api-staging.tradiesdiary.com/wp-json/bdpwr/v1';
+      //this.accountFirebase = 'firebase';
+      this.accountFirebase = 'diarystaging';
+      
+    }
     else if(location.origin.includes('vercel.app')){
       this.bridgeURL = 'https://api-staging.tradiesdiary.com/wp-json/report/v1';
       this.apiURL = 'https://api-staging.tradiesdiary.com/wp-json/wp/v2';
@@ -96,7 +111,7 @@ export class DatasourceService {
 
     }
     else{
-
+     console.log('github is working')
       var full = window.location.host
       //window.location.host is subdomain.domain.com
       var parts = full.split('.')

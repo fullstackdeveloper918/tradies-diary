@@ -1,0 +1,50 @@
+
+<div class="main-content dashboard-content dailyproject-content">
+    <div class="container-fluid">
+        <div class = "row">
+            <div class="col-md-12">
+                <div class="card card-dcb dashboard-card">
+                      <div class="card-header card-header-text card-header-success">
+                          <!-- <div class="card-text">
+                              Weekly Progress Report
+                          </div>  -->
+                          <!-- <div class = "side-link">
+                              <button [routerLink]="'/notes/update'"  mat-button class="btn btn-primary">
+                                <i class="material-icons">update</i> Update Note
+                            </button>
+                          </div> -->
+                      </div>
+                      <div class="card-body compact-layout compact-layout-common">
+                            <form  class="dcb-form">
+                                <div class="row">
+                                    <div class="col-md-3 col-lg-2">
+                                        <label  style = "border-color:#292929;font-weight:bold">Select client *</label>
+                                        <!-- <input  placeholder="What site is this report for" type="text" formControlName="projectName"
+                                        id="projectName"> -->
+                                        <!-- //<mat-select style = "border-color:#292929" (selectionChange)="projectSelect($event.value)" formControlName="projectName" id="projectName" placeholder="What site is this report for" name="projectName"  #singleSelect> -->
+                                        <mat-select style = "border-color:#292929" (selectionChange)="clientSelect($event)" formControlName="projectId" id="projectId" placeholder="Select Client" name="projectId"  #singleSelect>
+                                                <!-- <mat-option>
+                                                        <ngx-mat-select-search 
+                                                                [formControl]="search_control_project"
+                                                                placeholderLabel="Search..."
+                                                                noEntriesFoundLabel="'No Match Found'"></ngx-mat-select-search>
+                                                </mat-option> -->
+                                                <mat-option *ngFor="let projectName of filter_list_clients" [value]="projectName.id">
+                                                    {{ projectName.name }}
+                                                </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                            </form>
+                      </div>
+                </div>
+                
+                <div class="smart-table-holder" *ngIf="selectedClientId">
+                    <h1>Variation </h1>
+                    <ng2-smart-table [settings]="Settings" [source]="source"></ng2-smart-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+               

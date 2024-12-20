@@ -1,56 +1,52 @@
 <!-- <h1 mat-dialog-title>Update Item</h1> -->
 <div mat-dialog-content class=" table-pop">
     <form [formGroup]="editForm" class="dcb-form">
-            <div class = "row">
-                    <div class="col-md-9" style="display:flex;align-items: center;">
-                            <h1 style="color:#000000de;color:#000000de;">Update Item</h1>
-                    </div>
-                    <div class="col-md-3" style="text-align: center;padding: 5px;">
-                            <label>Image
-                                    <i style="color: rgb(7, 113, 222);
-                                    display: inline-block;
-                                    margin-left:2px;
-                                    font-size: 17px;
-                                    " *ngIf="editForm.get('hasImage').value == true" class="material-icons"
-                                    (click)="enlargeImage.enlargeImage(editForm.get('itemImage').value)" data-toggle="modal" data-target="#myModal"
-                                    >task</i>
-                                    <i style="color: #f44336;
-                                    display: inline-block;
-                                    margin-left:2px;
-                                    font-size: 17px;
-                                    cursor: pointer;
-                                    " *ngIf="editForm.get('hasImage').value == true" class="material-icons" (click)="resetImage()">delete</i>
-                            </label>
-         
-                            <div class="fileinput fileinput-new text-center" style="display:block;margin-bottom:0;">
-                                    <!-- <div class="fileinput-new thumbnail" style = "max-width: 50px;margin-top: 0;margin-bottom: 0;box-shadow: none;">
-                                            <img src="./assets/img/image_placeholder.jpg" alt="..." *ngIf="!editForm.get('itemImage').value">
-                                            <img [src]="editForm.get('itemImage').value" *ngIf="editForm.get('itemImage').value">
-                                    </div>
-                                    <div class="fileinput-preview fileinput-exists thumbnail"></div> -->
-                                    <div>
-                                        <div 
-                                        class="border border-primary rounded text-center bg-light text-muted" 
-                                        style="min-height: 68px; padding: 10px 0px 0px 0;" 
-                                        (drop)="onDrop($event)" >
-                                        <h5>Drag Files Here</h5>
-                                        </div> 
-                                            <span 
-                                                    [ngStyle]="{ backgroundColor: colorBtnDefault }" 
-                                                    (mouseenter)="onButtonEnter($event.target)" 
-                                                    (mouseleave)="onButtonOut($event.target)" 
-                                                    class="btn btn-change btn-file dcb-btn btn-compact">
-                                                    <span class="fileinput-new">Select image</span>
-                                                    <span class="fileinput-exists">Change</span>
-                                                    <input accept="image/*" type="file" name="..." (change)="onFileChange($event)" />
-                                            </span>
-                                    <!-- <a href="#pablo" class="btn btn-remove-img fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a> -->
-                                    <!-- <a href="#" class="btn btn-remove-img" (click) = "removeItem(i)"><i class="fa fa-times"></i> Remove</a> -->
-                                    </div>
-                            </div>
+        <div class = "row add_items">
+                <div class="col-md-12" style="display:flex;align-items: center;">
+                        <h1 style="color:#000000de;color:#000000de;" class="pt-2">Add Item</h1>
+                </div>
+                <div class="col-md-12" style="text-align: center;">
+                        <label *ngIf="editForm.get('hasImage').value == true"
+                        (click)="enlargeImage.enlargeImage(editForm.get('itemImage').value)">Image
+                                <i style="color: rgb(7, 113, 222);
+                                display: inline-block;
+                                margin-left:2px;
+                                font-size: 17px;
+                                " *ngIf="editForm.get('hasImage').value == true" class="material-icons"
+                                (click)="enlargeImage.enlargeImage(editForm.get('itemImage').value)" data-toggle="modal" data-target="#myModal"
+                                >task</i>
+                                <i style="color: #f44336;
+                                display: inline-block;
+                                margin-left:2px;
+                                font-size: 17px;
+                                cursor: pointer;
+                                " *ngIf="editForm.get('hasImage').value == true" class="material-icons" (click)="resetImage()">delete</i>
+                        </label>
+     
+                        <div class="fileinput fileinput-new text-center" style="display:block;margin-bottom:0;">
+                        <div>     
+                        <div 
+                        class="uploaded_div rounded text-center bg-light text-muted cursor-pointer" 
+                        style="min-height: 68px; padding: 10px 0px 0px 0; cursor: pointer;" 
+                        (drop)="onDrop($event)" 
+                        (click)="fileInput.click()">
+                        <h5>Drag Files Here</h5>
+                        <p>Or click to select files</p>
+                        </div>
+                        <span 
+                        [ngStyle]="{ backgroundColor: colorBtnDefault }" 
+                        (mouseenter)="onButtonEnter($event.target)" 
+                        (mouseleave)="onButtonOut($event.target)" 
+                        class="btn btn-change btn-file dcb-btn btn-compact d-none">
+                        <span class="fileinput-new">Select image</span>
+                        <!-- <span class="fileinput-exists">Change</span> -->
+                        <input #fileInput accept="image/*" type="file" name="..." (change)="onFileChange($event)" />
+                        </span>
+                        </div>
+                        </div>
 
-                    </div>
-            </div>
+                </div>
+        </div>
             <div class = "row">
                     <div class="col-md-12">
                             <label>Item Description*</label>

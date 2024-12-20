@@ -199,7 +199,14 @@ export const ROUTES: RouteInfo[] = [
     //     type: 'link',
     //     icontype: 'security',
     //     securitylvl: 3,
-    }
+    },
+    {
+      path: '/client-view',
+      title: 'Client View',
+      type: 'link',
+      icontype: 'note_alt',
+      securitylvl: 5,
+  }
 ];
 @Component({
     selector: 'app-sidebar-cmp',

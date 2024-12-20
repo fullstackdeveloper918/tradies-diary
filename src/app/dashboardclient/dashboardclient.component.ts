@@ -70,7 +70,7 @@ export class DashboardClientComponent {
         type : 'html',
         filter: false,
         sort: false,
-        valuePrepareFunction: (cell,row) => {
+        valuePrepareFunction: (cell,row) => {          
           return `<a target="_blank" href="#/dashboard-variants/${row.id}"><i class="material-icons">preview</i></a>
                   `;
         }
@@ -239,7 +239,7 @@ export class DashboardClientComponent {
         console.log('data', data);
         const user = data.find((user: any) => user.userEmail === this.userDetails.email);
         console.log('user', user ? user.id : 'No user found');
-        
+
         if (user) {
           resolve(user.id); // Resolve the promise with the user.id
         } else {

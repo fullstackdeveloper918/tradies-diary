@@ -20,18 +20,23 @@
                                     </button> 
                                 </div>
                                 
-                                <div class="col">
+                                <!-- <div class="col">
                                     <div class="holder-filter-by"> 
                                         <label><i class="material-icons">filter_alt</i> Filter by Name</label>
                                         <input matInput placeholder="Enter Name" formControlName="nameFilter" (input)="searchByNameFilterVariation($event)">
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="col">
                                     <form [formGroup]="filterVariationsForm" class="dcb-form" style="justify-content: flex-end;display: flex;">
+                                        <!-- <div class="holder-filter-by"> 
+                                            <label><i class="material-icons">filter_alt</i> Filter by Name</label>
+                                            <input matInput placeholder="Enter Name" formControlName="nameFilter" (input)="searchByNameFilterVariation($event)">
+                                        </div> -->
                                         <div class="filter-holder w-100">
+                                            
                                                
-                                                    <div class="holder-filter-by"> 
+                                                    <div class="holder-filter-by fliter_tab"> 
                                                         <label><i class="material-icons">filter_alt</i> Filter by</label>
                                                         <mat-select placeholder="Select Filter Type" [(value)]="selected" name="searchChoice" #singleSelect>
                                                             <mat-option (click)="filterVariationsForm.reset()"
@@ -42,7 +47,7 @@
                                                         </mat-select>
                                                     </div>
 
-                                                    <div class="holder-filter-with">
+                                                    <div class="holder-filter-with fliter_tab">
                                                         
                                                         <ng-container *ngIf="selected; else notShow">
 
@@ -100,6 +105,10 @@
     
                                                         </ng-template>
     
+                                                    </div>
+                                                    <div class="holder-filter-by fliter_tab"> 
+                                                        <label><i class="material-icons">filter_alt</i> Filter by Name</label>
+                                                        <input matInput placeholder="Enter Name" formControlName="nameFilter" (input)="searchByNameFilterVariation($event)">
                                                     </div>
     
     

@@ -289,4 +289,6 @@ export class NavbarComponent implements OnInit {
     getPath() {
         return this.location.prepareExternalUrl(this.location.path());
     }
+
+  
 }
