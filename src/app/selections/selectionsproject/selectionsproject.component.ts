@@ -256,6 +256,7 @@ export class SelectionsProjectComponent implements OnInit {
          this.filterSelectionsForm = this.formBuilder.group({
             status: [''],
             dueDate: [''],
+            nameFilter : ['']
         });
     }
 
@@ -669,6 +670,7 @@ export class SelectionsProjectComponent implements OnInit {
         console.log('response', response);
         
           if (!response.length) {
+            this.disable_next = true;  
             return false;
           }
 
@@ -833,6 +835,7 @@ export class SelectionsProjectComponent implements OnInit {
   }
 
   public reset(){
+    this.filterSelectionsForm.get('nameFilter')?.setValue('');
     this.listmode = 'default';
     this.filterSelectionsForm.patchValue({
       status: '',

@@ -243,6 +243,7 @@ export class RFIPROJECTComponent {
        this.filterVariationsForm = this.formBuilder.group({
           status: [''],
           dueDate: [''],
+          nameFilter : ['']
       });
   }
 
@@ -655,11 +656,13 @@ export class RFIPROJECTComponent {
     .limit(10)
     ).snapshotChanges()
     .subscribe(response => {
-      console.log('response', response);
+
       
         if (!response.length) {
+          this.disable_next = true;
           return false;
         }
+    
 
         this.firstInResponse = response[0].payload.doc;
         this.lastInResponse = response[response.length - 1].payload.doc;
@@ -822,6 +825,7 @@ prevPage() {
 }
 
 public reset(){
+  this.filterVariationsForm.get('nameFilter')?.setValue('');
   this.listmode = 'default';
   this.filterVariationsForm.patchValue({
     status: '',

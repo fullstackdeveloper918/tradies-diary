@@ -661,19 +661,20 @@ export class VariationsProjectComponent implements OnInit {
 
     // Default 
 
-    getVariations(){    
+      getVariations(){    
       this.loading = true;
       this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
         .where("projectId", '==', this.passID.id)
-        // .orderBy("variantsNumber", 'desc')
+        .orderBy("variantsNumber", 'desc')
         .limit(10)
       ).snapshotChanges()
         .subscribe(response => {  
               if (!response.length) {
+                this.disable_next = true;  
                   return false;
       }
   
-              this.firstInResponse = response[0].payload.doc;
+      this.firstInResponse = response[0].payload.doc;
       this.lastInResponse = response[response.length - 1].payload.doc;
   
       this.tableData = [];

@@ -388,9 +388,9 @@ export const AppRoutes: Routes = [
         path: 'client-view',
         component: AdminLayoutComponent,
         loadChildren: () => import('./dasboard-admin-see-as-client-view/dasboard-admin-see-as-client-view.module').then(m => m.DasboardAdminSeeAsClientViewModule),
-        // canActivate: [AdminGuard],
+        canActivate: [AdminGuard],
         data: {
-            role: 'project_owner'
+            role: 'app_admin'
             }
     },
 ];

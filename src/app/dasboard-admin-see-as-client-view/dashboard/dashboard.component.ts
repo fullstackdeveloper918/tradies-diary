@@ -10,6 +10,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 export class DashboardComponent {
   filter_list_clients :any
   selectedClientId:any
+  selectedClientName:any
   source: LocalDataSource = new LocalDataSource;
   
 
@@ -47,6 +48,7 @@ export class DashboardComponent {
 
   clientSelect(event: any) {
     this.selectedClientId = event.value;  // Get the selected client's ID
+    this.selectedClientName = event.name;
     console.log('Selected Client ID:', this.selectedClientId); // Log the selected ID
     this.showClientDataById()
   }

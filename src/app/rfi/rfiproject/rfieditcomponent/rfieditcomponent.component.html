@@ -254,7 +254,7 @@
                                                     </table>
                                                 </div>
                                                 <div class="d-flex justify-content-end">
-                                                    <!-- <div class="col-md-1 col-lg-1">
+                                                    <div class="col-md-1 col-lg-1">
                                                         <label>Group Total</label>
                                                         <input placeholder="Group Total" type="hidden" formControlName="groupTotal" >
                                                         <input *ngIf="isNumber(group.get('groupTotal').value) == true" matInput placeholder="Total" type="text" [value]="group.get('groupTotal').value"  readonly>
@@ -270,7 +270,7 @@
                                                     <div class="col-md-1 col-lg-1" style="margin-left: auto;">
                                                         <label *ngIf="group.get('groupStatus').value">Group Status</label>
                                                         <input style="text-transform: capitalize;" *ngIf="group.get('groupStatus').value" matInput placeholder="Group Status" type="text"  [value]="group.get('groupStatus').value"  readonly>
-                                                    </div> -->
+                                                    </div>
                                                     <span style="margin-left:0 !important;margin-top: 4px;" (click)= "removeGroup(groupIndex)" mat-button class="btn-span"  *ngIf="group.get('groupStatus').value != 'approved'">Remove Group</span>
                                                 </div>
                                             </div>

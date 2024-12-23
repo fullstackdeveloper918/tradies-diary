@@ -71,7 +71,7 @@ export class AuthenticationService {
               if(idTokenResult.claims.user_id){
                 this.data_api.getFBUser(idTokenResult.claims.user_id).subscribe((data) => {
                   console.log('data', data);
-                  
+
                   if (data?.userAccounts?.includes(this.accountFirebase)) {
                     console.log('User account exists:', data.userAccounts);
                     localStorage.setItem('currentUser', JSON.stringify(idTokenResult.claims));

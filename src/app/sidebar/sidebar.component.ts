@@ -204,7 +204,7 @@ export const ROUTES: RouteInfo[] = [
       path: '/client-view',
       title: 'Client View',
       type: 'link',
-      icontype: 'note_alt',
+      icontype: 'visibility',
       securitylvl: 5,
   }
 ];

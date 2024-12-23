@@ -512,7 +512,7 @@ export class RFICREATEPROJECTComponent {
       groupName: '',
       groupBudget: '',
       hideBudget: true,
-      // groupTotal: '',
+      groupTotal: '',
       groupOverUnder: '',
       groupStatus: '',
       files: '',

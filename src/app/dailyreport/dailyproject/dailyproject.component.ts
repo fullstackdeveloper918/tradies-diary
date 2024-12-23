@@ -75,6 +75,9 @@ declare const $: any;
 })
 export class DailyProjectComponent implements OnInit  {
   @ViewChild('stickyMenu') menuElement: ElementRef;
+  modifiedById: any;
+  previouslyUpdatedBy:any
+  Interval:any
 
   // @HostListener("window:beforeunload")  
   // SamplecanDeactivate(): Observable<boolean> | boolean {  
@@ -1382,7 +1385,74 @@ export class DailyProjectComponent implements OnInit  {
        // this.initializeFilterReasons(0);
        // this.initializeFilterEmployees(0);
         //this.initializeFilterProducts(0);
+      this.Interval =  setInterval(()=>{
+        this.getPreviousUpdatedByUser();
+       },4000) 
     }
+
+// GET PREVIOUSLY UPDATED USER
+async getPreviousUpdatedByUser() {
+  console.log('this.dailyReportId', this.dailyReportId);
+
+  try {
+    const docSnapshot = await this.afs.collection('/accounts')
+      .doc(this.accountFirebase)
+      .collection('/dailyReport')
+      .doc(this.dailyReportId)
+      .get()
+      .toPromise();
+
+    if (docSnapshot.exists) {
+      console.log('Updated data:', docSnapshot.data());
+      this.modifiedById = docSnapshot.data().modifiedBy;
+      console.log('Modified by ID:', this.modifiedById);
+
+      this.findUserById();
+    } else {
+      console.log('No such document!');
+    }
+  } catch (error) {
+    console.error('Error getting document:', error);
+  }
+}
+
+// FIND USER BY ID TO DISPLAY ON HTML
+findUserById() {
+  if (!this.modifiedById) {
+    console.log('No modifiedById to search for');
+    return;
+  }
+
+  this.afs.collection('/users', ref => ref.where('id', '==', this.modifiedById))
+    .get()
+    .toPromise()
+    .then(docSnapshot => {
+      if (docSnapshot.empty) {
+        console.log('No matching documents.');
+      } else {
+        docSnapshot.forEach(doc => {
+          console.log(doc.id, '=>', doc.data());
+          
+          const userData :any = doc.data();
+          if (userData.userFirstName && userData.userLastName) {
+            this.previouslyUpdatedBy = `${userData.userFirstName} ${userData.userLastName}`;
+            console.log('Updated by:', this.previouslyUpdatedBy);
+          } else {
+            console.log('User first or last name not found');
+          }
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error getting documents: ', error);
+    });
+}
+
+// DESTROY INTERVAL AFTER ONDESTROY
+onDestroy(){
+  clearInterval(this.Interval);
+}
+
 
      async getFBCounterDailyReport(){
       const data =  await this.data_api.getFBCounterDailyReport().pipe(take(1)).toPromise();
@@ -3594,7 +3664,9 @@ export class DailyProjectComponent implements OnInit  {
           }
           
           if(this.dailyReportId){
-
+         const parsedUserData = JSON.parse(localStorage.getItem('currentUser'));
+         const modifiedUserBy = parsedUserData.user_id
+         this.editForm.patchValue({modifiedBy : modifiedUserBy})
               if(this.editForm.controls.imageUpload.dirty != true){
                 this.editForm.controls.imageUpload.disable();
               }

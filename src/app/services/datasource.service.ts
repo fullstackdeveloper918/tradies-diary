@@ -83,35 +83,46 @@ export class DatasourceService {
       this.accountFirebase = 'diarystaging';
     }
     else if(location.origin.includes('tradies-testing')){
-      console.log('new testing is wokring')
-      this.bridgeURL = 'https://api-staging.tradiesdiary.com/wp-json/report/v1';
-      this.apiURL = 'https://api-staging.tradiesdiary.com/wp-json/wp/v2';
-      this.logoURL='https://api-staging.tradiesdiary.com/logo.png';
-      this.pdfHeaderUrl1='https://api-staging.tradiesdiary.com/header1.png';
-      this.pdfHeaderUrl2='https://api-staging.tradiesdiary.com/header2.png';
-      this.pdfFooterURL='https://api-staging.tradiesdiary.com/footer.png';
-      this.tokenURL='https://api-staging.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
-      this.resetUrl = 'https://api-staging.tradiesdiary.com/wp-json/bdpwr/v1';
+      console.log('tradies testing wokring')
+      this.bridgeURL = 'https://api-tradies-diary.tradiesdiary.com/wp-json/report/v1';
+      this.apiURL = 'https://api-tradies-diary.tradiesdiary.com/wp-json/wp/v2';
+      this.logoURL='https://api-tradies-diary.tradiesdiary.com/logo.png';
+      this.pdfHeaderUrl1='https://api-tradies-diary.tradiesdiary.com/header1.png';
+      this.pdfHeaderUrl2='https://api-tradies-diary.tradiesdiary.com/header2.png';
+      this.pdfFooterURL='https://api-tradies-diary.tradiesdiary.com/footer.png';
+      this.tokenURL='https://api-tradies-diary.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
+      this.resetUrl = 'https://api-tradies-diary.tradiesdiary.com/wp-json/bdpwr/v1';
       //this.accountFirebase = 'firebase';
-      this.accountFirebase = 'diarystaging';
+      this.accountFirebase = 'diary';
       
     }
     else if(location.origin.includes('vercel.app')){
-      this.bridgeURL = 'https://api-staging.tradiesdiary.com/wp-json/report/v1';
-      this.apiURL = 'https://api-staging.tradiesdiary.com/wp-json/wp/v2';
-      this.logoURL='https://api-staging.tradiesdiary.com/logo.png';
-      this.pdfHeaderUrl1='https://api-staging.tradiesdiary.com/header1.png';
-      this.pdfHeaderUrl2='https://api-staging.tradiesdiary.com/header2.png';
-      this.pdfFooterURL='https://api-staging.tradiesdiary.com/footer.png';
-      this.tokenURL='https://api-staging.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
-      this.resetUrl = 'https://api-staging.tradiesdiary.com/wp-json/bdpwr/v1';
+      // this.bridgeURL = 'https://api-staging.tradiesdiary.com/wp-json/report/v1';
+      // this.apiURL = 'https://api-staging.tradiesdiary.com/wp-json/wp/v2';
+      // this.logoURL='https://api-staging.tradiesdiary.com/logo.png';
+      // this.pdfHeaderUrl1='https://api-staging.tradiesdiary.com/header1.png';
+      // this.pdfHeaderUrl2='https://api-staging.tradiesdiary.com/header2.png';
+      // this.pdfFooterURL='https://api-staging.tradiesdiary.com/footer.png';
+      // this.tokenURL='https://api-staging.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
+      // this.resetUrl = 'https://api-staging.tradiesdiary.com/wp-json/bdpwr/v1';
+      // //this.accountFirebase = 'firebase';
+      // this.accountFirebase = 'diarystaging';
+      console.log('vercel is  wokring')
+      this.bridgeURL = 'https://api-tradies-diary.tradiesdiary.com/wp-json/report/v1';
+      this.apiURL = 'https://api-tradies-diary.tradiesdiary.com/wp-json/wp/v2';
+      this.logoURL='https://api-tradies-diary.tradiesdiary.com/logo.png';
+      this.pdfHeaderUrl1='https://api-tradies-diary.tradiesdiary.com/header1.png';
+      this.pdfHeaderUrl2='https://api-tradies-diary.tradiesdiary.com/header2.png';
+      this.pdfFooterURL='https://api-tradies-diary.tradiesdiary.com/footer.png';
+      this.tokenURL='https://api-tradies-diary.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
+      this.resetUrl = 'https://api-tradies-diary.tradiesdiary.com/wp-json/bdpwr/v1';
       //this.accountFirebase = 'firebase';
-      this.accountFirebase = 'diarystaging';
+      this.accountFirebase = 'diary';
       
-
+      
     }
     else{
-     console.log('github is working')
+     console.log('main else is working')
       var full = window.location.host
       //window.location.host is subdomain.domain.com
       var parts = full.split('.')
@@ -250,7 +261,7 @@ export class DatasourceService {
   updateFBDailyReport(id,formValue): any {
     return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport').doc(id).update(formValue)
   }
-
+  
   deleteFBDailyReport(id): any {
     return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/dailyReport').doc(id).delete()
   }

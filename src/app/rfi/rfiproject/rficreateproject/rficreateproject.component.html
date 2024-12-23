@@ -222,7 +222,13 @@
                                               </div>
 
                                               <div class="row">
-                                              
+                                               
+                                                <div class="col-md-1 col-lg-1">
+                                                    <label>Group Total</label>
+                                                    <input  placeholder="Group Total" type="hidden" formControlName="groupTotal" >
+                                                    <input *ngIf="isNumber(group.get('groupTotal').value) == true" matInput placeholder="Total" type="text" [value]="group.get('groupTotal').value"  readonly>
+                                                    <input *ngIf="isNumber(group.get('groupTotal').value) == false" matInput placeholder="Total" type="text" value="0"  readonly>
+                                                </div>
 
                                                   <div class="col-md-1 col-lg-1" *ngIf="group.get('hideBudget').value != true">
                                                       <label [ngStyle]="group.get('groupOverUnder').value < 0 ? {'color': '#f44336'} : {'color': '#0771DE'}">Group Over-under</label>
