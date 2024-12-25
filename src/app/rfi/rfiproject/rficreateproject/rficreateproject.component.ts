@@ -384,6 +384,7 @@ export class RFICREATEPROJECTComponent {
 
   getProject(){
     this.data_api.getFBProject(this.passID.id).subscribe((data) => {
+      console.log('projectdata',data)
     // this.data_api.getFBProject(this.passID.id).pipe(first()).subscribe(data => 
         this.projectData = data;
         this.projUploadFolder = data.uploadFolder;

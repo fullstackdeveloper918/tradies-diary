@@ -264,7 +264,37 @@ export class VariationsProjectCreateComponent implements OnInit {
           this.saveForm();
         },5000)
     }
-
+     // Method to handle file upload
+     onFileUpload(event: any) {
+      // // Check if files exist in the event
+      // const file = event.target.files[0];  // Access the file from event.target.files
+  
+      // if (file) {
+      //   // Convert the file to base64
+      //   this.convertFileToBase64(file).then(base64file => {
+      //     console.log('Base64 file:', base64file);
+      //     // this.base64PDF = base64file; // Save the base64 string
+      //   }).catch(error => {
+      //     console.error('Error converting file to base64:', error);
+      //   });
+      // } else {
+      //   console.error('No file selected');
+      // }
+    }
+  
+    convertFileToBase64(file: File): Promise<string> {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          resolve(reader.result as string);  // Resolve with the base64 string
+        };
+        reader.onerror = (error) => {
+          reject(error);
+        };
+        reader.readAsDataURL(file);  // Start the conversion
+      });
+    }
+    
       ngOnDestroy(){
         clearInterval(this.saveFormInterval);
         localStorage.removeItem("formData")

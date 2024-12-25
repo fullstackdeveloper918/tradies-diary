@@ -113,7 +113,7 @@ export class DashboardComponent {
           
       //     return `<a target="_blank" href="#/dashboard-variants/${row.id}"><i class="material-icons">preview</i></a>
       //             `;
-      //   }
+      //   } 
       // },
       variations_num: {
         title: 'Variations No.',

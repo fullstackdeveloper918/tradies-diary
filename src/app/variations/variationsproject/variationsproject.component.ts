@@ -662,7 +662,6 @@ export class VariationsProjectComponent implements OnInit {
     // Default 
 
       getVariations(){    
-      this.loading = true;
       this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
         .where("projectId", '==', this.passID.id)
         .orderBy("variantsNumber", 'desc')
@@ -693,13 +692,13 @@ export class VariationsProjectComponent implements OnInit {
   
       //Push first item to use for Previous action
       this.push_prev_startAt(this.firstInResponse);
-      this.loading = false;
     }, error => {
       });
     }
     
   // GET VARIATION
   getAllVariations(): void {
+    console.log('projectId', this.passID.id)
     this.loading = true;
     setTimeout(()=>{
       this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
@@ -708,24 +707,28 @@ export class VariationsProjectComponent implements OnInit {
         // .limit(this.limit + 10)
       ).snapshotChanges()
   .subscribe(response => {
-    console.log('response',);
+    console.log('response',response);
     
       if (!response.length) {
         return ; // No more data
       }
+      this.tableData = [];
       for (let item of response) {
         const itemData = item.payload.doc.data();
         itemData.id = item.payload.doc.id;
         this.tableData.push(itemData); // Add item to the table data
       }
-  
-      this.source.load(this.tableData); // Load data into the table source
+      this.source = new LocalDataSource(this.tableData)    
+
+      
+      // this.source.load(this.tableData); // Load data into the table source
       this.disable_next = true;
       this.loading = false;
     }, error => {
       console.log('Firebase error', error);
     });
     },2000)
+    console.log('this.tableData.length', this.tableData.length)
    
   }
 

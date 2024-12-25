@@ -704,7 +704,6 @@ getAllRFI(){
       .orderBy("rfiNumber", 'desc')
       ).snapshotChanges()
       .subscribe(response => {
-        console.log('response', response);
         
           if (!response.length) {
             return false;
@@ -718,7 +717,6 @@ getAllRFI(){
             const itemData = item.payload.doc.data();
             itemData.id = item.payload.doc.id;
             this.tableData.push(itemData);
-            console.log('this.tableData', this.tableData);
             
             //this.tableData.push(item.payload.doc.data());
           }

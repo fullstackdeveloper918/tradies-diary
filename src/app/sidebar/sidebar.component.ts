@@ -269,6 +269,7 @@ export class SidebarComponent implements OnInit {
           this.userRole = this.userDetails.userRole;
             // this.userDetails = JSON.parse(localStorage.getItem('currentUser'));
             this.avatarName =  'https://ui-avatars.com/api/?background=0771DE&color=fff&name='+this.userDetails.name;
+            console.log('this.avatarName', this.avatarName)
          }
 
         // this.authService.userRoleSubject
