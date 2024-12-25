@@ -22,6 +22,10 @@ declare const $: any;
 export class DashboardClientComponent {
 
   source: LocalDataSource = new LocalDataSource;
+  // **********************+++++++++++++++++++++++++*******************
+  selectionSource: LocalDataSource = new LocalDataSource;
+  rfiSource: LocalDataSource = new LocalDataSource;
+  // **********************+++++++++++++++++++++++++*******************
   public reportList;
   selectedMode: boolean = true;
   // This will contain selected rows
@@ -46,6 +50,15 @@ export class DashboardClientComponent {
     {value: 'true', viewValue: 'Yes'},
     {value: 'false', viewValue: 'No'},
   ]
+  // *************************+++++++++++++++++++++++++++++*******************
+  selections: string[] = ['Variation', 'Selection', 'Rfi']
+  selectedClientData: string = 'Variation'
+  // CHOOSE SELECTION
+  projectSelect(event: any) {
+    this.selectedClientData = event.value;
+    console.log(this.selectedClientData);  // Access the selected value directly
+  }
+  // *************************+++++++++++++++++++++++++++++*******************
 
   public dashboardDailyReportSettings = {
     actions: { 
@@ -129,6 +142,177 @@ export class DashboardClientComponent {
     }
   };
 
+
+  // ***********************************************************++++++++++++++++++++++++++++++++++***********************************************************
+   
+
+  public dashboardSelectionSettings = {
+    actions: { 
+      delete: false,
+      add: false,
+      edit: false,
+      //custom: [{ name: 'ourCustomAction', title: '<i [routerLink]="["/edit", card.id]" class="material-icons">edit</i>' }],
+    },
+    pager: {
+      display: false,
+    },
+    attr: {
+      class: 'table'
+    },
+    hideSubHeader: true,
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      customactions: {
+        width: '30px',
+        title: '',
+        type : 'html',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {          
+          return `<a target="_blank" href="#/dashboard-selection/${row.id}"><i class="material-icons">preview</i></a>`;
+        }
+      },
+      variations_num: {
+        title: 'Selection No.',
+        width: '100px',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+          return row.selectionNumber;
+        }
+      },
+      variations_name: {
+        title: 'Selection Name',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+          return row.selectionName;
+        }
+      },
+      project_name: {
+        title: 'Project Name',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+          return this.projectNames.find(o => o.id === row.projectId)?.projectName;
+        }
+      },
+      due_date: {
+        title: 'Due Date',
+        width: '150px',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+            return row.dueDate ? row.dueDate.toDate().toDateString(): '';
+        }
+      },
+      status: {
+        title: 'Status',
+        width: '150px',
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+            return row.status;
+        }
+      },
+      created_at: {
+        title: 'Created At',
+        width: '500px',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+            return row.createdAt ? row.createdAt.toDate().toString(): '';
+        }
+      }   
+    }
+  };
+
+  // ***********************************************************++++++++++++++++++++++++++++++++++***********************************************************
+
+  // ***********************************************************++++++++++++++++++++++++++++++++++***********************************************************
+
+  public dashboardRFISettings = {
+    actions: { 
+      delete: false,
+      add: false,
+      edit: false,
+      //custom: [{ name: 'ourCustomAction', title: '<i [routerLink]="["/edit", card.id]" class="material-icons">edit</i>' }],
+    },
+    pager: {
+      display: false,
+    },
+    attr: {
+      class: 'table'
+    },
+    hideSubHeader: true,
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      customactions: {
+        width: '30px',
+        title: '',
+        type : 'html',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {          
+          return `<a target="_blank" href="#/dashboard-variants/${row.id}"><i class="material-icons">preview</i></a>
+                  `;
+        }
+      },
+      variations_num: {
+        title: 'RFI No.',
+        width: '100px',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+          return row.rfiNumber;
+        }
+      },
+      variations_name: {
+        title: 'RFI Name',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+          return row.rfiName;
+        }
+      },
+      project_name: {
+        title: 'Project Name',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+          return this.projectNames.find(o => o.id === row.projectId)?.projectName;
+        }
+      },
+      due_date: {
+        title: 'Due Date',
+        width: '150px',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+            return row.dueDate ? row.dueDate.toDate().toDateString(): '';
+        }
+      },
+      status: {
+        title: 'Status',
+        width: '150px',
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+            return row.status;
+        }
+      },
+      created_at: {
+        title: 'Created At',
+        width: '500px',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+            return row.createdAt ? row.createdAt.toDate().toString(): '';
+        }
+      }   
+    }
+  };
+  // ***********************************************************++++++++++++++++++++++++++++++++++***********************************************************
 
   public settings = {
     // selectMode: 'multi',
@@ -231,6 +415,8 @@ export class DashboardClientComponent {
       console.log( this.userDetails);
       this.getFBProjects();
       // this.getSupervisors();
+      this.getClientSelection();
+      this.getClientRFI();
   }
   
   findIdFromEmail(): Promise<string | null> {
@@ -276,7 +462,62 @@ export class DashboardClientComponent {
 
 
   }
-  
+
+  // ****************************************************+++++++++++++++++++++++++++++++++++++++++++++++++++*********************************************
+  async getClientSelection(){
+    const toSearchId = await this.findIdFromEmail();
+    console.log('toSearchId', toSearchId)
+     this.data_api.getFBClientSelections(toSearchId).pipe().subscribe(dataDailyReports => {
+         console.log(dataDailyReports);
+         // this.source = new LocalDataSource(dataDailyReports)
+         if(dataDailyReports){
+             this.dashboardDailyReportList = [];
+             dataDailyReports.forEach(data =>{  
+                 if(data){
+                  //  if(data.status != "Draft"){
+                     this.dashboardDailyReportList.push(data)
+                  //  }
+                 }
+                 
+             })
+         }
+         this.selectionSource = new LocalDataSource(this.dashboardDailyReportList)
+         console.log('this.selectionSource', this.selectionSource)
+        //  this.getFBRecent2();
+         // console.log(this.dashboardDailyReportList);
+
+     });
+  }
+  // ****************************************************+++++++++++++++++++++++++++++++++++++++++++++++++++*********************************************
+
+  // ****************************************************+++++++++++++++++++++++++++++++++++++++++++++++++++*********************************************
+  dashboardClientRFI:any[]
+  async getClientRFI(){
+    const toSearchId = await this.findIdFromEmail();
+    console.log('toSearchId', toSearchId)
+     this.data_api.getFBClientRFIs(toSearchId).pipe().subscribe(dataDailyReports => {
+         console.log(dataDailyReports);
+         // this.source = new LocalDataSource(dataDailyReports)
+         if(dataDailyReports){
+             this.dashboardClientRFI = [];
+             dataDailyReports.forEach(data =>{  
+                 if(data){
+                  //  if(data.status != "Draft"){
+                     this.dashboardClientRFI.push(data)
+                  //  }
+                 }
+                 
+             })
+         }
+         this.rfiSource = new LocalDataSource(this.dashboardClientRFI)
+         console.log('this.source', this.rfiSource)
+        //  this.getFBRecent2();
+         // console.log(this.dashboardDailyReportList);
+
+     });
+  }
+    // ****************************************************+++++++++++++++++++++++++++++++++++++++++++++++++++*********************************************
+
   getFBRecent2(){
     if(this.projectNamesRecVar){
 

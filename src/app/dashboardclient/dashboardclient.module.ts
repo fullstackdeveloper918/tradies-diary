@@ -7,6 +7,7 @@ import { MaterialModule } from '../app.module';
 import { DashboardClientComponent } from './dashboardclient.component';
 import { DashboardClientRoutes } from './dashboardclient.routing';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
-        Ng2SmartTableModule
+        Ng2SmartTableModule,
+        MatSelectModule
     ],
     declarations: [DashboardClientComponent],
 })

@@ -1,21 +1,39 @@
 <div class="main-content dashboard-content">
   <div class="container-fluid">
+    <mat-select 
+    style="border-color:#292929" 
+    (selectionChange)="projectSelect($event)" 
+    formControlName="projectId" 
+    id="projectId" 
+    placeholder="Select" 
+    name="projectId"  
+    #singleSelect>
+  
+  <mat-option *ngFor="let selection of selections" [value]="selection">
+    {{ selection }}
+  </mat-option>
+</mat-select>
+
       <div class = "row">
           <div class="col-md-12">
             
-
-
-                <div class="card card-dcb dashboard-card">
+            
+            
+            <div class="card card-dcb dashboard-card">
                     <div class="card-header">
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-6">
-                                <h4>Variations</h4>
+                            <div class="col-md-6"  [ngSwitch]="selectedClientData">
+                                <h4 *ngSwitchCase="'Variation'">Variations</h4>
+                                <h4 *ngSwitchCase="'Selection'">Selections</h4>
+                                <h4 *ngSwitchCase="'Rfi'">RFI</h4>
                             </div>
 
                             <div class="smart-table-holder">
-                                <ng2-smart-table [settings]="dashboardDailyReportSettings" [source]="source"></ng2-smart-table>
+                                <ng2-smart-table [settings]="dashboardDailyReportSettings" [source]="source" *ngIf="selectedClientData=='Variation'"></ng2-smart-table>
+                                <ng2-smart-table [settings]="dashboardSelectionSettings" [source]="selectionSource" *ngIf="selectedClientData=='Selection'"></ng2-smart-table>
+                                <ng2-smart-table [settings]="dashboardRFISettings" [source]="rfiSource" *ngIf="selectedClientData=='Rfi'"></ng2-smart-table>
                             </div>
                         </div>
                     </div>

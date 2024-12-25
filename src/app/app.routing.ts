@@ -41,6 +41,15 @@ export const AppRoutes: Routes = [
             data: {
                 role: 'project_owner'
                 }
+        },
+        {
+            path: 'dashboard-selection',
+            component: AdminLayoutComponent,
+            loadChildren: () => import('./dashboardselections/dashboardselections.module').then(m => m.DashboardselectionsModule),
+            canActivate: [AdminGuard],
+            data: {
+                role: 'project_owner'
+                }
         }, {
             path: 'dashboard-worker',
             component: AdminLayoutComponent,

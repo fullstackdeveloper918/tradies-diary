@@ -59,26 +59,26 @@ export class DatasourceService {
 
     if(location.origin == 'http://localhost:4200'){
       console.log('4200 is woking')
-      // this.bridgeURL = 'https://api-staging.tradiesdiary.com/wp-json/report/v1';
-      // this.apiURL = 'https://api-staging.tradiesdiary.com/wp-json/wp/v2';
-      // this.logoURL='https://api-staging.tradiesdiary.com/logo.png';
-      // this.pdfHeaderUrl1='https://api-staging.tradiesdiary.com/header1.png';
-      // this.pdfHeaderUrl2='https://api-staging.tradiesdiary.com/header2.png';
-      // this.pdfFooterURL='https://api-staging.tradiesdiary.com/footer.png';
-      // this.tokenURL='https://api-staging.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
-      // this.resetUrl = 'https://api-staging.tradiesdiary.com/wp-json/bdpwr/v1';
-      // //this.accountFirebase = 'firebase';
-      // this.accountFirebase = 'diarystaging';
-      this.bridgeURL = 'https://api-tradies-diary.tradiesdiary.com/wp-json/report/v1';
-      this.apiURL = 'https://api-tradies-diary.tradiesdiary.com/wp-json/wp/v2';
-      this.logoURL='https://api-tradies-diary.tradiesdiary.com/logo.png';
-      this.pdfHeaderUrl1='https://api-tradies-diary.tradiesdiary.com/header1.png';
-      this.pdfHeaderUrl2='https://api-tradies-diary.tradiesdiary.com/header2.png';
-      this.pdfFooterURL='https://api-tradies-diary.tradiesdiary.com/footer.png';
-      this.tokenURL='https://api-tradies-diary.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
-      this.resetUrl = 'https://api-tradies-diary.tradiesdiary.com/wp-json/bdpwr/v1';
+      this.bridgeURL = 'https://api-staging.tradiesdiary.com/wp-json/report/v1';
+      this.apiURL = 'https://api-staging.tradiesdiary.com/wp-json/wp/v2';
+      this.logoURL='https://api-staging.tradiesdiary.com/logo.png';
+      this.pdfHeaderUrl1='https://api-staging.tradiesdiary.com/header1.png';
+      this.pdfHeaderUrl2='https://api-staging.tradiesdiary.com/header2.png';
+      this.pdfFooterURL='https://api-staging.tradiesdiary.com/footer.png';
+      this.tokenURL='https://api-staging.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
+      this.resetUrl = 'https://api-staging.tradiesdiary.com/wp-json/bdpwr/v1';
       //this.accountFirebase = 'firebase';
-      this.accountFirebase = 'diary';
+      this.accountFirebase = 'diarystaging';
+      // this.bridgeURL = 'https://api-tradies-diary.tradiesdiary.com/wp-json/report/v1';
+      // this.apiURL = 'https://api-tradies-diary.tradiesdiary.com/wp-json/wp/v2';
+      // this.logoURL='https://api-tradies-diary.tradiesdiary.com/logo.png';
+      // this.pdfHeaderUrl1='https://api-tradies-diary.tradiesdiary.com/header1.png';
+      // this.pdfHeaderUrl2='https://api-tradies-diary.tradiesdiary.com/header2.png';
+      // this.pdfFooterURL='https://api-tradies-diary.tradiesdiary.com/footer.png';
+      // this.tokenURL='https://api-tradies-diary.tradiesdiary.com/wp-json/jwt-auth/v1/token/validate';
+      // this.resetUrl = 'https://api-tradies-diary.tradiesdiary.com/wp-json/bdpwr/v1';
+      // //this.accountFirebase = 'firebase';
+      // this.accountFirebase = 'diary';
 
     }else if(location.origin == 'https://192.168.1.2:4200'){
       this.bridgeURL = 'https://api-staging.tradiesdiary.com/wp-json/report/v1';
@@ -1290,10 +1290,25 @@ export class DatasourceService {
     return itemCol.valueChanges({ idField: 'id' })
   }
 
-    getFBClientVariations(clientID): any {
-    console.log('clientID',clientID);
-    
+    getFBClientVariations(clientID): any {    
     let itemCol = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/variations', ref => ref
+    .where("projectOwner", 'array-contains', clientID)
+    );
+    return itemCol.valueChanges({ idField: 'id' });
+  }
+
+  // GET FB CLIENT SELECTION
+
+  getFBClientSelections(clientID): any {    
+    let itemCol = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections', ref => ref
+    .where("projectOwner", 'array-contains', clientID)
+    );
+    return itemCol.valueChanges({ idField: 'id' });
+  }
+
+  // GET FB CLIENT RFI
+  getFBClientRFIs(clientID): any {    
+    let itemCol = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis', ref => ref
     .where("projectOwner", 'array-contains', clientID)
     );
     return itemCol.valueChanges({ idField: 'id' });

@@ -830,12 +830,12 @@
                                     </div>
 
                                     
-                                    <div class="row">
+                                    <!-- <div class="row">
                                             <div class="col-md-6 col-lg-6">
                                                     <div class="togglebutton">
                                                             <label>
                                                             <input type="checkbox"  formControlName="bmLineitem" (change)="toggleBMLineitem()">
-                                                            <!-- <input type="checkbox" (change)="showApprovedOnly($event)"> -->
+                                                            <input type="checkbox" (change)="showApprovedOnly($event)">
                                                             <span [style.backgroundColor]="selectionFom.value.bmLineitem ? colorHlightDefault : ''" class="toggle"></span>
                                                                     Add Builder's Margin per line item
                                                             </label>
@@ -845,7 +845,7 @@
                                                     <div class="togglebutton">
                                                             <label>
                                                             <input type="checkbox"  formControlName="bmTotalFigure" (change)="toggleBMTotalFigure()">
-                                                            <!-- <input type="checkbox" (change)="showApprovedOnly($event)"> -->
+                                                            <input type="checkbox" (change)="showApprovedOnly($event)">
                                                             <span [style.backgroundColor]="selectionFom.value.bmTotalFigure ? colorHlightDefault : ''" class="toggle"></span>
                                                                     Add Builder's Margin  as a Total Figure on the bottom of the Selection PDF above the Total GST
                                                             </label>
@@ -856,7 +856,7 @@
                                                     <div class="togglebutton">
                                                             <label>
                                                             <input type="checkbox"  formControlName="bmHideAll" (change)="toggleBMHideAll()">
-                                                            <!-- <input type="checkbox" (change)="showApprovedOnly($event)"> -->
+                                                            <input type="checkbox" (change)="showApprovedOnly($event)">
                                                             <span [style.backgroundColor]="selectionFom.value.bmHideAll ? colorHlightDefault : ''" class="toggle"></span>
                                                                     Hide Builder's Margin completely from the PDF, but all the calculations remain.
                                                             </label>
@@ -866,7 +866,7 @@
                                                     <div class="togglebutton">
                                                             <label>
                                                             <input type="checkbox"  formControlName="qtyHideAll">
-                                                            <!-- <input type="checkbox" (change)="showApprovedOnly($event)"> -->
+                                                            <input type="checkbox" (change)="showApprovedOnly($event)">
                                                             <span [style.backgroundColor]="selectionFom.value.qtyHideAll ? colorHlightDefault : ''" class="toggle"></span>
                                                                     Hide Quantity completely from the PDF, but all the calculations remain.
                                                             </label>
@@ -877,7 +877,7 @@
                                                     <div class="togglebutton">
                                                             <label>
                                                             <input type="checkbox"  formControlName="unitHideAll">
-                                                            <!-- <input type="checkbox" (change)="showApprovedOnly($event)"> -->
+                                                            <input type="checkbox" (change)="showApprovedOnly($event)">
                                                             <span [style.backgroundColor]="selectionFom.value.unitHideAll ? colorHlightDefault : ''" class="toggle"></span>
                                                                     Hide Units completely from the PDF, but all the calculations remain.
                                                             </label>
@@ -888,14 +888,14 @@
                                                     <div class="togglebutton">
                                                             <label>
                                                             <input type="checkbox"  formControlName="unitCostHideAll">
-                                                            <!-- <input type="checkbox" (change)="showApprovedOnly($event)"> -->
+                                                            <input type="checkbox" (change)="showApprovedOnly($event)">
                                                             <span [style.backgroundColor]="selectionFom.value.unitCostHideAll ? colorHlightDefault : ''" class="toggle"></span>
                                                                     Hide Unit Cost completely from the PDF, but all the calculations remain.
                                                             </label>
                                                     </div>
                                             </div>
 
-                                            <!-- <div class="col-md-6 col-lg-6">
+                                            <div class="col-md-6 col-lg-6">
                                                     <div class="togglebutton">
                                                             <label>
                                                             <input type="checkbox"  formControlName="gstHideAll">
@@ -903,19 +903,19 @@
                                                                     Hide Item GST completely from the PDF, but all the calculations remain.
                                                             </label>
                                                     </div>
-                                            </div> -->
+                                            </div>
 
                                             <div class="col-md-6 col-lg-6">
                                                     <div class="togglebutton">
                                                             <label>
                                                             <input type="checkbox"  formControlName="itemTotalHideAll">
-                                                            <!-- <input type="checkbox" (change)="showApprovedOnly($event)"> -->
+                                                            <input type="checkbox" (change)="showApprovedOnly($event)">
                                                             <span [style.backgroundColor]="selectionFom.value.itemTotalHideAll ? colorHlightDefault : ''" class="toggle"></span>
                                                                     Hide Item Total Cost completely from the PDF, but all the calculations remain.
                                                             </label>
                                                     </div>
                                             </div>
-                                    </div>
+                                    </div> -->
                                     <div class="row" *ngIf="selectionFom.get('signature').value" style="margin-top: 20px;">
                                         <div class="col-md-4 col-lg-4" style="max-width: 400px;">
                                             <label>Client's Signature</label>
