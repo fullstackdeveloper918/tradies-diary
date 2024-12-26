@@ -7,7 +7,7 @@
                           <div class="row">
                               <div class="col-md-12">
                                   <div style="display: flex;justify-content: space-between;padding-top:15px;padding-bottom:15px">
-                                      <h1>{{projectData?.projectName}} - {{  selectionData?.selectionName }}</h1>
+                                      <h1>{{projectData?.projectName}} - {{  rfiData?.rfiName }}</h1>
                                       <div class="header-tool" style="display: flex;justify-content: flex-end;padding: 0;">
                                           <a target="_blank" href="{{pdfLink}}"><i class="material-icons">picture_as_pdf</i><span>Download PDF Report</span></a> 
                                       </div>   
@@ -20,9 +20,9 @@
   
                           <form [formGroup]="addFestForm" class="dcb-form" (keydown.enter)="$event.preventDefault()">
   
-                                  <ng-container formArrayName="selectionGroupArray">
+                                  <ng-container formArrayName="rfiGroupArray">
   
-                                      <div class="group" *ngFor="let group of selectionGroupArray().controls; let groupIndex=index" [formGroupName]="groupIndex">
+                                      <div class="group" *ngFor="let group of rfiGroupArray().controls; let groupIndex=index" [formGroupName]="groupIndex">
   
                                               <div class="row" >
                                                   <div class="col-md-6">
@@ -136,9 +136,9 @@
   
                                   </ng-container>
   
-                                  <!-- <ng-container formArrayName="selectionGroupArray">
+                                  <!-- <ng-container formArrayName="rfiGroupArray">
                               
-                                          <div  *ngFor="let group of selectionGroupArray().controls; let groupIndex=index" [formGroupName]="groupIndex">
+                                          <div  *ngFor="let group of rfiGroupArray().controls; let groupIndex=index" [formGroupName]="groupIndex">
                                               <div class="variation-group-container">
                                               
                                                       <div class="row" >

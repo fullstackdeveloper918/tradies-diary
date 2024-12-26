@@ -1,19 +1,5 @@
 <div class="main-content dashboard-content">
   <div class="container-fluid">
-    <mat-select 
-    style="border-color:#292929" 
-    (selectionChange)="projectSelect($event)" 
-    formControlName="projectId" 
-    id="projectId" 
-    placeholder="Select" 
-    name="projectId"  
-    #singleSelect>
-  
-  <mat-option *ngFor="let selection of selections" [value]="selection">
-    {{ selection }}
-  </mat-option>
-</mat-select>
-
       <div class = "row">
           <div class="col-md-12">
             
@@ -23,8 +9,26 @@
                     <div class="card-header">
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6"  [ngSwitch]="selectedClientData">
+                        <form class="dcb-form">
+                            <div class="row">
+                                <div class="col-md-3 col-lg-2">
+                                    <mat-select 
+                                    style="border-color:#292929" 
+                                    (selectionChange)="projectSelect($event)" 
+                                    formControlName="projectId" 
+                                    id="projectId" 
+                                    placeholder="Select" 
+                                    name="projectId"  
+                                    #singleSelect>
+                                  <mat-option *ngFor="let selection of selections" [value]="selection">
+                                    {{ selection }} 
+                                  </mat-option>
+                                </mat-select>
+                                </div>
+                            </div>
+                        </form>
+                        <div>
+                            <div class="col-md-12 table"  [ngSwitch]="selectedClientData">
                                 <h4 *ngSwitchCase="'Variation'">Variations</h4>
                                 <h4 *ngSwitchCase="'Selection'">Selections</h4>
                                 <h4 *ngSwitchCase="'Rfi'">RFI</h4>

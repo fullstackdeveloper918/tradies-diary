@@ -6,11 +6,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ClientDataComponent } from './client-data/client-data.component';
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    ClientDataComponent
   ],
   imports: [
     CommonModule,

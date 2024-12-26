@@ -16,25 +16,11 @@
                       </div>
                       <div class="card-body compact-layout compact-layout-common">
                             <form  class="dcb-form">
-                                <div class="row">
-                                    <div class="col-md-3 col-lg-2">
-                                        <label  style = "border-color:#292929;font-weight:bold">Select client *</label>
-                                        <!-- <input  placeholder="What site is this report for" type="text" formControlName="projectName"
-                                        id="projectName"> -->
-                                        <!-- //<mat-select style = "border-color:#292929" (selectionChange)="projectSelect($event.value)" formControlName="projectName" id="projectName" placeholder="What site is this report for" name="projectName"  #singleSelect> -->
-                                        <mat-select style = "border-color:#292929" (selectionChange)="clientSelect($event)" formControlName="projectId" id="projectId" placeholder="Select Client" name="projectId"  #singleSelect>
-                                                <!-- <mat-option>
-                                                        <ngx-mat-select-search 
-                                                                [formControl]="search_control_project"
-                                                                placeholderLabel="Search..."
-                                                                noEntriesFoundLabel="'No Match Found'"></ngx-mat-select-search>
-                                                </mat-option> -->
-                                                <mat-option *ngFor="let projectName of filter_list_clients" [value]="projectName.id">
-                                                    {{ projectName.name }}
-                                                </mat-option>
-                                        </mat-select>
-                                    </div>
-                                </div>
+                                <!-- <div class="row">
+                                    <div class="col-md-3 col-lg-2"> -->
+                                        <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+                                    <!-- </div>
+                                </div> -->
                             </form>
                       </div>
                 </div>

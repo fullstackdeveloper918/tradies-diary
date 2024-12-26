@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 import { LocalDataSource } from 'ng2-smart-table';
+import { DatasourceService } from 'src/app/services/datasource.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,11 +14,12 @@ export class DashboardComponent {
   selectedClientId:any
   selectedClientName:any
   source: LocalDataSource = new LocalDataSource;
-  
+  currentProject : string
 
-  constructor(private afs: AngularFirestore){}
+  constructor(private afs: AngularFirestore, private datasourceService: DatasourceService){}
 
   ngOnInit(){
+   this.currentProject = this.datasourceService.getCurrentProject();
    this.getClient()
   }
 
@@ -33,12 +36,16 @@ export class DashboardComponent {
           // Assuming you want to store the names of the users:
           const userData :any = doc.data();
           console.log('userData',userData)
-          if (userData) {
+          if (userData.userAccounts.includes(this.currentProject)) {
             this.filter_list_clients.push({
-              id: userData.id, 
-              name: userData.userFirstName + " " + userData.userLastName
+              userData  
+              // id: userData.id, 
+              // name: userData.userFirstName + " " + userData.userLastName
             });
           }
+          // this.source = new LocalDataSource(this.filter_list_clients)
+          this.source.load(this.filter_list_clients)
+          console.log('this.source', this.source)
         });
 
         // Log the updated array
@@ -46,12 +53,79 @@ export class DashboardComponent {
       });
   }
 
-  clientSelect(event: any) {
-    this.selectedClientId = event.value;  // Get the selected client's ID
-    this.selectedClientName = event.name;
-    console.log('Selected Client ID:', this.selectedClientId); // Log the selected ID
-    this.showClientDataById()
-  }
+  public settings = {
+    actions: { 
+      delete: false,
+      add: false,
+      edit: false,
+      //custom: [{ name: 'ourCustomAction', title: '<i [routerLink]="["/edit", card.id]" class="material-icons">edit</i>' }],
+    },
+    pager: {
+      display: false,
+    },
+    attr: {
+      class: 'table'
+    },
+    hideSubHeader: true,
+    mode: 'external',
+    selectedRowIndex: -1,
+    columns: {
+      customactions: {
+        width: '30px',
+        title: '',
+        type : 'html',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {          
+          return `<a target="_blank" href="#/client-view/${row.userData.id}"><i class="material-icons">preview</i></a>
+                  `;
+        }
+      },
+      Client_Id: {
+        title: 'Client Id ',
+        width: '100px',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+          console.log('check row id', row)
+          return row.userData.id;
+        }
+      },
+      userAccounts: {
+        title: 'userAccounts',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+          return row.userData.userAccounts;
+        }
+      },
+      userEmail: {
+        title: 'userEmail',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+          return row.userData.userEmail
+        }
+      },
+      client_name: {
+        title: 'Client Name',
+        width: '150px',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+            return row.userData.userFirstName + " " + row.userData.userLastName;
+        }
+      },
+      userRole: {
+        title: 'userRole',
+        width: '150px',
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+            return row.userData.userRole;
+        }
+      }
+    }
+  };
 
   showClientDataById() {
     if (!this.selectedClientId) {

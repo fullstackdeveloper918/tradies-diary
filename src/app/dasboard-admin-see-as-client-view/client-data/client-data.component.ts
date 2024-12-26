@@ -1,25 +1,19 @@
-import { Component, OnInit, AfterViewInit, Renderer2, ViewChild, ElementRef, Input, Inject} from '@angular/core';
-import { DatasourceService} from '../services/datasource.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import {FormBuilder, FormGroup, Validators, FormArray, FormControl} from "@angular/forms";
+import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { NgxLoadingSpinnerService } from '@k-adam/ngx-loading-spinner';
-import * as ExcelJS from "exceljs/dist/exceljs.min.js"
-import * as fs from 'file-saver'
-import {LegacyPageEvent as PageEvent} from '@angular/material/legacy-paginator';
-import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
-import { AppDateAdapter, APP_DATE_FORMATS } from '../services/format-datepicker';
-import {MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA} from '@angular/material/legacy-dialog';
+import { LocalDataSource } from 'ng2-smart-table';
+import { DatasourceService } from 'src/app/services/datasource.service';
+import { RoleChecker } from 'src/app/services/role-checker.service';
 import swal from 'sweetalert2';
-import { RoleChecker } from '../services/role-checker.service';
-import { first } from 'rxjs/operators';
-
-declare const $: any;
 
 @Component({
-  selector: 'app-dashboardclient',
-  templateUrl: './dashboardclient.component.html'
+  selector: 'app-client-data',
+  templateUrl: './client-data.component.html',
+  styleUrls: ['./client-data.component.css']
 })
-export class DashboardClientComponent {
+export class ClientDataComponent {
 
   source: LocalDataSource = new LocalDataSource;
   // **********************+++++++++++++++++++++++++*******************
@@ -385,7 +379,8 @@ export class DashboardClientComponent {
     }
   };
 
-  public userDetails;
+  // public userDetails;
+  public clientId : string;
 
   public dashboardDailyReportList = [];
 
@@ -396,8 +391,14 @@ export class DashboardClientComponent {
     public dialog: MatDialog,
     private renderer2: Renderer2,
     private e: ElementRef,
-    private rolechecker: RoleChecker
-    ) { }
+    private rolechecker: RoleChecker,
+    private route : ActivatedRoute 
+    ) { 
+    this.route.paramMap.subscribe(params => {
+      this.clientId = params.get('id');
+      console.log('id',this.clientId)
+     })
+    }
 
   public ngOnInit() {
       // this.rolechecker.check(3)
@@ -409,38 +410,38 @@ export class DashboardClientComponent {
           hasImage: [''],
       });
 
-      if (localStorage.getItem('currentUser')) {
-          this.userDetails = JSON.parse(localStorage.getItem('currentUser'));
-      }
-      console.log( this.userDetails);
+      // if (localStorage.getItem('currentUser')) {
+      //     this.userDetails = JSON.parse(localStorage.getItem('currentUser'));
+      // }
+      // console.log( this.userDetails);
       this.getFBProjects();
       // this.getSupervisors();
       this.getClientSelection();
       this.getClientRFI();
   }
   
-  findIdFromEmail(): Promise<string | null> {
-    return new Promise((resolve, reject) => {
-      this.data_api.getFBUsersOrdered().subscribe((data: any) => {
-        console.log('data', data);
-        const user = data.find((user: any) => user.userEmail === this.userDetails.email);
-        console.log('user', user ? user.id : 'No user found');
+  // findIdFromEmail(): Promise<string | null> {
+  //   return new Promise((resolve, reject) => {
+  //     this.data_api.getFBUsersOrdered().subscribe((data: any) => {
+  //       console.log('data', data);
+  //       const user = data.find((user: any) => user.userEmail === this.userDetails.email);
+  //       console.log('user', user ? user.id : 'No user found');
 
-        if (user) {
-          resolve(user.id); // Resolve the promise with the user.id
-        } else {
-          resolve(null); // If no user found, resolve with null or handle as needed
-        }
-      }, (error) => {
-        reject(error); // Reject the promise if there's an error in the observable
-      });
-    });
-  }
+  //       if (user) {
+  //         resolve(user.id); // Resolve the promise with the user.id
+  //       } else {
+  //         resolve(null); // If no user found, resolve with null or handle as needed
+  //       }
+  //     }, (error) => {
+  //       reject(error); // Reject the promise if there's an error in the observable
+  //     });
+  //   });
+  // }
 
   async getFBRecent(){
-       const toSearchId = await this.findIdFromEmail();
-       console.log('toSearchId', toSearchId)
-        this.data_api.getFBClientVariations(toSearchId).pipe().subscribe(dataDailyReports => {
+      //  const toSearchId = await this.findIdFromEmail();
+       console.log('toSearchId', this.clientId)
+        this.data_api.getFBClientVariations(this.clientId).pipe().subscribe(dataDailyReports => {
             console.log(dataDailyReports);
             // this.source = new LocalDataSource(dataDailyReports)
             if(dataDailyReports){
@@ -465,9 +466,9 @@ export class DashboardClientComponent {
 
   // ****************************************************+++++++++++++++++++++++++++++++++++++++++++++++++++*********************************************
   async getClientSelection(){
-    const toSearchId = await this.findIdFromEmail();
-    console.log('toSearchId', toSearchId)
-     this.data_api.getFBClientSelections(toSearchId).pipe().subscribe(dataDailyReports => {
+    // const toSearchId = await this.findIdFromEmail();
+    console.log('toSearchId', this.clientId)
+     this.data_api.getFBClientSelections(this.clientId).pipe().subscribe(dataDailyReports => {
          console.log(dataDailyReports);
          // this.source = new LocalDataSource(dataDailyReports)
          if(dataDailyReports){
@@ -493,9 +494,9 @@ export class DashboardClientComponent {
   // ****************************************************+++++++++++++++++++++++++++++++++++++++++++++++++++*********************************************
   dashboardClientRFI:any[]
   async getClientRFI(){
-    const toSearchId = await this.findIdFromEmail();
-    console.log('toSearchId', toSearchId)
-     this.data_api.getFBClientRFIs(toSearchId).pipe().subscribe(dataDailyReports => {
+    // const toSearchId = await this.findIdFromEmail();
+    console.log('toSearchId', this.clientId)
+     this.data_api.getFBClientRFIs(this.clientId).pipe().subscribe(dataDailyReports => {
          console.log(dataDailyReports);
          // this.source = new LocalDataSource(dataDailyReports)
          if(dataDailyReports){
@@ -595,7 +596,7 @@ getFBProjects() {
           projectList.push(data2);
 
           if(data2.recipientVariation){
-            if(data2.recipientVariation.includes( this.userDetails.user_id)){
+            if(data2.recipientVariation.includes( this.clientId)){
                 this.projectNamesRecVar.push(data2.id);
             }
           }
@@ -742,6 +743,5 @@ getFBProjects() {
       });
       
     }
-
 
 }

@@ -362,12 +362,11 @@ export class DatasourceService {
     }
 
     updateFBRFI(id,formValue): any {
-      ////console.log('formvalue', formValue);
       return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/rfis').doc(id).update(formValue)
     }
 
     updateFBSelection(id,formValue): any {
-      return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections').doc(id).update(formValue)
+            return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections').doc(id).update(formValue)
     }
 
     approveAdminFBVariation(id,data): any {

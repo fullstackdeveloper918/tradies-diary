@@ -14,7 +14,6 @@ import { NgxProgressOverlayService } from 'ngx-progress-overlay';
 import { PDFDocument } from 'pdf-lib';
 import { Observable, Observer } from 'rxjs';
 import { first, finalize } from 'rxjs/operators';
-// import { ExternalQuotesClientDialog } from 'src/app/dashboardvariants/dashboardvariants.component';
 import { DatasourceService } from 'src/app/services/datasource.service';
 import { PDFIcons } from 'src/app/services/pdf-icons';
 import { PlaceholderImage } from 'src/app/services/placeholder-image';
@@ -22,18 +21,23 @@ import { RoleChecker } from 'src/app/services/role-checker.service';
 import { VariationImage } from 'src/app/services/variation-image';
 import swal from 'sweetalert2';
 import htmlToPdfmake from 'html-to-pdfmake';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+
+
 
 declare const $: any;
 
+
 @Component({
-  selector: 'app-dashbordselections',
-  templateUrl: './dashbordselections.component.html',
-  styleUrls: ['./dashbordselections.component.css']
+  selector: 'app-dashboardrfi',
+  templateUrl: './dashboardrfi.component.html',
+  styleUrls: ['./dashboardrfi.component.css']
 })
-export class DashbordselectionsComponent {
+export class DashboardrfiComponent {
+
   @ViewChild('signature')
     
   signaturePad: SignaturePadComponent;
@@ -47,7 +51,7 @@ export class DashbordselectionsComponent {
   public passID: any;
 
   public userDetails;
-  public selectionData;
+  public rfiData;
   public projectData;
 
   pdfLogo;
@@ -157,7 +161,7 @@ export class DashbordselectionsComponent {
   };
 
   addFestForm: FormGroup;
-  tempSelectionArray; 
+  temprfiArray; 
 
   accountFirebase;
   downloadURL;
@@ -165,7 +169,7 @@ export class DashbordselectionsComponent {
   imgSrc;
 
   adminData;
-  selectionSettingsData;
+  rfiSettingsData;
 
   constructor(
     private data_api: DatasourceService,
@@ -215,12 +219,12 @@ export class DashbordselectionsComponent {
 
       this.addFestForm = this.formBuilder.group({
           projectId: ['', Validators.required],
-          selectionNumber: ['', Validators.required],
-          selectionName: ['', Validators.required],
+          rfiNumber: ['', Validators.required],
+          rfiName: ['', Validators.required],
           // clientName: ['', Validators.required],
           dueDate: ['', Validators.required],
           projectOwner: ['', Validators.required],
-          selectionGroupArray: this.formBuilder.array([ this.createselectionGroupArray() ]),
+          rfiGroupArray: this.formBuilder.array([ this.createrfiGroupArray() ]),
           openingMessage: ['', Validators.required],
           closingMessage: ['', Validators.required],
           status: [''],
@@ -246,7 +250,7 @@ export class DashbordselectionsComponent {
 
       // this.addFestForm.patchValue({
       //   projectId:  this.passID.id,
-      //   variantsNumber: 'test-001'
+      //   rfiNumber: 'test-001'
       // });
       
       // this.getProjects();
@@ -255,7 +259,7 @@ export class DashbordselectionsComponent {
       this.accountFirebase = this.data_api.getCurrentProject();
 
       this.getAdminSettings();
-      this.getSelectionSettings();
+      this.getRfiSettings();
 
   }
 
@@ -375,11 +379,11 @@ export class DashbordselectionsComponent {
       }); 
   }
 
-  getSelectionSettings(){
+  getRfiSettings(){
 
-      this.data_api.getFBSelectionSettings().subscribe((data) => {
+      this.data_api.getFBRfisSettings().subscribe((data) => {
           console.log(data);
-          this.selectionSettingsData = data;
+          this.rfiSettingsData = data;
       }); 
   }
 
@@ -414,7 +418,7 @@ export class DashbordselectionsComponent {
             }
             // console.log(this.siteSupervisors);
             // this.initializeFilterOwners();
-            this.getSelection();
+            this.getRfi();
             // this.initializeFilterWorkers();
             // this.initializeFilterSupervisors();
             // this.initializeFilterAltSupervisors();
@@ -423,7 +427,7 @@ export class DashbordselectionsComponent {
     );
 }
 
-  checkGlobalBooleanSelectionSettings(value){
+  checkGlobalBooleanRfiSettings(value){
     if( ((value == true) || (value == false)) && (value !== '') ){
       return true;
     }else{
@@ -431,7 +435,7 @@ export class DashbordselectionsComponent {
     }
   }
 
-  checkBooleanSelectionSettings(value){
+  checkBooleanRfiSettings(value){
     if( ((value == true) || (value == false)) && (value !== '') ){
       return true;
     }else{
@@ -439,13 +443,12 @@ export class DashbordselectionsComponent {
     }
   }
 
-  public getSelection(){
-    this.data_api.getFBSelection(this.passID.id).subscribe(data => {
-        console.log(data);
-        this.selectionData = data;
-
+  public getRfi(){
+    this.data_api.getFBAFI(this.passID.id).subscribe(data => {
+        console.log('rfi data', data);
+        this.rfiData = data;
         this.data_api.getFBProject(data.projectId).pipe(first()).subscribe(data2 => {
-            console.log(data2);
+            console.log('data2',data2);
             this.projectData = data2;
             this.projUploadFolder = data2.uploadFolder;
             
@@ -453,8 +456,8 @@ export class DashbordselectionsComponent {
             let projectOwnerIDs;
             this.addFestForm.patchValue({
               projectId: data.projectId,
-              selectionNumber: data.selectionNumber,
-              selectionName: data.selectionName,
+              rfiNumber: data.rfiNumber,
+              rfiName: data.rfiName,
               dueDate: data.dueDate ? data.dueDate.toDate() : '', 
               // projectOwner: data.projectOwner,
               openingMessage: data.openingMessage, 
@@ -466,14 +469,14 @@ export class DashbordselectionsComponent {
               createdAt: data.createdAt,
               createdBy: data.createdBy,
               pdfLink: data.pdfLink,
-              bmLineitem: this.checkBooleanSelectionSettings(data.bmLineitem) ? data.bmLineitem : (this.checkGlobalBooleanSelectionSettings(this.selectionSettingsData.bmLineitem) ? this.selectionSettingsData.bmLineitem : false),
-              bmTotalFigure: this.checkBooleanSelectionSettings(data.bmTotalFigure) ? data.bmTotalFigure : (this.checkGlobalBooleanSelectionSettings(this.selectionSettingsData.bmTotalFigure) ? this.selectionSettingsData.bmTotalFigure : false),
-              bmHideAll: this.checkBooleanSelectionSettings(data.bmHideAll) ? data.bmHideAll : (this.checkGlobalBooleanSelectionSettings(this.selectionSettingsData.bmHideAll) ? this.selectionSettingsData.bmHideAll : false),
-              qtyHideAll: this.checkBooleanSelectionSettings(data.qtyHideAll) ? data.qtyHideAll : (this.checkGlobalBooleanSelectionSettings(this.selectionSettingsData.qtyHideAll) ? this.selectionSettingsData.qtyHideAll : false),
-              unitHideAll: this.checkBooleanSelectionSettings(data.unitHideAll) ? data.unitHideAll : (this.checkGlobalBooleanSelectionSettings(this.selectionSettingsData.unitHideAll) ? this.selectionSettingsData.unitHideAll : false),
-              unitCostHideAll: this.checkBooleanSelectionSettings(data.unitCostHideAll) ? data.unitCostHideAll : (this.checkGlobalBooleanSelectionSettings(this.selectionSettingsData.unitCostHideAll) ? this.selectionSettingsData.unitCostHideAll : false),
-              gstHideAll: this.checkBooleanSelectionSettings(data.gstHideAll) ? data.gstHideAll : (this.checkGlobalBooleanSelectionSettings(this.selectionSettingsData.gstHideAll) ? this.selectionSettingsData.gstHideAll : false),
-              itemTotalHideAll: this.checkBooleanSelectionSettings(data.itemTotalHideAll) ? data.itemTotalHideAll : (this.checkGlobalBooleanSelectionSettings(this.selectionSettingsData.itemTotalHideAll) ? this.selectionSettingsData.itemTotalHideAll : false),
+              // bmLineitem: this.checkBooleanRfiSettings(data.bmLineitem) ? data.bmLineitem : (this.checkGlobalBooleanRfiSettings(this.rfiSettingsData.bmLineitem) ? this.rfiSettingsData.bmLineitem : false),
+              // bmTotalFigure: this.checkBooleanRfiSettings(data.bmTotalFigure) ? data.bmTotalFigure : (this.checkGlobalBooleanRfiSettings(this.rfiSettingsData.bmTotalFigure) ? this.rfiSettingsData.bmTotalFigure : false),
+              // bmHideAll: this.checkBooleanRfiSettings(data.bmHideAll) ? data.bmHideAll : (this.checkGlobalBooleanRfiSettings(this.rfiSettingsData.bmHideAll) ? this.rfiSettingsData.bmHideAll : false),
+              // qtyHideAll: this.checkBooleanRfiSettings(data.qtyHideAll) ? data.qtyHideAll : (this.checkGlobalBooleanRfiSettings(this.rfiSettingsData.qtyHideAll) ? this.rfiSettingsData.qtyHideAll : false),
+              // unitHideAll: this.checkBooleanRfiSettings(data.unitHideAll) ? data.unitHideAll : (this.checkGlobalBooleanRfiSettings(this.rfiSettingsData.unitHideAll) ? this.rfiSettingsData.unitHideAll : false),
+              // unitCostHideAll: this.checkBooleanRfiSettings(data.unitCostHideAll) ? data.unitCostHideAll : (this.checkGlobalBooleanRfiSettings(this.rfiSettingsData.unitCostHideAll) ? this.rfiSettingsData.unitCostHideAll : false),
+              // gstHideAll: this.checkBooleanRfiSettings(data.gstHideAll) ? data.gstHideAll : (this.checkGlobalBooleanRfiSettings(this.rfiSettingsData.gstHideAll) ? this.rfiSettingsData.gstHideAll : false),
+              // itemTotalHideAll: this.checkBooleanRfiSettings(data.itemTotalHideAll) ? data.itemTotalHideAll : (this.checkGlobalBooleanRfiSettings(this.rfiSettingsData.itemTotalHideAll) ? this.rfiSettingsData.itemTotalHideAll : false),
               comments:  data.comments ? data.comments : '',
               approvedAt: data.approvedAt ? data.approvedAt : '',
               approvedBy:  data.approvedBy ? data.approvedBy : '',
@@ -497,14 +500,14 @@ export class DashbordselectionsComponent {
   
             }
   
-            if (data.selectionGroupArray){
-              console.log(data.selectionGroupArray);
-              this.selectionGroupArray().clear()
+            if (data.rfiGroupArray){
+              console.log(data.rfiGroupArray);
+              this.rfiGroupArray().clear()
               let i = 0;
-              data.selectionGroupArray.forEach(t => {
+              data.rfiGroupArray.forEach(t => {
                 console.log(t)
-                let teacher: FormGroup = this.createselectionGroupArray();
-                this.selectionGroupArray().push(teacher);
+                let teacher: FormGroup = this.createrfiGroupArray();
+                this.rfiGroupArray().push(teacher);
   
                 if(t.itemArray){
   
@@ -524,8 +527,9 @@ export class DashbordselectionsComponent {
                 i++;
               });
   
-              this.selectionGroupArray().patchValue(data.selectionGroupArray);
-              this.tempSelectionArray = data.selectionGroupArray;
+              this.rfiGroupArray().patchValue(data.rfiGroupArray);
+              this.temprfiArray = data.rfiGroupArray;
+
               this.convertImages();
             }
   
@@ -539,11 +543,11 @@ export class DashbordselectionsComponent {
 
   public findInvalidControls() {
     const invalid = [];
-    const controlsSelection = this.addFestForm.controls;
+    const controlsRfi = this.addFestForm.controls;
 
-    for (const name in controlsSelection) {
-        if (controlsSelection[name].invalid) {
-          if (controlsSelection[name].invalid) {
+    for (const name in controlsRfi) {
+        if (controlsRfi[name].invalid) {
+          if (controlsRfi[name].invalid) {
               if(name == 'signature'){
                 invalid.push('Signature');
               }
@@ -552,11 +556,11 @@ export class DashbordselectionsComponent {
     }
 
     // let groupIndex = 0;
-    // for (let group of this.addFestForm.value.selectionGroupArray) { 
+    // for (let group of this.addFestForm.value.rfiGroupArray) { 
     //   let itemIndex = 0;
     //   for (let item of group.itemArray) {
 
-    //     const adminAdvocacy = this.selectionGroupArray().at(groupIndex).get("itemArray") as FormArray;
+    //     const adminAdvocacy = this.rfiGroupArray().at(groupIndex).get("itemArray") as FormArray;
     //     console.log(adminAdvocacy.controls[itemIndex].get('itemImage').status);
 
     //     if(adminAdvocacy.controls[itemIndex].get('itemImage').status == 'INVALID'){
@@ -568,7 +572,7 @@ export class DashbordselectionsComponent {
     //   groupIndex++;
     // }
 
-    console.log(controlsSelection);
+    console.log(controlsRfi);
     console.log(invalid);
 
     let htmlVal = '';
@@ -801,7 +805,7 @@ isPageBreak(images){
 
 getTableTotal() {
 
-  let accsList = this.addFestForm.value.selectionGroupArray;
+  let accsList = this.addFestForm.value.rfiGroupArray;
 
   if(accsList && accsList.length > 1){
   
@@ -923,7 +927,7 @@ getTableTotal() {
 
 getTableValues() {
 
-let accsList = this.addFestForm.value.selectionGroupArray;
+let accsList = this.addFestForm.value.rfiGroupArray;
 
 if(accsList){
 
@@ -957,7 +961,7 @@ if(accsList){
             bulletList.push(
                 
      
-               this.selectionSettingsValue(item)
+               this.rfiSettingsValue(item)
                     
             )
         }
@@ -975,10 +979,10 @@ if(accsList){
                     {canvas: [{ type: 'line', x1: 0, y1: 0, x2: 535, y2: 0, lineWidth: 0.1,lineColor: '#A9A9A9' }],margin: [ 0, 2, 0, 2 ],},
                     {
                       table: {
-                        widths: this.selectionSettingsWidth(),
+                        widths: this.rfiSettingsWidth(),
                         body: [
           
-                            this.selectionSettingsTitle()
+                            this.rfiSettingsTitle()
                         ]                     
                       },
                       layout: {
@@ -990,7 +994,7 @@ if(accsList){
                     {canvas: [{ type: 'line', x1: 0, y1: 0, x2: 535, y2: 0, lineWidth: 0.1,lineColor: '#A9A9A9' }],margin: [ 0, 2, 0, 2 ],},
                     {
                       table: {
-                        widths: this.selectionSettingsWidth(),
+                        widths: this.rfiSettingsWidth(),
                         body: bulletList                     
                       },
                       layout: {
@@ -1078,7 +1082,7 @@ if(accsList){
 }  
 
 
-selectionSettingsWidth(){
+rfiSettingsWidth(){
 
     console.log(this.addFestForm.value.bmLineitem);
     console.log(this.addFestForm.value.bmHideAll);
@@ -1144,7 +1148,7 @@ selectionSettingsWidth(){
 
 }
 
-selectionSettingsTitle(){
+rfiSettingsTitle(){
 
 console.log(this.addFestForm.value.bmLineitem);
 console.log(this.addFestForm.value.bmHideAll);
@@ -1209,7 +1213,7 @@ console.log(newArr);
 return newArr;
 }
 
-selectionSettingsValue(item){
+rfiSettingsValue(item){
 
 console.log(this.addFestForm.value.bmLineitem);
 console.log(this.addFestForm.value.bmHideAll);
@@ -1310,12 +1314,12 @@ return newArr;
 
 public getDocumentDefinition() {
   
-      let selectionItemImages = []; 
+      let rfiItemImages = []; 
 
-      for (let group of this.tempSelectionArray) { 
+      for (let group of this.temprfiArray) { 
         for (let item of group.itemArray) {
           if( (item.hasImage == true) ){
-            selectionItemImages.push(item)
+            rfiItemImages.push(item)
           }
         }
       }
@@ -1371,11 +1375,11 @@ public getDocumentDefinition() {
           //               style: 'fieldData',
           //             },
           //             {
-          //               text: this.addFestForm.value.variationsName,
+          //               text: this.addFestForm.value.rfiName,
           //               style: 'fieldData',
           //             },
           //             {
-          //               text: this.addFestForm.value.variantsNumber, //(this.editForm.value.reportNumber ? this.editForm.value.reportNumber : ''),
+          //               text: this.addFestForm.value.rfiNumber, //(this.editForm.value.reportNumber ? this.editForm.value.reportNumber : ''),
           //               style: 'fieldData',
           //             }
           //           ],
@@ -1416,7 +1420,7 @@ public getDocumentDefinition() {
 
       pageSize: 'A4',
       info: {
-          title: 'Selectionss',
+          title: 'Rfis',
       },
       content: [
         // { text: 'Variation Order', style: 'Header', margin: [0, 0, 0, 20 ],},
@@ -1424,7 +1428,7 @@ public getDocumentDefinition() {
         {
           columns: [
             {
-              text: 'Selection Order',
+              text: 'Rfi Order',
               style: 'Header',
               width: '40%',
             },
@@ -1433,12 +1437,12 @@ public getDocumentDefinition() {
               width: '14%',
             },
             {
-              text: 'Selection No: ',
+              text: 'Rfi No: ',
               style: 'fieldHeader',
               width: '14%',
             },
             {
-              text:  this.addFestForm.value.variantsNumber,
+              text:  this.addFestForm.value.rfiNumber,
               style: 'fieldHeader',
               width: '32%',
             }
@@ -1554,7 +1558,7 @@ public getDocumentDefinition() {
             },
           ],
         },
-        { text: this.addFestForm.value.selectionName, style: 'fieldHeader', margin: [0, -33, 0, 20 ],},
+        { text: this.addFestForm.value.rfiName, style: 'fieldHeader', margin: [0, -33, 0, 20 ],},
         { text: '', style: 'fieldHeader', margin: [0, 0, 0, 20 ],},
         this.getOpeningMessage(this.addFestForm.value.openingMessage),
         { text: '', style: 'fieldHeader', margin: [0, 0, 0, 20 ],},
@@ -1634,8 +1638,8 @@ public getDocumentDefinition() {
         // { text: 'Sign: __________________________', style: 'fieldData', margin: [0, 20, 0, 0 ],},
         // { text: 'Date: __________________________', style: 'fieldData', margin: [0, 20, 0, 0 ],},
         // {text: '', pageBreak: 'after'},
-        this.isPageBreak(selectionItemImages),
-        this.variationImage.getUploadedImages(selectionItemImages),
+        this.isPageBreak(rfiItemImages),
+        this.variationImage.getUploadedImages(rfiItemImages),
       ], 
       styles: 
       {
@@ -1771,7 +1775,7 @@ cleanChar(str){
 }
 
   public async saveStepCheckValidation(){ 
-
+      console.log('1 is working')
       let ownerList = this.projectOwnerControl.value;
       let ownerIDS = [];
       this.pdfClientNames = [];
@@ -1798,10 +1802,10 @@ cleanChar(str){
       // } 
       console.log(this.addFestForm.value);
 
-      if(this.addFestForm.value.selectionGroupArray ){
+      if(this.addFestForm.value.rfiGroupArray ){
         let errorDetect = 0;
         let imgCount = 0;
-        for (let group of this.addFestForm.value.selectionGroupArray) { 
+        for (let group of this.addFestForm.value.rfiGroupArray) { 
 
           if(group.groupStatus){
             imgCount = imgCount + 1;
@@ -1854,14 +1858,15 @@ cleanChar(str){
   }
 
   async saveStepPDF(){
-    
+    console.log('2 is working')
+
         let myFiles = [];
 
         let imageDone = 0;
         let i = 0;
-        //let imageLen = this.addFestForm.value.selectionGroupArray.length;
+        //let imageLen = this.addFestForm.value.rfiGroupArray.length;
         let imageLen = 0;
-        for (let group of this.addFestForm.value.selectionGroupArray) { 
+        for (let group of this.addFestForm.value.rfiGroupArray) { 
           if(group.files){
             for (let file of group.files) {
               imageLen++;
@@ -1873,7 +1878,7 @@ cleanChar(str){
           
 
           let groupIndex = 0;
-          for (let group of this.addFestForm.value.selectionGroupArray) { 
+          for (let group of this.addFestForm.value.rfiGroupArray) { 
             let groupFiles = [];
             if(group.files){
                   let fileIndex = 0;
@@ -1883,6 +1888,7 @@ cleanChar(str){
             }
           }
         }
+        console.log('file',myFiles)
 
       this.progressOverlay.show('Updating PDF','#0771DE','white','lightslategray',1);
 
@@ -1891,70 +1897,72 @@ cleanChar(str){
       const documentDefinition = this.getDocumentDefinition();
 
       const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
-
-      pdfDocGenerator.getBuffer(async (buffer) => {
-
-        const pdfA =  await PDFDocument.load(buffer);
-        const copiedPagesA = await mergedPdf.copyPages(pdfA, pdfA.getPageIndices());
-        copiedPagesA.forEach((page) => mergedPdf.addPage(page));
-
-          for (const document of myFiles) {
-              const existingPdfBytes = await fetch(document).then((res) =>
-                res.arrayBuffer()
-              );
-        
-              const pdfDoc = await PDFDocument.load(existingPdfBytes);
-        
-              const copiedPages = await mergedPdf.copyPages(
-                pdfDoc,
-                pdfDoc.getPageIndices()
-              );
-              copiedPages.forEach((page) => mergedPdf.addPage(page));
-          }
-
-          const pdfBytes = await mergedPdf.save();
-
-          let folderName =  this.addFestForm.value.folderName;  
-
-          let id = this.addFestForm.value.selectionName+'.pdf';
-
-          let ref = this.afStorage.ref(this.accountFirebase+'/'+this.projUploadFolder+'/Selections/'+folderName+'/'+id);
-          let task = ref.put(pdfBytes,{contentType:"application/pdf"});
-          // let task = ref.putString(pdfDataUri, 'base64',{contentType:"application/pdf"});
-          let _percentage$ = task.percentageChanges();
-          _percentage$.subscribe(
-            (prog: number) => {
-              this.progressOverlay.setProgress(Math.ceil(prog));
-          });
-
-          task.snapshotChanges().pipe(
-            finalize(() => {
-              ref.getDownloadURL().subscribe((url) => { 
-                this.progressOverlay.hide();
-                console.log(url);
-                this.addFestForm.patchValue({
-                  pdfLink: url
-                });
-                
-                console.log(this.addFestForm.value);
-
-                this.saveStepSignature();
-              });
-          })).subscribe();
+     
+        pdfDocGenerator.getBuffer(async (buffer) => {
+          console.log('buffer',buffer)
+          const pdfA =  await PDFDocument.load(buffer);
+          const copiedPagesA = await mergedPdf.copyPages(pdfA, pdfA.getPageIndices());
+          copiedPagesA.forEach((page) => mergedPdf.addPage(page));
+  
+            for (const document of myFiles) {
+                const existingPdfBytes = await fetch(document).then((res) =>
+                  res.arrayBuffer()
+                );  
           
-
-      });
+                const pdfDoc = await PDFDocument.load(existingPdfBytes);
+          
+                const copiedPages = await mergedPdf.copyPages(
+                  pdfDoc,
+                  pdfDoc.getPageIndices()
+                );
+                copiedPages.forEach((page) => mergedPdf.addPage(page));
+            }
+  
+            const pdfBytes = await mergedPdf.save();
+            console.log('pdfbytes',pdfBytes)
+  
+  
+            let folderName =  this.addFestForm.value.folderName;  
+  
+            let id = this.addFestForm.value.rfiName+'.pdf';
+            let ref = this.afStorage.ref(this.accountFirebase+'/'+this.projUploadFolder+'/RFIs/'+folderName+'/'+id);
+            let task = ref.put(pdfBytes,{contentType:"application/pdf"});
+            // let task = ref.putString(pdfDataUri, 'base64',{contentType:"application/pdf"});
+            let _percentage$ = task.percentageChanges();
+            _percentage$.subscribe(
+              (prog: number) => {
+                this.progressOverlay.setProgress(Math.ceil(prog));
+            });
+  
+            task.snapshotChanges().pipe(
+              finalize(() => {
+                ref.getDownloadURL().subscribe((url) => { 
+                  this.progressOverlay.hide();
+                  console.log(url);
+                  this.addFestForm.patchValue({
+                    pdfLink: url
+                  });
+                  
+                  console.log(this.addFestForm.value);
+  
+                  this.saveStepSignature();
+                });
+            })).subscribe();
+            
+  
+        });
       
   }
 
   async saveStepSignature(){
+    console.log('3 is working')
 
     if(this.addFestForm.value.signature){
       let folderName =  this.addFestForm.value.folderName;      
       // let id = Math.random().toString(36).substring(2);
       //let ref = this.afStorage.ref(rootFolder+'/'+this.timeForm.value.uploadFolder+'/Timesheet/'+folderName+'/'+id);
       // let ref = this.afStorage.ref(this.accountFirebase+'/project-images/'+id);
-      let ref = this.afStorage.ref(this.accountFirebase+'/'+this.projUploadFolder+'/Selections/'+folderName+'/signature');
+      let ref = this.afStorage.ref(this.accountFirebase+'/'+this.projUploadFolder+'/Rfis/'+folderName+'/signature');
       //let base64String = base64image.split(',').pop();
       let task = ref.putString(this.addFestForm.value.signature, 'data_url');
       let _percentage$ = task.percentageChanges();
@@ -1971,7 +1979,7 @@ cleanChar(str){
               this.addFestForm.patchValue({
                 signature: this.downloadURL
               });
-              this.saveStepUpdateSelection();
+              this.saveStepUpdateRfi();
             // } 
           });
       })).subscribe();
@@ -2036,7 +2044,7 @@ saveStep1Old(){
         // let id = Math.random().toString(36).substring(2);
         //let ref = this.afStorage.ref(rootFolder+'/'+this.timeForm.value.uploadFolder+'/Timesheet/'+folderName+'/'+id);
         // let ref = this.afStorage.ref(this.accountFirebase+'/project-images/'+id);
-        let ref = this.afStorage.ref(this.accountFirebase+'/'+this.projUploadFolder+'/Selections/'+folderName+'/signature');
+        let ref = this.afStorage.ref(this.accountFirebase+'/'+this.projUploadFolder+'/Rfis/'+folderName+'/signature');
         //let base64String = base64image.split(',').pop();
         let task = ref.putString(this.addFestForm.value.signature, 'data_url');
         let _percentage$ = task.percentageChanges();
@@ -2053,23 +2061,24 @@ saveStep1Old(){
                 this.addFestForm.patchValue({
                   signature: this.downloadURL
                 });
-                this.saveStepUpdateSelection();
+                this.saveStepUpdateRfi();
               // } 
             });
         })).subscribe();
 
     }else{
-      this.saveStepUpdateSelection();
+      this.saveStepUpdateRfi();
     }
 
   }
 
-  saveStepUpdateSelection(){
+  saveStepUpdateRfi(){
+    console.log('4 is working')
 
     let _status;
     let _statuses = [];
 
-    for (let group of this.addFestForm.value.selectionGroupArray) { 
+    for (let group of this.addFestForm.value.rfiGroupArray) { 
         console.log(group.groupStatus);
         _statuses.push(group.groupStatus);
     }
@@ -2092,8 +2101,8 @@ saveStep1Old(){
     });
 
 
-    this.data_api.updateFBSelection(this.passID.id,this.addFestForm.value).then(data => {
-      console.log('Submitted the Selection successfully!');
+    this.data_api.updateFBRFI(this.passID.id,this.addFestForm.value).then(data => {
+      console.log('Submitted the RFI successfully!');
 
       console.log(data);
 
@@ -2133,8 +2142,8 @@ saveStep1Old(){
       return tmp.textContent || tmp.innerText || '';
   }
 
-  sendAdminEmail(variantID,projectID){
-
+  sendAdminEmail(RfiID,projectID){
+    console.log('5 is working')
       // console.log(this.addFestForm.value);
 
       // // this.dialogRef.close();
@@ -2151,7 +2160,7 @@ saveStep1Old(){
       //   });
       // }
 
-      let varEmails = this.selectionSettingsData.varEmailRecipient;
+      let varEmails = this.rfiSettingsData.varEmailRecipient;
       if(varEmails){
         varEmails.forEach(email => {
           adminEmails.push({
@@ -2161,7 +2170,7 @@ saveStep1Old(){
       }
 
       let myURL = window.location.href ;
-      let rep2 = '/selections/project/'+projectID+'/edit/'+variantID ;
+      let rep2 = '/rfi/project/'+projectID+'/edit/'+RfiID ;
       let rep1 = this.router.url ;
       let newUrl = myURL.replace(rep1, rep2)
       
@@ -2172,12 +2181,12 @@ saveStep1Old(){
         emailSignature:  this.adminData.emailSignature,
         varLink: newUrl,
         projectName: this.projectData.projectName,
-        selectionName: this.addFestForm.value.selectionName
+        rfiName: this.addFestForm.value.rfiName
       }
       console.log(tempdata);
 
     
-      const callableTest = this.functions.httpsCallable('sendFBSelectionsSubmit');
+      const callableTest = this.functions.httpsCallable('sendFBRfiSubmit');
       callableTest(tempdata).subscribe(result => {
         console.log(result)
         this.spinnerService.hide();
@@ -2213,13 +2222,13 @@ saveStep1Old(){
 
     let groupIndex = 0;   
 
-    for (let group of this.tempSelectionArray) { 
+    for (let group of this.temprfiArray) { 
 
       let itemIndex = 0;
 
       for (let item of group.itemArray) {
 
-        // const adminAdvocacy = this.selectionGroupArray().at(groupIndex).get("itemArray") as FormArray;
+        // const adminAdvocacy = this.rfiGroupArray().at(groupIndex).get("itemArray") as FormArray;
         console.log(item.itemImage);
 
         // await this.getBase64ImageFromURL(item.itemImage).subscribe((base64Data: string) => {  
@@ -2238,7 +2247,7 @@ saveStep1Old(){
         // adminAdvocacy.controls[itemIndex].patchValue({
         //   itemImage: awaitData,
         // });
-        this.tempSelectionArray[groupIndex].itemArray[itemIndex].itemImage = awaitData;
+        this.temprfiArray[groupIndex].itemArray[itemIndex].itemImage = awaitData;
         itemIndex++;
 
       }
@@ -2297,15 +2306,15 @@ saveStep1Old(){
       return null;
   }
 
-  selectionGroupArray(): FormArray {
-    return this.addFestForm.get('selectionGroupArray') as FormArray;
+  rfiGroupArray(): FormArray {
+    return this.addFestForm.get('rfiGroupArray') as FormArray;
   }
 
   itemArray(groupIndex:number) : FormArray {
-    return this.selectionGroupArray().at(groupIndex).get("itemArray") as FormArray
+    return this.rfiGroupArray().at(groupIndex).get("itemArray") as FormArray
   }
 
-  createselectionGroupArray(): FormGroup {
+  createrfiGroupArray(): FormGroup {
     return this.formBuilder.group({
       groupName: '',
       groupBudget: '',
@@ -2318,8 +2327,8 @@ saveStep1Old(){
     });
   }
 
-  addselectionGroupArray() {
-    this.selectionGroupArray().push(this.createselectionGroupArray());
+  addrfiGroupArray() {
+    this.rfiGroupArray().push(this.createrfiGroupArray());
   }
 
 
@@ -2499,9 +2508,9 @@ saveStep1Old(){
     approveAll(){
          console.log('approve all');
           let groupIndex = 0;
-          for (let group of this.addFestForm.value.selectionGroupArray) { 
+          for (let group of this.addFestForm.value.rfiGroupArray) { 
 
-              const adminAdvocacy2 = this.selectionGroupArray().at(groupIndex)
+              const adminAdvocacy2 = this.rfiGroupArray().at(groupIndex)
 
               adminAdvocacy2.patchValue({
                 groupStatus: 'approved'
@@ -2510,10 +2519,11 @@ saveStep1Old(){
             groupIndex++;
           }
 
-          console.log(this.addFestForm.value.selectionGroupArray);
+          console.log(this.addFestForm.value.rfiGroupArray);
     }
 
 }
+
 
 @Component({
   selector: 'external-quotesdialog',

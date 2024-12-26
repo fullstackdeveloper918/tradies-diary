@@ -50,7 +50,16 @@ export const AppRoutes: Routes = [
             data: {
                 role: 'project_owner'
                 }
-        }, {
+        }, 
+        {
+            path: 'dashboard-rfi',
+            component: AdminLayoutComponent,
+            loadChildren: () => import('./dashboardrfi/dashboardrfi.module').then(m => m.DashboardrfiModule),
+            canActivate: [AdminGuard],
+            data: {
+                role: 'project_owner'
+                }
+        },{
             path: 'dashboard-worker',
             component: AdminLayoutComponent,
             loadChildren: () => import('./dashboardworker/dashboardworker.module').then(m => m.DashboardWorkerModule),
