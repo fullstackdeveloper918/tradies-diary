@@ -1,0 +1,17 @@
+[debug] [2024-12-26T13:20:32.748Z] ----------------------------------------------------------------------
+[debug] [2024-12-26T13:20:32.752Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\DELL\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-12-26T13:20:32.753Z] CLI Version:   13.29.1
+[debug] [2024-12-26T13:20:32.754Z] Platform:      win32
+[debug] [2024-12-26T13:20:32.754Z] Node Version:  v18.20.4
+[debug] [2024-12-26T13:20:32.755Z] Time:          Thu Dec 26 2024 18:50:32 GMT+0530 (India Standard Time)
+[debug] [2024-12-26T13:20:32.755Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-12-26T13:20:32.761Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-12-26T13:20:32.957Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-12-26T13:20:32.958Z] > authorizing via signed-in user (info@cybersify.tech)
+[debug] [2024-12-26T13:20:32.958Z] [iam] checking project tradies-testing-444503 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-12-26T13:20:32.960Z] Checked if tokens are valid: true, expires at: 1735220968462
+[debug] [2024-12-26T13:20:32.960Z] Checked if tokens are valid: true, expires at: 1735220968462
+[debug] [2024-12-26T13:20:32.960Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/tradies-testing-444503:testIamPermissions [none]
+[debug] [2024-12-26T13:20:32.961Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/tradies-testing-444503:testIamPermissions x-goog-quota-user=projects/tradies-testing-444503
+[debug] [2024-12-26T13:20:32.961Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/tradies-testing-444503:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}

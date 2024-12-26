@@ -37,7 +37,7 @@ export const AppRoutes: Routes = [
             path: 'dashboard-variants',
             component: AdminLayoutComponent,
             loadChildren: () => import('./dashboardvariants/dashboardvariants.module').then(m => m.DashboardVariantsModule),
-            canActivate: [AdminGuard],
+            // canActivate: [AdminGuard],
             data: {
                 role: 'project_owner'
                 }
@@ -46,7 +46,7 @@ export const AppRoutes: Routes = [
             path: 'dashboard-selection',
             component: AdminLayoutComponent,
             loadChildren: () => import('./dashboardselections/dashboardselections.module').then(m => m.DashboardselectionsModule),
-            canActivate: [AdminGuard],
+            // canActivate: [AdminGuard],
             data: {
                 role: 'project_owner'
                 }
@@ -55,7 +55,7 @@ export const AppRoutes: Routes = [
             path: 'dashboard-rfi',
             component: AdminLayoutComponent,
             loadChildren: () => import('./dashboardrfi/dashboardrfi.module').then(m => m.DashboardrfiModule),
-            canActivate: [AdminGuard],
+            // canActivate: [AdminGuard],
             data: {
                 role: 'project_owner'
                 }
