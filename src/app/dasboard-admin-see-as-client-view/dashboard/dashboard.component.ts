@@ -81,16 +81,16 @@ export class DashboardComponent {
                   `;
         }
       },
-      Client_Id: {
-        title: 'Client Id ',
-        width: '100px',
-        filter: false,
-        sort: false,
-        valuePrepareFunction: (cell,row) => {
-          console.log('check row id', row)
-          return row.userData.id;
-        }
-      },
+      // Client_Id: {
+      //   title: 'Client Id ',
+      //   width: '100px',
+      //   filter: false,
+      //   sort: false,
+      //   valuePrepareFunction: (cell,row) => {
+      //     console.log('check row id', row)
+      //     return row.userData.id;
+      //   }
+      // },
       userAccounts: {
         title: 'userAccounts',
         filter: false,
