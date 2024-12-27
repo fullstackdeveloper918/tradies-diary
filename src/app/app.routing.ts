@@ -89,7 +89,7 @@ export const AppRoutes: Routes = [
             loadChildren: () => import('./dashboarddailysupervisor/dashboard.module').then(m => m.DashboardDailySupervisorModule),
             canActivate: [AdminGuard],
             data: {
-                role: 'project_supervisor'
+                role: 'project_supervisor,project_owner'
                 }
         }, {
             path: 'dashboard-weekly',
@@ -105,7 +105,7 @@ export const AppRoutes: Routes = [
             loadChildren: () => import('./dashboardweeklysupervisor/dashboard.module').then(m => m.DashboardWeeklySupervisorModule),
             canActivate: [AdminGuard],
             data: {
-                role: 'project_supervisor'
+                role: 'project_supervisor,project_owner'
                 }
         }, {
             path: 'daily-report',
@@ -113,7 +113,7 @@ export const AppRoutes: Routes = [
             loadChildren: () => import('./dailyreport/dailyreport.module').then(m => m.DailyReportModule),
             canActivate: [AdminGuard],
             data: {
-                role: 'app_admin,project_supervisor'
+                role: 'app_admin,project_supervisor,project_owner'
                 }
         }, {
             path: 'weekly-report',
@@ -121,7 +121,7 @@ export const AppRoutes: Routes = [
             loadChildren: () => import('./weeklyreport/weeklyreport.module').then(m => m.WeeklyReportModule),
             canActivate: [AdminGuard],
             data: {
-                role: 'app_admin,project_supervisor'
+                role: 'app_admin,project_supervisor, project_owner'
                 }
         }, {
             path: 'projects',
@@ -245,6 +245,23 @@ export const AppRoutes: Routes = [
             path: 'settings-variations',
             component: AdminLayoutComponent,
             loadChildren: () => import('./settingsvariations/settingsvariations.module').then(m => m.SettingsVariationsModule),
+            canActivate: [AdminGuard],
+            data: {
+                role: 'app_admin'
+            }
+        }, {
+            path: 'settings-selections',
+            component: AdminLayoutComponent,
+            loadChildren: () => import('./settingsselections/settingsselections.module').then(m => m.SettingsselectionsModule),
+            canActivate: [AdminGuard],
+            data: {
+                role: 'app_admin'
+            }
+        }
+        , {
+            path: 'settings-rfi',
+            component: AdminLayoutComponent,
+            loadChildren: () => import('./settings-rfi/settings-rfi.module').then(m => m.SettingsRfiModule),
             canActivate: [AdminGuard],
             data: {
                 role: 'app_admin'

@@ -241,7 +241,7 @@ export class DashboardWeeklySupervisorComponent {
   }
 
   getFBWeeklyReports(): void {
-
+    console.log('this is working')
     this.afs.collection('/accounts').doc(this.accountFirebase).collection('/weeklyReport', ref => ref
     .where("projectId", '==', this.selectedProject.id)
     .orderBy('weekendDate', 'desc')
@@ -276,6 +276,7 @@ export class DashboardWeeklySupervisorComponent {
         //Push first item to use for Previous action
         this.push_prev_startAt(this.firstInResponse);
         }, error => {
+          console.log('error',error)
         });
 
   }
@@ -376,6 +377,14 @@ export class DashboardWeeklySupervisorComponent {
   }
 
   getFBProjects(): void {
+    if(this.userDetails.userRole == 'project_supervisor'){
+      this.getSupervisorsProject();
+     } else if(this.userDetails.userRole == 'project_owner'){
+      this.clientProject();
+     }
+  }
+
+  getSupervisorsProject(){
     this.data_api.getFBProjects().subscribe(data => {
       console.log(data);
 
@@ -413,7 +422,51 @@ export class DashboardWeeklySupervisorComponent {
       }
       // this.getFBDailyReports();
     });
+  }
 
+  clientProject(){
+    this.data_api.getFBProjects().subscribe(data => {
+      console.log(data);
+      this.supervisorProjects = [];
+      let tempSupervisorProjects = [];
+      data.forEach(data2 =>{ 
+          this.projectNames.push(data2)
+          console.log('data2', data2)
+
+          if(data2.clientEmail){
+            if(data2.clientEmail.includes(this.userDetails.firebase.identities.email[0])){
+              console.log('this is working')
+              console.log('data', data2)
+                tempSupervisorProjects.push(data2);
+            }
+          //  console.log('data2', data2)
+            // if(data2.altSupervisor){
+            //   if(data2.altSupervisor.includes( this.userDetails.user_id)){
+            //       tempSupervisorProjects.push(data2);
+            //   }
+            // }
+
+            const uniqueID = new Map(
+              tempSupervisorProjects.map(c => [c.id, c])
+            );
+            
+            this.supervisorProjects = [...uniqueID.values()];
+            
+          }
+
+
+      })
+      console.log('tempsuper',tempSupervisorProjects)
+
+
+      console.log(this.supervisorProjects);
+
+      if(this.doneRunning == false){
+        this.doneRunning = true;
+        this.openDailyProjectSelect();
+      }
+      // this.getFBDailyReports();
+    })
   }
 
   // public validateToken(){

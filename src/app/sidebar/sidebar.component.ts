@@ -80,6 +80,18 @@ export const ROUTES: RouteInfo[] = [
             {path: 'dashboard-weekly-supervisor', title: 'Weekly Report', ab:'WR'},
         ]
     },{
+      path: '/',
+      title: 'View Reports',
+      type: 'sub',
+      icontype: 'find_in_page',
+      securitylvl: 2,
+      collapse: 'view-report',
+      children: [
+          // {path: 'options', title: 'Diary Options', ab:'DO'},  
+          {path: 'dashboard-daily-supervisor', title: 'Daily Report', ab:'DR'},
+          {path: 'dashboard-weekly-supervisor', title: 'Weekly Report', ab:'WR'},
+      ]
+  },{
         path: '/',
         title: 'Create Reports',
         type: 'sub',
@@ -185,6 +197,8 @@ export const ROUTES: RouteInfo[] = [
             
             {path: 'settings-admin', title: 'Admin Settings', ab:'AS'},
             {path: 'settings-variations', title: 'Variation Settings', ab:'VS'},
+            {path : 'settings-selections', title : 'Selection Settings', ab : 'SS'},
+            {path : 'settings-rfi', title: 'Rfi settings', ab: 'RS'},
             {path: 'manage-users', title: 'Manage Users', ab:'MU'}, 
             {path: 'export-employees', title: 'Employees Timesheet', ab:'ES'},
             {path: 'export-trades', title: 'Trades Timesheet', ab:'ET'},

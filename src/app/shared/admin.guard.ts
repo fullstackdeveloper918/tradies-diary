@@ -46,7 +46,9 @@ export class AdminGuard implements CanActivate, CanActivateChild  {
             let userValid = userDetails.validAccount;
 
             if(userValid == true){
-
+                console.log('route', route)
+                console.log(route.data.role.indexOf(userRole))
+                console.log('role', route.data.role.indexOf(userRole) === -1);
                 if (route.data.role && route.data.role.indexOf(userRole) === -1) {
                   //console.log('aw');
 

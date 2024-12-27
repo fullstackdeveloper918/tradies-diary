@@ -248,7 +248,7 @@ export class SelectionsprojectcreateComponent implements OnInit {
         // this.getFBProjectUsers();
         this.getFBAllTrades();
         this.getAdminSettings();
-        this.getVariationSettings();
+        this.getSelectionSettings();
         // this.getProject();
         
         this.accountFirebase = this.data_api.getCurrentProject();
@@ -2961,10 +2961,10 @@ cleanChar(str){
       }
   }
 
-  getVariationSettings(){
+  getSelectionSettings(){
 
-      this.data_api.getFBVariationsSettings().subscribe((data) => {
-        console.log('settting data', data);
+      this.data_api.getFBSelectionSettings().subscribe((data) => {
+        console.log('setting datat', data);
         
           if(data){
               this.selectionAdminData = data;

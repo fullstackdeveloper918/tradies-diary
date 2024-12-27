@@ -97,7 +97,7 @@ export class DashboardDailyComponent {
         filter: false,
         sort: false,
         valuePrepareFunction: (cell, row) => {
-          return this.projectNames.find(o => o.id === row.projectId).projectName;
+          return this.projectNames.find(o => o.id === row?.projectId)?.projectName;
         },
         renderComponent: DailyRenderComponent
         // valuePrepareFunction: (cell,row) => {
@@ -117,7 +117,7 @@ export class DashboardDailyComponent {
         width: '300px',
         title: 'Project Name',
         valuePrepareFunction: (cell,row) => {
-            return this.projectNames.find(o => o.id === row.projectId).projectName;
+            return this.projectNames.find(o => o.id === row?.projectId)?.projectName;
         }
       },
       entry_date: {

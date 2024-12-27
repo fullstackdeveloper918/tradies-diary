@@ -1463,7 +1463,7 @@ export class DatasourceService {
     //console.log(itemDoc);
     return itemDoc.valueChanges();
   }
-
+  // GET SELECTION SETTING
   getFBSelectionSettings(){
     //console.log(this.accountFirebase);
     let itemDoc = this.afs.collection('/accounts').doc(this.accountFirebase).collection('/admin').doc('/selections_settings');
@@ -1500,6 +1500,47 @@ export class DatasourceService {
       // itemTotalHideAll : formValue.itemTotalHideAll
     });
   }
+
+  // UPDATE SELECTION SETTING
+  updateFBSelectionsSettings(formValue): any {
+    return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/admin').doc('/selections_settings').set({
+      selEmailRecipient: formValue.selEmailRecipient,
+      selDefaultOpening: formValue.selDefaultOpening,
+      selDefaultClosing: formValue.selDefaultClosing,
+      selSetJobNum: formValue.selSetJobNum,
+      selSetCode: formValue.selSetCode,
+      // varSetStartNumber: formValue.varSetStartNumber,
+      // bmLineitem: formValue.bmLineitem,
+      // bmTotalFigure: formValue.bmTotalFigure,
+      // bmHideAll: formValue.bmHideAll,
+      // qtyHideAll : formValue.qtyHideAll,
+      // unitHideAll : formValue.unitHideAll,
+      // unitCostHideAll : formValue.unitCostHideAll,
+      // itemTotalHideAll : formValue.itemTotalHideAll
+    });
+  }
+
+  // UPDATE RFI SETTING
+   // UPDATE SELECTION SETTING
+   updateFBRfiSettings(formValue): any {
+    console.log('formvalue', formValue)
+    return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/admin').doc('/rfis_settings').set({
+      rfiEmailRecipient: formValue.rfiEmailRecipient,
+      rfiDefaultOpening: formValue.rfiDefaultOpening,
+      rfiDefaultClosing: formValue.rfiDefaultClosing,
+      rfiSetJobNum: formValue.rfiSetJobNum,
+      rfiSetCode: formValue.rfiSetCode,
+      // varSetStartNumber: formValue.varSetStartNumber,
+      // bmLineitem: formValue.bmLineitem,
+      // bmTotalFigure: formValue.bmTotalFigure,
+      // bmHideAll: formValue.bmHideAll,
+      // qtyHideAll : formValue.qtyHideAll,
+      // unitHideAll : formValue.unitHideAll,
+      // unitCostHideAll : formValue.unitCostHideAll,
+      // itemTotalHideAll : formValue.itemTotalHideAll
+    });
+  }
+  
   
   getFBDashboardSearchDateDailyReport(date): any {
     var startDate = new Date(date) ;
