@@ -171,7 +171,7 @@ export class SelectionSettingComponent {
                   bmLineitem: this.checkGlobalBooleanSelectionSettings(data.bmLineitem) ? data.bmLineitem : false,
                   bmTotalFigure: this.checkGlobalBooleanSelectionSettings(data.bmTotalFigure) ? data.bmTotalFigure : false,
                   selSetJobNum: data.selSetJobNum ? data.selSetJobNum : true,
-                  selSetCode: data.selSetCode ? data.selSetCode : 'V',
+                  selSetCode: data.selSetCode ? data.selSetCode : 'S',
                   // varSetStartNumber: data.varSetStartNumber ? data.varSetStartNumber : 0,
                   qtyHideAll: this.checkGlobalBooleanSelectionSettings(data.qtyHideAll) ? data.qtyHideAll : false,
                   unitHideAll: this.checkGlobalBooleanSelectionSettings(data.unitHideAll) ? data.unitHideAll : false,

@@ -172,7 +172,7 @@ export class RfiSettingComponent {
                     bmLineitem: this.checkGlobalBooleanRfiSettings(data.bmLineitem) ? data.bmLineitem : false,
                     bmTotalFigure: this.checkGlobalBooleanRfiSettings(data.bmTotalFigure) ? data.bmTotalFigure : false,
                     rfiSetJobNum: data.rfiSetJobNum ? data.rfiSetJobNum : true,
-                    rfiSetCode: data.rfiSetCode ? data.rfiSetCode : 'V',
+                    rfiSetCode: data.rfiSetCode ? data.rfiSetCode : 'R',
                     // varSetStartNumber: data.varSetStartNumber ? data.varSetStartNumber : 0,
                     qtyHideAll: this.checkGlobalBooleanRfiSettings(data.qtyHideAll) ? data.qtyHideAll : false,
                     unitHideAll: this.checkGlobalBooleanRfiSettings(data.unitHideAll) ? data.unitHideAll : false,
