@@ -78,7 +78,8 @@
 
                                                     <div class="holder-filter-by fliter_tab"> 
                                                         <label><i class="material-icons">filter_alt</i> Filter by Name</label>
-                                                        <input matInput placeholder="Enter Name" formControlName="nameFilter" (input)="searchByNameFilterSelection($event)">
+                                                        <!-- <input matInput placeholder="Enter Name" formControlName="nameFilter" (input)="searchByNameFilterSelection($event)"> -->
+                                                        <app-search [Data]="Data" (searchResults)="onSearchResults($event)"></app-search>
                                                     </div>
     
     

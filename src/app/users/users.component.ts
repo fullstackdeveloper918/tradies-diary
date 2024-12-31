@@ -26,6 +26,7 @@ import { first } from 'rxjs/operators';
     adminData;
 
     colorBtnDefault;
+    Data: any
 
     public settings = {
       actions: { 
@@ -135,7 +136,26 @@ import { first } from 'rxjs/operators';
       //this.getAllUsers();
       this.getFBUsersOrdered();
       this.getAdminSettings();
+      this.sendData();
     }
+
+    sendData(){
+      this.Data = {
+        collectionName : 'users'
+      }
+    }
+     
+    results: any[] = [];
+    // SEARCH
+    onSearchResults(results: any[]) {
+      console.log('results', results)
+      if(results!=null){
+      this.userSource = new LocalDataSource(results)
+      } else{
+        this.getFBUsersOrdered();
+      }
+      // this.results = results; // Set the results received from the search component
+    } 
 
     getAdminSettings(){
         this.data_api.getFBAdminSettings().subscribe((data) => {

@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ClientDataComponent } from './client-data/client-data.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ClientDataComponent } from './client-data/client-data.component';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    MatTooltipModule
   ]
 })
 export class DasboardAdminSeeAsClientViewModule { }

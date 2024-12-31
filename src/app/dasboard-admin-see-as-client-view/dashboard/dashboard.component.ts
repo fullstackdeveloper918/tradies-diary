@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DatasourceService } from 'src/app/services/datasource.service';
@@ -16,7 +17,7 @@ export class DashboardComponent {
   source: LocalDataSource = new LocalDataSource;
   currentProject : string
 
-  constructor(private afs: AngularFirestore, private datasourceService: DatasourceService){}
+  constructor(private afs: AngularFirestore, private datasourceService: DatasourceService, private sanitizer: DomSanitizer){}
 
   ngOnInit(){
    this.currentProject = this.datasourceService.getCurrentProject();
@@ -77,8 +78,19 @@ export class DashboardComponent {
         filter: false,
         sort: false,
         valuePrepareFunction: (cell,row) => {          
-          return `<a target="_blank" href="#/client-view/${row.userData.id}"><i class="material-icons">preview</i></a>
-                  `;
+          const link = `<a href="#/client-view/${row.userData.id}">
+                  <i class="material-icons">preview</i>
+                </a>`;
+        return this.sanitizer.bypassSecurityTrustHtml(link);
+        }
+      },
+      client_name: {
+        title: 'Client Name',
+        width: '150px',
+        filter: false,
+        sort: false,
+        valuePrepareFunction: (cell,row) => {
+            return row.userData.userFirstName + " " + row.userData.userLastName;
         }
       },
       // Client_Id: {
@@ -91,14 +103,7 @@ export class DashboardComponent {
       //     return row.userData.id;
       //   }
       // },
-      userAccounts: {
-        title: 'userAccounts',
-        filter: false,
-        sort: false,
-        valuePrepareFunction: (cell,row) => {
-          return row.userData.userAccounts;
-        }
-      },
+     
       userEmail: {
         title: 'userEmail',
         filter: false,
@@ -107,13 +112,12 @@ export class DashboardComponent {
           return row.userData.userEmail
         }
       },
-      client_name: {
-        title: 'Client Name',
-        width: '150px',
+      userAccounts: {
+        title: 'userAccounts',
         filter: false,
         sort: false,
         valuePrepareFunction: (cell,row) => {
-            return row.userData.userFirstName + " " + row.userData.userLastName;
+          return row.userData.userAccounts;
         }
       },
       userRole: {

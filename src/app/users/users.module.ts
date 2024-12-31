@@ -13,6 +13,7 @@ import { ModifyUserComponent } from './modifyuser/modifyuser.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import{ ChangeTimeDialog, UserDeleteDialog, UserDialog, UserPasswordDialog, UserRenderComponent} from './userbutton-render.component';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { SearchModule } from '../shared/search/search.module';
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
         MaterialModule,
         Ng2SmartTableModule,
         TimepickerModule.forRoot(),
+        SearchModule
     ],
     declarations: [
         UsersComponent,

@@ -21,7 +21,7 @@ import { RFIProjectRenderComponent } from './rfieditcomponent/rfiproject-render.
   styleUrls: ['./rfiproject.component.css']
 })
 export class RFIPROJECTComponent {
-   
+  Data:any 
   source: LocalDataSource = new LocalDataSource;
   public passID: any;
   
@@ -245,7 +245,27 @@ export class RFIPROJECTComponent {
           dueDate: [''],
           nameFilter : ['']
       });
+      this.sendData()
   }
+
+  sendData(){
+    this.Data = {
+      collectionName : 'rfis',
+      id: this.passID.id
+    }
+  }
+
+  onSearchResults(results: any[]) {
+    console.log('results', results)
+    if(results!=null){
+    this.source = new LocalDataSource(results);
+    } else{
+      this.getRFI();
+    }
+    // this.userSource = new LocalDataSource(results)
+    // this.results = results; // Set the results received from the search component
+  } 
+
 
   getAdminSettings(){
     this.data_api.getFBAdminSettings().subscribe((data) => {
@@ -299,65 +319,7 @@ export class RFIPROJECTComponent {
     
   }
 
-     // SEARCH BY NAME
-     searchByNameFilteRFI(event: any) {
-      console.log('event', event.target.value.length);
   
-      let query;
-    
-      // Check if the name filter exists and apply it to the query
-      if (event.target.value.length > 0) {
-          query = this.afs.collection('/accounts').doc(this.accountFirebase)
-              .collection('/rfis', ref => ref
-                  .where("projectId", '==', this.passID.id)
-                  .where("rfiName", "==", event.target.value)
-                  // .where("variationsName", "==", event.target.value + '\uf8ff') // For case-insensitive search
-                  // .orderBy("variationsName") // First order by "name" since we're filtering it with an inequality
-                  // .orderBy("variantsNumber", 'desc') // Then order by "variantsNumber" for descending order
-                  .limit(10)
-              );
-      } else {
-        // If no name filter is applied, fallback to a default query
-        query = this.afs.collection('/accounts').doc(this.accountFirebase)
-            .collection('/rfis', ref => ref
-                .where("projectId", '==', this.passID.id)
-                .orderBy("rfiNumber", 'desc')  // For ordering variations by number or any other criteria
-                .limit(10)
-            );
-    }
-  
-      // Execute the query and handle the response
-      query.snapshotChanges()
-          .subscribe(response => {
-            console.log('resposne', response);
-            
-              if (!response.length) {
-                  this.source = new LocalDataSource();
-                  return false;
-              }
-  
-              this.firstInResponse = response[0].payload.doc;
-              this.lastInResponse = response[response.length - 1].payload.doc;
-  
-              this.tableData = [];
-              for (let item of response) {
-                  const itemData = item.payload.doc.data();
-                  itemData.id = item.payload.doc.id;
-                  this.tableData.push(itemData);
-              }
-  
-              this.source = new LocalDataSource(this.tableData);
-              this.prev_strt_at = [];
-              this.pagination_clicked_count = 0;
-              this.disable_next = false;
-              this.disable_prev = false;
-  
-              this.push_prev_startAt(this.firstInResponse);
-          }, error => {
-              console.error(error);
-          });
-  }
-
 
   //Filter Status
   getRFIFilterStatus(){

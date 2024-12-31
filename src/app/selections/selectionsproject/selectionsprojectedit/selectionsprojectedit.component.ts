@@ -475,7 +475,7 @@ export class SelectionsprojecteditComponent {
           projectId: data.projectId,
           selectionNumber: data.selectionNumber,
           selectionName: data.selectionName,
-          dueDate: data.dueDate ? data.dueDate.toDate() : '', 
+          dueDate: data.dueDate ? data?.dueDate?.toDate() : '', 
           // clientAddress: data.clientAddress,
           // projectOwner: data.projectOwner,
           openingMessage: data.openingMessage, 

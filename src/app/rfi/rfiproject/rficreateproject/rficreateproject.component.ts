@@ -249,7 +249,7 @@ export class RFICREATEPROJECTComponent {
       // this.getFBProjectUsers();
       this.getFBAllTrades();
       this.getAdminSettings();
-      this.getVariationSettings();
+      this.getRFISettings();
       // this.getProject();
       
       this.accountFirebase = this.data_api.getCurrentProject();
@@ -451,12 +451,12 @@ export class RFICREATEPROJECTComponent {
         //     this.projectData.counterVariation = 0;
         // } 
 
-        if(data.recipientVariation){
+        if(data.recipientRFI){
 
           this.setProjectVariationRecipient = [];
           let projectOwnerIDs;
 
-          projectOwnerIDs = data.recipientVariation;
+          projectOwnerIDs = data.recipientRFI;
 
           projectOwnerIDs.forEach(value => {
               if(this.findObjectByKey(this.projectOwnersProject, 'id', value)){
@@ -3064,15 +3064,15 @@ toggleBMHideAll(){
 
 }
 
-getVariationSettings(){
+getRFISettings(){
 
-    this.data_api.getFBVariationsSettings().subscribe((data) => {
+    this.data_api.getFBRfisSettings().subscribe((data) => {
         console.log(data);
         if(data){
             this.variationAdminData = data;
             this.rfiForm.patchValue({
-              openingMessage: data.varDefaultOpening,
-              closingMessage: data.varDefaultClosing,
+              openingMessage: data.rfiDefaultOpening,
+              closingMessage: data.rfiDefaultClosing,
               // bmLineitem: this.checkGlobalBooleanVariationSettings(data.bmLineitem) ? data.bmLineitem : false,
               // bmTotalFigure: this.checkGlobalBooleanVariationSettings(data.bmTotalFigure) ? data.bmTotalFigure : false,
               // bmHideAll: this.checkGlobalBooleanVariationSettings(data.bmHideAll) ? data.bmHideAll : false,

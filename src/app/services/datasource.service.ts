@@ -2944,4 +2944,43 @@ export class DatasourceService {
     return this.link.post<any[]>(url, JSON.stringify(data), this.httpOptions)
   }
 
+  // SEARCH 
+  searchCollection(collectionName: string, query: string, id?:string): Observable<any[]> {
+  
+    // Make a simple query to Firestore to fetch documents where a field contains the search term
+    if (collectionName == 'users') {
+      console.log('collectionanem',collectionName);
+      console.log('query', query);
+      return this.afs
+        .collection(collectionName, ref =>
+          ref.where('userFirstName', '>=', query)
+            .where('userFirstName', '<=', query + '\uf8ff')
+        )
+        .valueChanges();
+    } else if (collectionName == 'variations') {
+      return this.afs.collection('/accounts').doc(this.accountFirebase).collection(collectionName, ref =>
+        ref.where('projectId', '==', id)
+        .where('variationsName', '>=', query)
+        .where('variationsName', '<=', query + '\uf8ff')
+          //  .where('variationsName', '>=', query)
+          //  .where('variationsName', '<=', query + '\uf8ff')
+          // .where('variationsName', '==', query)
+      ).valueChanges();
+    } else if(collectionName == 'selections'){
+      return this.afs.collection('/accounts').doc(this.accountFirebase).collection(collectionName, ref =>
+        ref.where('projectId', '==', id)
+        .where('selectionName', '>=', query)
+        .where('selectionName', '<=', query + '\uf8ff')
+      ).valueChanges();
+    } else if(collectionName == 'rfis'){
+      return this.afs.collection('/accounts').doc(this.accountFirebase).collection(collectionName, ref =>
+        ref.where('projectId', '==', id)
+        .where('rfiName', '>=', query)
+        .where('rfiName', '<=', query + '\uf8ff')
+      ).valueChanges();
+    }
+  
+    // Return an empty array if no matching collection
+    // return [];
+  }
 }

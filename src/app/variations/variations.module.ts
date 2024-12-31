@@ -27,39 +27,41 @@ import { QuillModule } from 'ngx-quill'
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { VariationsProjectDeleteDialog, VariationsProjectRenderComponent } from './variationsproject/variationsproject-render.component';
+import { SearchModule } from "../shared/search/search.module";
 
 @NgModule({
     imports: [
-        CommonModule,
-        RouterModule.forChild(VariationsRoutes),
-        FormsModule,
-        ReactiveFormsModule,
-        MaterialModule,
-        NgxImageCompressorModule,
-        TagInputModule,
-        NgxMatSelectSearchModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireStorageModule,
-        NgxProgressOverlayModule,
-        ClipboardModule,
-        AngularEditorModule,
-        Ng2SmartTableModule,
-        FileUploadModule,
-        PdfViewerModule,
-        QuillModule.forRoot({
-            modules: {
-                toolbar: [
-                    ['bold', 'italic', 'underline', 'strike'],
-                    ['blockquote', 'code-block'],
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }], 
-                    [{ 'color': [] }, { 'background': [] }],
-                    [{ 'font': [] }],
-                    [{ 'align': [] }],
-                    ['clean'],  
-                ]
-            }
-        })
-    ],
+    CommonModule,
+    RouterModule.forChild(VariationsRoutes),
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    NgxImageCompressorModule,
+    TagInputModule,
+    NgxMatSelectSearchModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
+    NgxProgressOverlayModule,
+    ClipboardModule,
+    AngularEditorModule,
+    Ng2SmartTableModule,
+    FileUploadModule,
+    PdfViewerModule,
+    QuillModule.forRoot({
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'font': [] }],
+                [{ 'align': [] }],
+                ['clean'],
+            ]
+        }
+    }),
+    SearchModule
+],
     declarations: [
         VariationsComponent,
         VariationsProjectComponent,

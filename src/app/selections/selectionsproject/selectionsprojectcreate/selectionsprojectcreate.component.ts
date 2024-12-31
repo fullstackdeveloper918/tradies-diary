@@ -434,11 +434,11 @@ export class SelectionsprojectcreateComponent implements OnInit {
   
               console.log(this.selectionForm.value, 'checkmate');
   
-              if (data.recipientVariation) {
+              if (data.recipientSelection) {
                   this.setProjectSelectionRecipient = [];
                   let projectOwnerIDs;
   
-                  projectOwnerIDs = data.recipientVariation;
+                  projectOwnerIDs = data.recipientSelection;
   
                   projectOwnerIDs.forEach(value => {
                       if (this.findObjectByKey(this.projectOwnersProject, 'id', value)) {
@@ -2969,8 +2969,8 @@ cleanChar(str){
           if(data){
               this.selectionAdminData = data;
               this.selectionForm.patchValue({
-                openingMessage: data.varDefaultOpening,
-                closingMessage: data.varDefaultClosing,
+                openingMessage: data.selDefaultOpening,
+                closingMessage: data.selDefaultClosing,
               });
               
           }

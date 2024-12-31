@@ -145,7 +145,7 @@ export class VariationsProjectComponent implements OnInit {
             title: 'Due Date',
             sort: false,
             valuePrepareFunction: (cell,row) => {
-                return row.dueDate ? row.dueDate.toDate().toDateString() : '';
+                return row.dueDate ? row?.dueDate?.toDate().toDateString() : '';
             }
           },
           status: {
@@ -254,6 +254,7 @@ export class VariationsProjectComponent implements OnInit {
             status: [''],
             dueDate: [''],
         });
+        this.sendData();
     }
 
     getAdminSettings(){
@@ -307,66 +308,26 @@ export class VariationsProjectComponent implements OnInit {
       }
       
     }
-
-    // SEARCH BY NAME
-    searchByNameFilterVariation(event: any) {
-      console.log('event', event.target.value.length);
-  
-      let query;
     
-      // Check if the name filter exists and apply it to the query
-      if (event.target.value.length > 0) {
-          query = this.afs.collection('/accounts').doc(this.accountFirebase)
-              .collection('/variations', ref => ref
-                  .where("projectId", '==', this.passID.id)
-                  .where("variationsName", "==", event.target.value)
-                  // .where("variationsName", "==", event.target.value + '\uf8ff') // For case-insensitive search
-                  // .orderBy("variationsName") // First order by "name" since we're filtering it with an inequality
-                  // .orderBy("variantsNumber", 'desc') // Then order by "variantsNumber" for descending order
-                  .limit(10)
-              );`                   `
-      } else {
-        // If no name filter is applied, fallback to a default query
-        query = this.afs.collection('/accounts').doc(this.accountFirebase)
-            .collection('/variations', ref => ref
-                .where("projectId", '==', this.passID.id)
-                .orderBy("variantsNumber", 'desc')  // For ordering variations by number or any other criteria
-                .limit(10)
-            );
+    Data:any
+
+    sendData(){
+      this.Data = {
+        collectionName : 'variations',
+        id: this.passID.id
+      }
     }
-  
-      // Execute the query and handle the response
-      query.snapshotChanges()
-          .subscribe(response => {
-            console.log('resposne', response);
-            
-              if (!response.length) {
-                  this.source = new LocalDataSource();
-                  return false;
-              }
-  
-              this.firstInResponse = response[0].payload.doc;
-              this.lastInResponse = response[response.length - 1].payload.doc;
-  
-              this.tableData = [];
-              for (let item of response) {
-                  const itemData = item.payload.doc.data();
-                  itemData.id = item.payload.doc.id;
-                  this.tableData.push(itemData);
-              }
-  
-              this.source = new LocalDataSource(this.tableData);
-              this.prev_strt_at = [];
-              this.pagination_clicked_count = 0;
-              this.disable_next = false;
-              this.disable_prev = false;
-  
-              this.push_prev_startAt(this.firstInResponse);
-          }, error => {
-              console.error(error);
-          });
-  }
-  
+    onSearchResults(results: any[]) {
+      if(results!=null){
+      this.source = new LocalDataSource(results);
+      }else{
+        console.log('this is working')
+        this.getVariations();
+      }
+      // this.userSource = new LocalDataSource(results)
+      // this.results = results; // Set the results received from the search component
+    } 
+
     //Filter Status
     getVariationsFilterStatus(){
 

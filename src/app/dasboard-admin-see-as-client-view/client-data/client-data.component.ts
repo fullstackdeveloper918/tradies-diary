@@ -1,7 +1,8 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxLoadingSpinnerService } from '@k-adam/ngx-loading-spinner';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DatasourceService } from 'src/app/services/datasource.service';
@@ -78,9 +79,8 @@ export class ClientDataComponent {
         filter: false,
         sort: false,
         valuePrepareFunction: (cell,row) => {          
-          return `<a target="_blank" href="#/dashboard-variants/${row.id}"><i class="material-icons">preview</i></a>
-                  `;
-        }
+          const link = `<a href="#/dashboard-variants/${row.id}"><i class="material-icons">preview</i></a>`;
+          return this.sanitizer.bypassSecurityTrustHtml(link);        }
       },
       variations_num: {
         title: 'Variations No.',
@@ -392,7 +392,9 @@ export class ClientDataComponent {
     private renderer2: Renderer2,
     private e: ElementRef,
     private rolechecker: RoleChecker,
-    private route : ActivatedRoute 
+    private route : ActivatedRoute,
+    private sanitizer : DomSanitizer,
+    private router : Router 
     ) { 
     this.route.paramMap.subscribe(params => {
       this.clientId = params.get('id');
@@ -742,6 +744,11 @@ getFBProjects() {
           window.location.reload();
       });
       
+    }
+
+    // BACK BUTTON
+    goBack(){
+      this.router.navigate(['client-view']);
     }
 
 }

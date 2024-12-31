@@ -28,6 +28,7 @@ import { ApproveAdminDialog, ApproveViewDialog, ExternalQuotesEditDialog, Select
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SelectionsProjectComponent } from './selectionsproject/selectionsproject.component';
+import { SearchModule } from "../shared/search/search.module";
 
 
 
@@ -35,36 +36,37 @@ import { SelectionsProjectComponent } from './selectionsproject/selectionsprojec
 
 @NgModule({
     imports: [
-        CommonModule,
-        RouterModule.forChild(SelectionsRoutes),
-        FormsModule,
-        ReactiveFormsModule,
-        PdfViewerModule,
-        MaterialModule,
-        NgxImageCompressorModule,
-        TagInputModule,
-        NgxMatSelectSearchModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireStorageModule,
-        NgxProgressOverlayModule,
-        ClipboardModule,
-        AngularEditorModule,
-        FileUploadModule,
-        Ng2SmartTableModule,
-        QuillModule.forRoot({
-            modules: {
-                toolbar: [
-                    ['bold', 'italic', 'underline', 'strike'],
-                    ['blockquote', 'code-block'],
-                    [{ 'header': [1, 2, 3, 4, 5, 6, false] }], 
-                    [{ 'color': [] }, { 'background': [] }],
-                    [{ 'font': [] }],
-                    [{ 'align': [] }],
-                    ['clean'],  
-                ]
-            }
-        })
-    ],
+    CommonModule,
+    RouterModule.forChild(SelectionsRoutes),
+    FormsModule,
+    ReactiveFormsModule,
+    PdfViewerModule,
+    MaterialModule,
+    NgxImageCompressorModule,
+    TagInputModule,
+    NgxMatSelectSearchModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
+    NgxProgressOverlayModule,
+    ClipboardModule,
+    AngularEditorModule,
+    FileUploadModule,
+    Ng2SmartTableModule,
+    QuillModule.forRoot({
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'font': [] }],
+                [{ 'align': [] }],
+                ['clean'],
+            ]
+        }
+    }),
+    SearchModule
+],
     declarations: [
            SelectionsComponent,
            SelectionsProjectComponent,
