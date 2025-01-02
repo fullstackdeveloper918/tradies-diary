@@ -9,16 +9,20 @@ import { DatasourceService } from 'src/app/services/datasource.service';
 export class SearchComponent {
   searchQuery: string = '';
   @Output() searchResults = new EventEmitter<any[]>();
-  @Input() Data : any;
+  @Output() sendSearch = new EventEmitter<any>();
+  @Input() Data? : any;
   constructor(private data_api: DatasourceService) {}
 
   onSearch() {
     if (this.searchQuery.trim().length >= 2) {
-      this.data_api.searchCollection(this.Data.collectionName, this.searchQuery,this.Data.id).subscribe(data => {
+      console.log('this.data', this.Data)
+      this.sendSearch.emit(this.searchQuery);
+      this.data_api.searchCollection(this.Data?.collectionName, this.searchQuery,this.Data?.id).subscribe(data => {
         this.searchResults.emit(data); 
       });
     } else if(this.searchQuery.trim().length < 2){
       this.searchResults.emit(null)
+      this.sendSearch.emit(null);
     }
   }
 }

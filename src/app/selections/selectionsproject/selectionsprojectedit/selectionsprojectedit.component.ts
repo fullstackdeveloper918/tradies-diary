@@ -249,7 +249,7 @@ export class SelectionsprojecteditComponent {
       // this.getFBProjectUsers();
       this.getFBAllTrades();
       this.getAdminSettings();
-      this.getVariationSettings();
+      this.getSelectionSettings();
       this.getProject();
       
       this.accountFirebase = this.data_api.getCurrentProject();
@@ -413,7 +413,7 @@ export class SelectionsprojecteditComponent {
 
         }
         // if(!this.variationData){
-          this.getVariation();
+          this.getSelection();
         // }
     });
   }
@@ -465,7 +465,7 @@ export class SelectionsprojecteditComponent {
 
   }
 
-  public getVariation(){
+  public getSelection(){
     this.data_api.getFBSelection(this.passID.id2).subscribe(data => {
         console.log('selectiondata',data);
         this.selectionData = data;
@@ -3459,7 +3459,7 @@ onButtonOut(hoverName: HTMLElement) {
     hoverName.style.backgroundColor = this.adminData.colourEnabledButton ?  this.adminData.colourEnabledButton: '';
 }
 
-getVariationSettings(){
+getSelectionSettings(){
 
     this.data_api.getFBVariationsSettings().subscribe((data) => {
         console.log(data);

@@ -366,7 +366,7 @@ export class DatasourceService {
     }
 
     updateFBSelection(id,formValue): any {
-            return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections').doc(id).update(formValue)
+      return this.afs.collection('/accounts').doc(this.accountFirebase).collection('/selections').doc(id).update(formValue)
     }
 
     approveAdminFBVariation(id,data): any {

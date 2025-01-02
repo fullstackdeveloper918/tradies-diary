@@ -1,28 +1,21 @@
-
 <div class="main-content dashboard-content dailyproject-content">
     <div class="container-fluid">
-        <div class = "row">
+        <div class="row">
             <div class="col-md-12">
                 <div class="card card-dcb dashboard-card">
-                      <div class="card-header card-header-text card-header-success">
-                          <!-- <div class="card-text">
-                              Weekly Progress Report
-                          </div>  -->
-                          <!-- <div class = "side-link">
-                              <button [routerLink]="'/notes/update'"  mat-button class="btn btn-primary">
-                                <i class="material-icons">update</i> Update Note
-                            </button>
-                          </div> -->
-                      </div>
-                      <div class="card-body compact-layout compact-layout-common">
-                            <form  class="dcb-form">
-                                <!-- <div class="row">
-                                    <div class="col-md-3 col-lg-2"> -->
-                                        <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
-                                    <!-- </div>
-                                </div> -->
-                            </form>
-                      </div>
+                    <div class="card-header card-header-text card-header-success">
+                        <!-- Header content here -->
+                         <div class="d-flex justify-content-end mt-3">
+                            <app-search [Data]="Data" (sendSearch)="filterByClient($event)"></app-search>
+                         </div>
+                    </div>
+                    <div class="card-body compact-layout compact-layout-common">
+                        <form class="dcb-form">
+                            <!-- Search input for filtering clients -->
+                            <!-- Smart Table with Search Functionality -->
+                            <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+                        </form>
+                    </div>
                 </div>
                 
                 <div class="smart-table-holder" *ngIf="selectedClientId">
@@ -33,4 +26,3 @@
         </div>
     </div>
 </div>
-               

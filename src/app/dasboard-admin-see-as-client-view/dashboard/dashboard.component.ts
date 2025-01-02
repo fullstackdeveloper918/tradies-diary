@@ -16,25 +16,41 @@ export class DashboardComponent {
   selectedClientName:any
   source: LocalDataSource = new LocalDataSource;
   currentProject : string
+  Data:any
+
 
   constructor(private afs: AngularFirestore, private datasourceService: DatasourceService, private sanitizer: DomSanitizer){}
 
   ngOnInit(){
    this.currentProject = this.datasourceService.getCurrentProject();
    this.getClient()
+   this.sendData();
   }
 
- getClient() {
-    this.afs.collection('/users', ref => ref.where('userRole', '==', 'project_owner'))
-      .get()
+  sendData(){
+    this.Data = {
+      collectionName : 'users'
+    }
+  }
+
+  
+  // FILTER CLIENT
+  filterByClient(event:any){
+   this.getClient(event)
+  }
+
+ getClient(filter?:string) {
+  let query;
+  if(!filter){
+   query = this.afs.collection('/users', ref => ref.where('userRole', '==', 'project_owner'))}
+   else{
+   query = this.afs.collection('/users', ref => ref.where('userRole', '==', 'project_owner').where('userFirstName', '==',filter).where("userAccounts", 'array-contains', this.currentProject))  
+   }  
+      query.get()
       .subscribe(snapshot => {
-        // Clear the filter_list_clients array before populating it with new data
         this.filter_list_clients = []; 
         
         snapshot.docs.forEach(doc => {
-          // Push the required data from each document into the filter_list_clients array
-          // You can choose to store specific fields, for example, the user's name or email
-          // Assuming you want to store the names of the users:
           const userData :any = doc.data();
           console.log('userData',userData)
           if (userData.userAccounts.includes(this.currentProject)) {
@@ -53,7 +69,7 @@ export class DashboardComponent {
         console.log(this.filter_list_clients);
       });
   }
-
+  
   public settings = {
     actions: { 
       delete: false,
@@ -117,7 +133,7 @@ export class DashboardComponent {
         filter: false,
         sort: false,
         valuePrepareFunction: (cell,row) => {
-          return row.userData.userAccounts;
+                    return row.userData.userAccounts;
         }
       },
       userRole: {
