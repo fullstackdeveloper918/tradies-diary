@@ -41,6 +41,7 @@ import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload'
 import { PDFDocument } from 'pdf-lib'
 import { EnlargeImage } from '../../../services/enlarge-image';
 import { PDFIcons } from '../../../services/pdf-icons';
+import { DeletedialogComponent } from 'src/app/shared/deletedialog/deletedialog.component';
 
 
 declare const $: any;
@@ -509,7 +510,11 @@ export class SelectionsprojectcreateComponent implements OnInit {
     }
   
     removeGroup(groupIndex){
-      this.selectionGroupArray().removeAt(groupIndex)
+      this.dialog.open(DeletedialogComponent, {width : '500px', data: 'Group'}).afterClosed().subscribe(function(res){
+        if(res){
+          this.selectionGroupArray().removeAt(groupIndex)
+        }
+      }.bind(this))
     }
     
     createItemArray(): FormGroup {

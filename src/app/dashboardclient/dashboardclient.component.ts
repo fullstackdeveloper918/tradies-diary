@@ -52,12 +52,12 @@ export class DashboardClientComponent {
   ]
   // *************************+++++++++++++++++++++++++++++*******************
   selections: string[] = ['Variation', 'Selection', 'Rfi']
-  selectedClientData: string
+  // selectedClientData: string = 'Variation'
   // CHOOSE SELECTION
-  projectSelect(event: any) {
-    this.selectedClientData = event.value;
-    console.log(this.selectedClientData);  // Access the selected value directly
-  }
+  // projectSelect(event: any) {
+  //   this.selectedClientData = event.value;
+  //   console.log(this.selectedClientData);  // Access the selected value directly
+  // }
   // *************************+++++++++++++++++++++++++++++*******************
 
   public dashboardDailyReportSettings = {

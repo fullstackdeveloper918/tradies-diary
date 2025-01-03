@@ -43,6 +43,7 @@ import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload'
 import { PDFDocument } from 'pdf-lib'
 import * as fs from 'fs';
 import {Timestamp } from 'firebase/firestore';
+import { DeletedialogComponent } from 'src/app/shared/deletedialog/deletedialog.component';
 
 declare const $: any;
 
@@ -732,7 +733,11 @@ export class VariationsProjectEditComponent implements OnInit {
     }
   
     removeGroup(groupIndex){
-      this.variationGroupArray().removeAt(groupIndex)
+      this.dialog.open(DeletedialogComponent,{width: '500px', data: 'Group'}).afterClosed().subscribe((res)=>{
+        if(res){
+        this.variationGroupArray().removeAt(groupIndex)
+        }
+      })
     }
 
     createItemArray(): FormGroup {

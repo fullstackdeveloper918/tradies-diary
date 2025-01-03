@@ -45,7 +45,7 @@ declare const $: any;
 })
 export class VariationsProjectComponent implements OnInit {
 
-    source: LocalDataSource = new LocalDataSource;
+   source: LocalDataSource = new LocalDataSource;
     public passID: any;
     
     public selected: any
@@ -53,7 +53,7 @@ export class VariationsProjectComponent implements OnInit {
     projectData;
 
     filterVariationsForm: FormGroup;
-
+     
     searchChoices = [
       {value: 'status', viewValue: 'Status'},
       {value: 'due_date', viewValue: 'Due Date'},

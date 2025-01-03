@@ -42,6 +42,7 @@ import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload'
 import { PDFDocument } from 'pdf-lib'
 import * as fs from 'fs';
 import {Timestamp } from 'firebase/firestore';
+import { DeletedialogComponent } from 'src/app/shared/deletedialog/deletedialog.component';
 
 declare const $: any;
 
@@ -727,7 +728,9 @@ export class SelectionsprojecteditComponent {
   }
 
   removeGroup(groupIndex){
-    this.selectionGroupArray().removeAt(groupIndex)
+    this.dialog.open(DeletedialogComponent, {width : '500px', data: 'Group'}).afterClosed().subscribe((res)=>{
+      this.selectionGroupArray().removeAt(groupIndex)
+    })
   }
 
   createItemArray(): FormGroup {
@@ -1170,7 +1173,7 @@ export class SelectionsprojecteditComponent {
       for (const name in controlsVariation) {
           if (controlsVariation[name].invalid) {
             if (controlsVariation[name].invalid) {
-                if(name == 'variationsName'){
+                if(name == 'selectionName'){
                   invalid.push('Variation Name');
                 }else if(name == 'dueDate'){
                   invalid.push('Due Date');
@@ -2142,7 +2145,7 @@ getFooter2(currentPage, pageCount) {
             //               style: 'fieldData',
             //             },
             //             {
-            //               text: this.selectionFom.value.variationsName,
+            //               text: this.selectionFom.value.selectionName,
             //               style: 'fieldData',
             //             },
             //             {
@@ -3271,7 +3274,7 @@ getFooter2(currentPage, pageCount) {
     const adminEmails = [];
     const cc = [];
 
-    let adminEmail = this.selectionAdminData.varEmailRecipient;
+    let adminEmail = this.selectionAdminData.selEmailRecipient;
     if(adminEmail){
       adminEmail.forEach(email => {
         adminEmails.push({
@@ -3364,7 +3367,7 @@ sendClientEmail(selectionID,projectID){
       });
     }
 
-    let emailsCC = this.selectionAdminData.varEmailRecipient;
+    let emailsCC = this.selectionAdminData.selEmailRecipient;
     if(emailsCC){
       emailsCC.forEach(email => {
         cc.push({
@@ -3389,7 +3392,7 @@ sendClientEmail(selectionID,projectID){
       openingMessage: this.selectionFom.value.openingMessage,
       closingMessage: this.selectionFom.value.closingMessage,
       projectName: this.projectData.projectName,
-      variationName: this.selectionFom.value.variationsName,
+      variationName: this.selectionFom.value.selectionName,
       subjectTitle: 'Selection Approval Request'
     }
     console.log(tempdata);

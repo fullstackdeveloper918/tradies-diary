@@ -43,6 +43,7 @@ import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload'
 import { PDFDocument } from 'pdf-lib'
 import * as fs from 'fs';
 import {Timestamp } from 'firebase/firestore';
+import { DeletedialogComponent } from 'src/app/shared/deletedialog/deletedialog.component';
 
 declare const $: any;
 
@@ -736,7 +737,11 @@ export class RFIEDITCOMPONENTComponent {
   }
 
   removeGroup(groupIndex){
-    this.rfiGroupArray().removeAt(groupIndex)
+    this.dialog.open(DeletedialogComponent, {width : '500px', data: 'Group'}).afterClosed().subscribe((res)=>{
+      if(res){
+        this.rfiGroupArray().removeAt(groupIndex)
+      }
+    })
   }
 
   createItemArray(): FormGroup {
@@ -3268,7 +3273,7 @@ getFooter2(currentPage, pageCount) {
     const adminEmails = [];
     const cc = [];
 
-    let adminEmail = this.rfiAdminData.varEmailRecipient;
+    let adminEmail = this.rfiAdminData.rfiEmailRecipient;
     if(adminEmail){
       adminEmail.forEach(email => {
         adminEmails.push({
@@ -3361,7 +3366,7 @@ sendClientEmail(variantID,projectID){
       });
     }
 
-    let emailsCC = this.rfiAdminData.varEmailRecipient;
+    let emailsCC = this.rfiAdminData.rfiEmailRecipient;
     if(emailsCC){
       emailsCC.forEach(email => {
         cc.push({

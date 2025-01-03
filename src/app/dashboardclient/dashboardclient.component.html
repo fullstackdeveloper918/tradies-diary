@@ -9,7 +9,7 @@
                     <div class="card-header">
                     </div>
                     <div class="card-body">
-                        <form class="dcb-form">
+                        <!-- <form class="dcb-form">
                             <div class="row">
                                 <div class="col-md-3 col-lg-2">
                                     <mat-select 
@@ -26,18 +26,18 @@
                                 </mat-select>
                                 </div>
                             </div>
-                        </form>
+                        </form> -->
                         <div>
-                            <div class="col-md-12 table"  [ngSwitch]="selectedClientData">
-                                <h4 *ngSwitchCase="'Variation'">Variations</h4>
-                                <h4 *ngSwitchCase="'Selection'">Selections</h4>
-                                <h4 *ngSwitchCase="'Rfi'">RFI</h4>
+                            <div class="col-md-12 table">
+                                <h4 >Variations</h4>
+                                <!-- <h4 *ngSwitchCase="'Selection'">Selections</h4>
+                                <h4 *ngSwitchCase="'Rfi'">RFI</h4> -->
                             </div>
 
                             <div class="smart-table-holder">
-                                <ng2-smart-table [settings]="dashboardDailyReportSettings" [source]="source" *ngIf="selectedClientData=='Variation'"></ng2-smart-table>
-                                <ng2-smart-table [settings]="dashboardSelectionSettings" [source]="selectionSource" *ngIf="selectedClientData=='Selection'"></ng2-smart-table>
-                                <ng2-smart-table [settings]="dashboardRFISettings" [source]="rfiSource" *ngIf="selectedClientData=='Rfi'"></ng2-smart-table>
+                                <ng2-smart-table [settings]="dashboardDailyReportSettings" [source]="source"></ng2-smart-table>
+                                <!-- <ng2-smart-table [settings]="dashboardSelectionSettings" [source]="selectionSource" *ngIf="selectedClientData=='Selection'"></ng2-smart-table>
+                                <ng2-smart-table [settings]="dashboardRFISettings" [source]="rfiSource" *ngIf="selectedClientData=='Rfi'"></ng2-smart-table> -->
                             </div>
                         </div>
                     </div>
@@ -130,6 +130,98 @@
    
           </div>
       </div>
+
+      <div class = "row">
+        <div class="col-md-12">
+          
+          
+          
+          <div class="card card-dcb dashboard-card">
+                  <div class="card-header">
+                  </div>
+                  <div class="card-body">
+                      <form class="dcb-form">
+                          <!-- <div class="row">
+                              <div class="col-md-3 col-lg-2">
+                                  <mat-select 
+                                  style="border-color:#292929" 
+                                  (selectionChange)="projectSelect($event)" 
+                                  formControlName="projectId" 
+                                  id="projectId" 
+                                  placeholder="Select" 
+                                  name="projectId"  
+                                  #singleSelect>
+                                <mat-option *ngFor="let selection of selections" [value]="selection">
+                                  {{ selection }} 
+                                </mat-option>
+                              </mat-select>
+                              </div>
+                          </div> -->
+                      </form>
+                      <div>
+                          <div class="col-md-12 table"  >
+                              <!-- <h4 *ngSwitchCase="'Variation'">Variations</h4> -->
+                               <h4>Selections</h4>
+                            <!--  <h4 *ngSwitchCase="'Rfi'">RFI</h4> -->
+                          </div>
+
+                          <div class="smart-table-holder">
+                              <!-- <ng2-smart-table [settings]="dashboardDailyReportSettings" [source]="source" *ngIf="selectedClientData=='Variation'"></ng2-smart-table> -->
+                              <ng2-smart-table [settings]="dashboardSelectionSettings" [source]="selectionSource" ></ng2-smart-table>
+                           <!--    <ng2-smart-table [settings]="dashboardRFISettings" [source]="rfiSource" *ngIf="selectedClientData=='Rfi'"></ng2-smart-table> -->
+                          </div>
+                      </div>
+                  </div>
+              </div> 
+
+        </div>
+    </div>
+
+    <div class = "row">
+        <div class="col-md-12">
+          
+          
+          
+          <div class="card card-dcb dashboard-card">
+                  <div class="card-header">
+                  </div>
+                  <div class="card-body">
+                      <form class="dcb-form">
+                          <!-- <div class="row">
+                              <div class="col-md-3 col-lg-2">
+                                  <mat-select 
+                                  style="border-color:#292929" 
+                                  (selectionChange)="projectSelect($event)" 
+                                  formControlName="projectId" 
+                                  id="projectId" 
+                                  placeholder="Select" 
+                                  name="projectId"  
+                                  #singleSelect>
+                                <mat-option *ngFor="let selection of selections" [value]="selection">
+                                  {{ selection }} 
+                                </mat-option>
+                              </mat-select>
+                              </div>
+                          </div> -->
+                      </form>
+                      <div>
+                          <div class="col-md-12 table"  >
+                              <!-- <h4 *ngSwitchCase="'Variation'">Variations</h4> -->
+                              <!--  <h4 *ngSwitchCase="'Selection'">Selections</h4>  -->
+                              <h4 >RFI</h4>
+                          </div>
+
+                          <div class="smart-table-holder">
+                              <!-- <ng2-smart-table [settings]="dashboardDailyReportSettings" [source]="source" *ngIf="selectedClientData=='Variation'"></ng2-smart-table> -->
+                            <!--      <ng2-smart-table [settings]="dashboardSelectionSettings" [source]="selectionSource" *ngIf="selectedClientData=='Selection'"></ng2-smart-table>  -->
+                           <ng2-smart-table [settings]="dashboardRFISettings" [source]="rfiSource"></ng2-smart-table>
+                          </div>
+                      </div>
+                  </div>
+              </div> 
+
+        </div>
+    </div>
   </div>
 </div>
  
